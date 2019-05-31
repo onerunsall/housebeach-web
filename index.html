@@ -20,6 +20,8 @@
 </head>
 
 <body>
+<div id="topIntroInfo" style="padding:5px;background-color: #E6E6E6;display:none;"><img style="width:20px;height:20px;vertical-align: middle;margin-right:5px;" src="/housebeach/resource/timg.jpg"/>
+    <span style="display: inline-block;vertical-align: middle;letter-spacing:1px;    font-weight: 600 "><span style="font-size: 12px">上海昂骊房地产经纪事务所</span><img style="height: 11px;" src="/housebeach/resource/123.png"/><br/><span style="letter-spacing:1px">（开发商直营网）</span></span><a style="font-size: 12px;color:inherit;margin-left:10px;" class="tela telshow"></a></div>
 <div class="menu-btn hidden-md hidden-lg">
     <b class="tr"></b>
     <b class="tr"></b>
@@ -540,6 +542,13 @@
 <script src="/housebeach/w/img/php888/temp/_com2.js"></script>
 
 <script>
+
+   var newBrigeHandel= setInterval(function(){
+       if($('#nb_icon_wrap').length == 0)
+           return;
+        $('#nb_icon_wrap').css('top','80px')
+        clearInterval(newBrigeHandel)
+    },500)
     var publicInfo;
     $.ajax({
         url: '/housebeach/publicinfo',
@@ -552,6 +561,11 @@
                 $('.telshow').text(publicInfo.tel)
                 $('.addressShow').text(publicInfo.address)
                 $('.qqa').attr('href', 'http://wpa.qq.com/msgrd?v=6&uin=' + publicInfo.QQ+'&site=qq&menu=yes')
+                if(publicInfo.topIntroInfoShowIs=='1'){
+                    $('#topIntroInfo').show()
+                }else{
+                    $('#topIntroInfo').hide()
+                }
 
             }
         }

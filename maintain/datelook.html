@@ -137,7 +137,7 @@
                             <span class="cell cell4" :title="item.house" v-html="giveup.strongKeyword(item.house, queryParams.kw)"></span>
                             <span class="cell cell4" :title="item.carLisenceNo" v-html="giveup.strongKeyword(item.carLisenceNo, queryParams.kw)"></span>
                             <span class="cell cell5" :title="item.time" v-html="item.time"></span>
-                            <span class="cell cell6" >{{item.addTime ? new Date(item.addTime).toJSON().replace(/T/, ' ').replace(/\..*/, '') : ''}}</span>
+                            <span class="cell cell6" >{{new Date(item.addTime).toLocaleDateString().replace(/\//g,'-')+' '+ new Date(item.addTime).toTimeString().split('GMT')[0].replace(/\s/g,'')}}</span>
                             <span class="cell cell7" style="text-align: left"></span>
                     </div>
 

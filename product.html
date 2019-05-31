@@ -188,7 +188,7 @@
 </div>
 
 
-
+<div style="height:150px;"></div>
 
 <div class="text-8">
     <div class="biankuang"></div>
@@ -221,22 +221,79 @@
                                 <div class="mc pull-left">车牌:</div>
                                 <input type="text" class="pull-left tr"  id="chepai" name="chepai" placeholder="请输入车牌号">
                             </div>
-                            <button class="pull-left tr" type="button" onclick="dateLook()">立即预约看房</button>
-                        </form>
-                        <form>
-                            <div style="onetelzone">
-                                <a id="onetel" class="tela" >一键免费电话</a>
+                            <div style="width:100%;text-align: center">
+                                <button class="pull-left tr" type="button" onclick="dateLook()" style="width:90%;float: none!important;">立即预约看房</button>
                             </div>
                         </form>
+                        <!--<form>-->
+                            <!--<div style="onetelzone">-->
+                                <!--<a id="onetel" class="tela" >一键免费电话</a>-->
+                            <!--</div>-->
+                        <!--</form>-->
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <style>
+        #bottomBar {
+            padding:0;
+            margin:0;
+            list-style: none;
+        }
+
+        #bottomBar li {
+            float: left;
+            width:25%;
+            padding:10px 0 ;
+            text-align: center;
+            background-color: #ffffff;
+            border-top:1px solid #909090;
+            border-bottom:1px solid #909090;
+            border-right:1px solid #909090;
+            color:#909090;
+        }
+
+        #bottomBar li.active {
+            background-color:#EB4B29;
+            color:#ffffff;
+
+        }
+
+        #bottomBar img {
+           width:30%;
+        }
+
+        #bottomBar li:last-child {
+             border-right:none;
+         }
+
+        #bottomBar .tela {
+            text-decoration:none;
+            color:inherit;
+        }
+    </style>
+    <ul id="bottomBar">
+        <li onclick="$('#nb_icon_wrap').click()"><img src="/housebeach/resource/qiche.png" style="background-color: white;"/><br/>免费班车</li>
+        <li onclick="$('#nb_icon_wrap').click()"><img src="/housebeach/resource/yuyue.png"  style="background-color: white;"/><br/>预约看房</li>
+        <li onclick="$('#nb_icon_wrap').click()"><img src="/housebeach/resource/zixun.png"  style="background-color: white;"/><br/>获取定位</li>
+        <li><a class="tela"><img src="/housebeach/resource/dianhua.png"  style="background-color: white;"/><br/>电话咨询</a></li>
+    </ul>
 </div>
 
 
+<style>
+    #tabBar {
+        bottom:80px!important;
+        z-index: 10000;
+        display:none!important;
+    }
+    #tabBar .navigation {
+        bottom:80px!important;
+        z-index: 10000;
+    }
 
+</style>
 <div id="tabBar" class="visible-xs">
     <div class="clickbtn text-center on">
         <img class="tr" src="/w/img/php888/temp/tabBar-message.png" alt="">
@@ -273,7 +330,15 @@
         </ul>
     </div>
 </div>
+
+
+
 <div style="display: none"><script>
+    $('#bottomBar li').click(function(){
+        $('#bottomBar li').removeClass('active')
+        $(this).addClass('active')
+    })
+
     var _hmt = _hmt || [];
     (function() {
         var hm = document.createElement("script");
@@ -292,6 +357,8 @@
         success: function (res) {
             if (res.code == 0) {
                 publicInfo = res.data;
+                $('.tela').attr('href', 'tel:' + publicInfo.tel)
+                $('.telshow').text(publicInfo.tel)
             }
         }
     })

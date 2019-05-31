@@ -147,7 +147,7 @@
                             <span class="cell cell5"   v-html="item.squareMin+'-'+item.squareMax"></span>
                             <span class="cell cell6"   v-html="item.averagePrice" style="text-align: right"></span>
                             <span class="cell cell6"   v-html="item.orderNo" style="text-align: right"></span>
-                            <span class="cell cell7" >{{item.alterTime ? new Date(item.alterTime).toJSON().replace(/T/, ' ').replace(/\..*/, '') : ''}}</span>
+                            <span class="cell cell7" >{{new Date(item.alterTime).toLocaleDateString().replace(/\//g,'-')+' '+ new Date(item.alterTime).toTimeString().split('GMT')[0].replace(/\s/g,'')}}</span>
                             <span class="cell cell8" style="text-align: left"><button  @click="window.location.href = `./houseinfo.html?houseId=${item.houseId}&currentPath=楼盘详情`">详情</button><button  style="margin-left:3px;" @click="itemDel(item)">删除</button></span>
                     </div>
 
