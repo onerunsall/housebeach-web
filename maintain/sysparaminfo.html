@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>修改汽车</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Cache-Control" content="max-age=7200" />
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <script src="/housebeach/libs/giveup.js"></script>
+    <script src="/housebeach/libs/jquery.min.js"></script>
+    <script src="/housebeach/libs/jquery.ztree.all.min.js"></script>
+    <script src="/housebeach/libs/navim.js"></script>
+    <script src="/housebeach/libs/jquery.cookie.js"></script>
+    <script src="/housebeach/libs/jquery.extend.giveup.js"></script>
+    <script src="/housebeach/libs/giveup.cache.js"></script>
+    <script src="/housebeach/libs/public.js"></script>
+    <script src="/housebeach/libs/layer/layer.js"></script>
+
+
+    <style>
+
+
+        .title {
+            font-weight: 600;
+        }
+
+        .valueAlter {
+            display:none
+        }
+    </style>
+
+</head>
+
+<body style="margin:0;">
+<div id="currentPath"  style="padding:5px 5px 5px 5px;font-size: 14px;border-bottom:1px solid black;position: fixed;background-color: white;width:100%"></div>
+<div style="height:29px"></div>
+<div style="width:100%;">
+    <div style="margin-top:20px;">
+        <button name="refreshBtn" style="margin:0 10px;margin-top:5px;width:100px;height:30px" onclick=" location.reload()">刷新</button>
+        <button name="alterBtn" style="margin:0 10px;margin-top:5px;width:100px;height:30px">修改</button>
+        <button name="alterCancelBtn" style="margin:0 10px;margin-top:5px;width:100px;height:30px;display: none">取消修改</button>
+        <button name="alterCompleteBtn" style="margin:0 10px;margin-top:5px;width:100px;height:30px;display: none">完成修改</button>
+    </div>
+    <div style="margin-top:10px;"></div>
+    <form id="detailPad" style="line-height: 20px;">
+        <fieldset>
+            <legend  style="color: #595959">参数详情</legend>
+            <div style="margin:15px 0;">
+                <span class="title" style="width:30%;display: inline-block;text-align: right">参数</span>
+                <span class="title" style="width:5%;display: inline-block;"></span>
+                <span style="width:50%;display: inline-block;;text-align: left"><span id="nameShow" ></span></span>
+            </div>
+            <div style="margin:15px 0;">
+                <span class="title" style="width:30%;display: inline-block;text-align: right;vertical-align: top">值</span>
+                <span class="title" style="width:5%;display: inline-block;"></span>
+                <span style="width:50%;display: inline-block;;text-align: left">
+                    <div id="valueShow" class="valueShow" style="word-wrap: break-word;word-break:break-all;"></div>
+                    <textarea id="value" class="valueAlter"  style="width:80%;padding:0 3px"  onkeyup="this.v=function(){$(this).next('[name=note]').text('');if(this.value.length>100) $(this).next('[name=note]').text('过长') };this.v()"  type="text" placeholder="最大长度1000"></textarea>
+                    <span name="note" style="color:red;font-size: 12px;margin-left:3px;"></span>
+                </span>
+            </div>
+            <div style="margin:15px 0;">
+                <span class="title" style="width:30%;display: inline-block;text-align: right">备注</span>
+                <span class="title" style="width:5%;display: inline-block;"></span>
+                <span style="width:50%;display: inline-block;;text-align: left"><span id="remarkShow"></span></span>
+            </div>
+            <div style="margin:15px 0;">
+                <span class="title" style="width:30%;display: inline-block;text-align: right">更新时间</span>
+                <span class="title" style="width:5%;display: inline-block;"></span>
+                <span style="width:50%;display: inline-block;;text-align: left"><span id="alterTimeShow" ></span></span>
+            </div>
+        </fieldset>
+    </form>
+
+
+
+    <div style="margin-top:20px;">
+        <button name="refreshBtn" style="margin:0 10px;margin-top:5px;width:100px;height:30px" onclick=" location.reload()">刷新</button>
+        <button name="alterBtn" style="margin:0 10px;margin-top:5px;width:100px;height:30px">修改</button>
+        <button name="alterCancelBtn" style="margin:0 10px;margin-top:5px;width:100px;height:30px;display: none">取消修改</button>
+        <button name="alterCompleteBtn" style="margin:0 10px;margin-top:5px;width:100px;height:30px;display: none">完成修改</button>
+    </div>
+    <div style="margin-top:20px;"></div>
+</div>
+
+</body>
+<script>
+    var sysparam,sysparamCode,token,queryString,currentPath;
+    queryString = giveup.parseQueryStr(location.search.substr(1));
+    token = $.cookie('token');
+    currentPath=queryString.currentPath;
+    sysparamCode = queryString.sysparamCode
+    navim.push({url:location.href,title:currentPath})
+    $('#currentPath').html('导航: '+navim.spring())
+
+
+    $.ajaxSetup({
+        layerIndex:-1,
+        beforeSend: function () {
+            this.layerIndex = layer.load(0, { shade: [0.5, '#393D49'] });
+        },
+        complete: function () {
+            layer.close(this.layerIndex);
+        }
+    });
+
+    $.ajax({
+        url: "/housebeach/maintain/sysparaminfo",
+        type: 'post',
+        async: false,
+        data: {sysparamCode: sysparamCode, token: token},
+        success: function (res) {
+            if (res.code == 0) {
+                sysparam = res.data;
+                $('#nameShow').text(sysparam.name);
+
+                $('#valueShow').text(sysparam.value);
+                $('#value').val(sysparam.value);
+
+                $('#remarkShow').text(sysparam.remark);
+
+                $('#alterTimeShow').text(sysparam.alterTime?new Date(sysparam.alterTime).toJSON().replace('T',' ').slice(0,-5):null);
+
+            } else {
+               alert(res.codeMsg)
+                resCodeProcess(res.code)
+            }
+        }
+    })
+
+
+
+
+    function alter() {
+        var param={}
+        param.sysparamCode=sysparamCode;
+        param.token=token;
+        param.value=$('#value').val();
+
+        $.ajax({
+            url: "/housebeach/maintain/sysparamalter",
+            type: 'post',
+            async: false,
+            data:param ,
+            success: function (res) {
+                if (res.code == 0) {
+                    location.reload()
+                } else {
+                   alert(res.codeMsg)
+                    resCodeProcess(res.code)
+                }
+            }
+        })
+    }
+
+
+    $('[name=alterBtn]').click(function(){
+        $('.valueAlter').show()
+        $('.valueShow').hide()
+
+        $('[name=refreshBtn]').hide();
+        $('[name=alterCompleteBtn]').show();
+        $('[name=alterCancelBtn]').show();
+        $('[name=alterBtn]').hide();
+
+    })
+
+    $('[name=alterCompleteBtn]').click(function(){
+        alter();
+        $('[name=refreshBtn]').show();
+        $('[name=alterCompleteBtn]').hide();
+        $('[name=alterCancelBtn]').hide();
+        $('[name=alterBtn]').show();
+    })
+
+    $('[name=alterCancelBtn]').click(function(){
+        location.reload()
+    })
+
+</script>
+
+</html>

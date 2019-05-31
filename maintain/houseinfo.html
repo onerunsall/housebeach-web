@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>云房网运维平台-楼盘信息</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Cache-Control" content="max-age=7200" />
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <script src="/housebeach/libs/giveup.js"></script>
+    <script src="/housebeach/libs/apiDesk.js"></script>
+    <script src="/housebeach/libs/jquery.min.js"></script>
+    <script src="/housebeach/libs/jquery.ztree.all.min.js"></script>
+    <script src="/housebeach/libs/navim.js"></script>
+    <script src="/housebeach/libs/jquery.cookie.js"></script>
+    <script src="/housebeach/libs/jquery.extend.giveup.js"></script>
+    <script src="/housebeach/libs/giveup.cache.js"></script>
+    <script src="/housebeach/libs/public.js"></script>
+    <script src="/housebeach/libs/layer/layer.js"></script>
+    <script src="/housebeach/libs/cropper/cropper.js"></script>
+    <link href="/housebeach/libs/cropper/cropper.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/housebeach/libs/kindeditor/themes/default/default.css" />
+    <link rel="stylesheet" href="/housebeach/libs/kindeditor/plugins/code/prettify.css" />
+    <script charset="utf-8" src="/housebeach/libs/kindeditor/kindeditor-all.js"></script>
+    <script charset="utf-8" src="/housebeach/libs/kindeditor/lang/zh-CN.js"></script>
+    <script charset="utf-8" src="/housebeach/libs/kindeditor/plugins/code/prettify.js"></script>
+    <style>
+
+
+        .title {
+            font-weight: 600;
+        }
+
+        .valueAlter {
+            display:none
+        }
+    </style>
+    <script>
+        var house,token,queryString,currentPath,houseId;
+
+        queryString = giveup.parseQueryStr(location.search.substr(1));
+        token = $.cookie('token');
+        houseId= queryString.houseId;
+        currentPath=queryString.currentPath;
+    </script>
+</head>
+
+<body style="margin:0;">
+<div id="currentPath"  style="padding:5px 5px 5px 5px;font-size: 14px;border-bottom:1px solid black;position: fixed;background-color: white;width:100%"></div>
+<div style="height:29px"></div>
+<div style="width:100%;">
+    <div style="margin-top:20px;">
+        <button name="refreshBtn" style="margin:0 10px;margin-top:5px;width:100px;height:30px" onclick=" location.reload()">刷新</button>
+        <button name="alterBtn" style="margin:0 10px;margin-top:5px;width:100px;height:30px">修改</button>
+        <button name="alterCancelBtn" style="margin:0 10px;margin-top:5px;width:100px;height:30px;display: none">取消修改</button>
+        <button name="alterCompleteBtn" style="margin:0 10px;margin-top:5px;width:100px;height:30px;display: none">完成修改</button>
+    </div>
+    <div style="margin-top:10px;"></div>
+    <fieldset>
+        <legend  style="color: #595959">楼盘信息</legend>
+        <div style="margin:15px 0;">
+            <span class="title" style="width:30%;display: inline-block;text-align: right">楼盘</span>
+            <span class="title" style="width:5%;display: inline-block;"></span>
+            <span style="width:50%;display: inline-block;;text-align: left">
+                <span id="nameShow" class="valueShow"></span>
+                    <input id="name"  class="valueAlter" onkeyup="this.v=function(){$(this).next('[name=note]').text('');if(this.value.length>100) $(this).next('[name=note]').text('过长') };this.v()"  style="width:80%;padding:0 3px" type="text" placeholder="最大长度100"/>
+                    <span name="note" style="color:red;font-size: 12px;margin-left:3px;"></span>
+                </span>
+        </div>
+        <div style="margin:15px 0;">
+            <span class="title" style="width:30%;display: inline-block;text-align: right">营销电话</span>
+            <span class="title" style="width:5%;display: inline-block;"></span>
+            <span style="width:50%;display: inline-block;;text-align: left">
+                <span id="saleTelShow" class="valueShow"></span>
+                <input id="saleTel"  style="width:80%;padding:0 3px" class="valueAlter"  onkeyup="this.v=function(){$(this).next('[name=note]').text('');if(this.value.length>100) $(this).next('[name=note]').text('过长') };this.v()"  type="text" placeholder="最大长度100"/>
+                    <span name="note" style="color:red;font-size: 12px;margin-left:3px;"></span>
+                </span>
+        </div>
+
+        <div style="margin:15px 0;">
+            <span class="title" style="width:30%;display: inline-block;text-align: right;vertical-align: top">地区</span>
+            <span class="title" style="width:5%;display: inline-block;"></span>
+            <span style="width:50%">
+                <span id="area1Show" class="valueShow"></span>
+                <select id="area1Id"  class="valueAlter"  style="vertical-align: middle;" onchange="renderArea2Select()" ><option value="">选择省</option></select>
+               <span id="area2Show" class="valueShow"></span>     <select id="area2Id"  class="valueAlter" style="margin-left:3px;vertical-align: middle;"  ><option value="">选择市</option></select></span>
+        </div>
+
+        <div style="margin:15px 0;">
+            <span class="title" style="width:30%;display: inline-block;text-align: right">地址</span>
+            <span class="title" style="width:5%;display: inline-block;"></span>
+            <span style="width:50%;display: inline-block;;text-align: left">
+                <span id="addressShow" class="valueShow"></span>
+                    <input id="address"  style="width:80%;padding:0 3px" class="valueAlter"  onkeyup="this.v=function(){$(this).next('[name=note]').text('');if(this.value.length>200) $(this).next('[name=note]').text('过长') };this.v()"  type="text" placeholder="最大长度200"/>
+                    <span name="note" style="color:red;font-size: 12px;margin-left:3px;"></span>
+                </span>
+        </div>
+
+
+        <div style="margin:15px 0;">
+            <span class="title"  style="width:30%;display: inline-block;text-align: right">封面</span>
+            <span class="title" style="width:5%;display: inline-block;"></span>
+            <span>
+                    <span id="coverPad" style="display:none;margin-right:5px;">
+                        <img id="cover" onclick="giveup.imgPreview(this.src)" style="width:50px;cursor: pointer;margin-right:5px;" />
+                        <span style="cursor:pointer" class="valueAlter" onclick="$('#coverPad').hide()">X</span>
+                    </span>
+                <img id="coverAlter" class="valueAlter" src="/housebeach/resource/add.jpg" style="width:20px;cursor:pointer;" /></span>
+        </div>
+
+        <div style="margin:15px 0;">
+            <span class="title" class="title" style="width:30%;display: inline-block;text-align: right">类型</span>
+            <span class="title" style="width:5%;display: inline-block;"></span>
+            <span style="width:50%;display: inline-block;;text-align: left">
+                 <span id="typeShow" class="valueShow"></span>
+                    <select id="type"  class="valueAlter"  >
+                        <option value="1">住宅</option>
+                        <option value="2">别墅</option>
+                        <option value="3">商铺</option>
+                        <option value="4">酒店式公寓</option>
+                        <option value="5">写字楼</option>
+                    </select>
+                </span>
+        </div>
+
+        <div style="margin:15px 0;">
+            <span class="title" style="width:30%;display: inline-block;text-align: right">均价</span>
+            <span class="title" style="width:5%;display: inline-block;"></span>
+            <span style="width:50%">
+                 <span id="averagePriceShow" class="valueShow"></span>
+                <input id="averagePrice"  class="valueAlter"   type="number"  style="text-align: center;padding:0 3px;width:7%"  placeholder=""/><span style="margin-left:5px;font-size:12px">元/平方</span></span>
+        </div>
+
+        <div style="margin:15px 0;">
+            <span class="title" style="width:30%;display: inline-block;text-align: right">最低价</span>
+            <span class="title" style="width:5%;display: inline-block;"></span>
+            <span style="width:50%">
+                <span id="unitPriceMinShow" class="valueShow"></span>
+                <input id="unitPriceMin"  class="valueAlter"   type="number"  style="text-align: center;padding:0 3px;width:7%"  placeholder=""/><span style="margin-left:5px;font-size:12px">元/平方</span></span>
+        </div>
+
+        <div style="margin:15px 0;">
+            <span class="title" style="width:30%;display: inline-block;text-align: right">最高价</span>
+            <span class="title" style="width:5%;display: inline-block;"></span>
+            <span style="width:50%">
+                 <span id="unitPriceMaxShow" class="valueShow"></span>
+                <input id="unitPriceMax"  class="valueAlter"   type="number"  style="text-align: center;padding:0 3px;width:7%"  placeholder=""/><span style="margin-left:5px;font-size:12px">元/平方</span></span>
+        </div>
+
+        <div style="margin:15px 0;">
+            <span class="title" style="width:30%;display: inline-block;text-align: right">最低面积</span>
+            <span class="title" style="width:5%;display: inline-block;"></span>
+            <span style="width:50%">
+                 <span id="squareMinShow" class="valueShow"></span>
+                <input id="squareMin"  class="valueAlter"   type="number"  style="text-align: center;padding:0 3px;width:7%"  placeholder=""/><span style="margin-left:5px;font-size:12px">平方</span></span>
+        </div>
+
+        <div style="margin:15px 0;">
+            <span class="title" style="width:30%;display: inline-block;text-align: right">最高面积</span>
+            <span class="title" style="width:5%;display: inline-block;"></span>
+            <span style="width:50%">
+                 <span id="squareMaxShow" class="valueShow"></span>
+                <input id="squareMax"  class="valueAlter"   type="number"  style="text-align: center;padding:0 3px;width:7%"  placeholder=""/><span style="margin-left:5px;font-size:12px">平方</span></span>
+        </div>
+
+        <div style="margin:15px 0;">
+            <span class="title" class="title" style="width:30%;display: inline-block;text-align: right">热销</span>
+            <span class="title" style="width:5%;display: inline-block;"></span>
+            <span style="width:50%;display: inline-block;;text-align: left">
+                  <span id="hotIsShow" class="valueShow"></span>
+                    <select id="hotIs"  class="valueAlter"  >
+                        <option value="1">是</option>
+                        <option value="0">否</option>
+                    </select>
+                </span>
+        </div>
+
+
+        <div style="margin:15px 0;">
+            <span class="title" style="width:30%;display: inline-block;text-align: right;vertical-align: top">开盘时间</span>
+            <span class="title" style="width:5%;display: inline-block;"></span>
+            <span >
+                <span id="startSaleTimeShow" class="valueShow"></span>
+                <input id="startSaleTime" class="valueAlter"  type="date"/></span>
+        </div>
+
+
+        <div style="margin:15px 0;">
+            <span class="title" style="width:30%;display: inline-block;text-align: right;vertical-align: top">介绍标题</span>
+            <span class="title" style="width:5%;display: inline-block;"></span>
+            <span style="width:40%;display: inline-block;text-align: left">
+              <textarea id="introTitleShow" class="valueShow" disabled></textarea>
+            <textarea id="introTitle" class="valueAlter" placeholder="最大100字" style="width: 100%;height: 30px;padding:1px 4px"></textarea></span>
+        </div>
+
+        <div style="margin:15px 0;">
+            <span class="title" style="width:30%;display: inline-block;text-align: right;vertical-align: top">介绍</span>
+            <span class="title" style="width:5%;display: inline-block;"></span>
+            <span style="width:40%;display: inline-block;text-align: left">
+                <div id="introShow" class="valueShow" style="border:1px solid #cacaca;display:none;word-wrap: break-word;word-break:break-all;padding:3px;"></div>
+                <span class="valueAlter" >
+                    <textarea id="intro" style="width: 100%;height: 30px;padding:1px 4px;"></textarea></span>
+                </span>
+        </div>
+
+        <div name="sectionPadExample" style="display:none">
+            <div style="margin:15px 0 0 0;" >
+                <span class="title" style="width:30%;display: inline-block;text-align: right;vertical-align: top">段落标题</span>
+                <span class="title" style="width:5%;display: inline-block;"></span>
+                <span style="width:40%;display: inline-block;text-align: left">
+                     <textarea name="sectionTitleShow" class="valueShow" disabled></textarea>
+                    <textarea name="sectionTitle" class="valueAlter" placeholder="最大100字" style="width: 100%;height: 30px;padding:1px 4px"></textarea></span>
+            </div>
+            <div >
+                <span class="title" style="width:30%;display: inline-block;text-align: right;vertical-align: top">段落内容</span>
+                <span class="title" style="width:5%;display: inline-block;"></span>
+                <span style="width:40%;display: inline-block;text-align: left">
+                <div name="sectionShow" class="valueShow" style="border:1px solid #cacaca;display:none;word-wrap: break-word;word-break:break-all;padding:3px;"></div>
+                <span class="valueAlter" >
+                <textarea name="section" style="width: 100%;height: 30px;padding:1px 4px"></textarea></span>
+                </span>
+            </div>
+            <div  class="valueAlter">
+                <span class="title" style="width:30%;display: inline-block;text-align: right;vertical-align: top"></span>
+                <span class="title" style="width:5%;display: inline-block;"></span>
+                <span style="width:40%;display: inline-block;text-align: left"><button onclick="$(this).parents('[name=sectionPad]').remove()" type="button">删除</button> </span>
+            </div>
+        </div>
+
+        <div name="addSectionBt" style="margin:15px 0;" class="valueAlter">
+            <span class="title" style="width:30%;display: inline-block;text-align: right;vertical-align: top"></span>
+            <span class="title" style="width:5%;display: inline-block;"></span>
+            <span style="width:40%;display: inline-block;text-align: left"><button onclick="addSection()" type="button">添加段落</button> </span>
+        </div>
+
+
+        <div style="margin:15px 0;">
+            <span class="title"  style="width:30%;display: inline-block;text-align: right">封底</span>
+            <span class="title" style="width:5%;display: inline-block;"></span>
+            <span>
+                    <span id="backCoverPad" style="margin-right:5px;display:none;">
+                        <img id="backCover" onclick="giveup.imgPreview(this.src)"  style="width:50px;cursor: pointer;margin-right:5px;" />
+                        <span style="cursor:pointer" class="valueAlter" onclick="$('#backCoverPad').hide()">X</span>
+                    </span>
+                <img id="backCoverAlter" class="valueAlter" src="/housebeach/resource/add.jpg" style="width:20px;cursor:pointer;" /></span>
+        </div>
+
+
+
+
+        <div style="margin:15px 0;">
+            <span class="title" style="width:30%;display: inline-block;text-align: right">排序</span>
+            <span class="title" style="width:5%;display: inline-block;"></span>
+            <span style="width:50%">
+                 <span id="orderNoShow" class="valueShow"></span>
+                <input id="orderNo"  class="valueAlter"   type="number"  style="text-align: center;padding:0 3px;width:7%"  placeholder=""/></span>
+        </div>
+
+        <div style="margin:15px 0;">
+            <span class="title" style="width:30%;display: inline-block;text-align: right;vertical-align: top">发布时间</span>
+            <span class="title" style="width:5%;display: inline-block;"></span>
+            <span style="width:40%;display: inline-block;text-align: left"><span id="addTimeShow" ></span></span>
+        </div>
+
+        <div style="margin:15px 0;">
+            <span class="title" style="width:30%;display: inline-block;text-align: right;vertical-align: top">更新时间</span>
+            <span class="title" style="width:5%;display: inline-block;"></span>
+            <span style="width:40%;display: inline-block;text-align: left"><span id="alterTimeShow" ></span></span>
+        </div>
+    </fieldset>
+
+    <div style="margin-top:20px;">
+        <button name="refreshBtn" style="margin:0 10px;margin-top:5px;width:100px;height:30px" onclick=" location.reload()">刷新</button>
+        <button name="alterBtn" style="margin:0 10px;margin-top:5px;width:100px;height:30px">修改</button>
+        <button name="alterCancelBtn" style="margin:0 10px;margin-top:5px;width:100px;height:30px;display: none">取消修改</button>
+        <button name="alterCompleteBtn" style="margin:0 10px;margin-top:5px;width:100px;height:30px;display: none">完成修改</button>
+    </div>
+    <div style="margin-top:20px;"></div>
+</div>
+
+</body>
+<script>
+    navim.push({url:location.href,title:currentPath})
+    $('#currentPath').html('导航: '+navim.spring())
+
+    var introEditor = KindEditor.create('#intro', {
+            cssPath : '/housebeach/libs/kindeditor/plugins/code/prettify.css',
+            uploadJson : '/housebeach/kindeditor/upload_json.jsp',
+            fileManagerJson : '/housebeach/kindeditor/file_manager_json.jsp',
+            allowFileManager : true,
+            afterCreate : function() {
+                var self = this;
+                KindEditor.ctrl(document, 13, function() {
+                    self.sync();
+                    document.forms['example'].submit();
+                });
+                KindEditor.ctrl(self.edit.doc, 13, function() {
+                    self.sync();
+                    document.forms['example'].submit();
+                });
+            }
+        });
+        prettyPrint();
+
+
+    $.ajaxSetup({
+        layerIndex:-1,
+        beforeSend: function () {
+            this.layerIndex = layer.load(0, { shade: [0.5, '#393D49'] });
+        },
+        complete: function () {
+            layer.close(this.layerIndex);
+        }
+    });
+
+
+    renderArea1Select();
+
+    function renderArea1Select(){
+        $('#area1Id').html('')
+        $('#area1Id').append('<option value="">选择省</option>')
+        $.ajaxSetup({
+            async : false
+        });
+        $.get('/housebeach/resource/area1.json',null,function(res){
+            $(res).each(function(index,ele){
+                $('#area1Id').append('<option value="'+ele.code+'">'+ele.name+'</option>');
+            })
+        })
+
+    }
+    function renderArea2Select(area1Code){
+        if(!area1Code){
+            area1Code = $('#area1Id').val()
+            if(!area1Code){
+                $('#area2Id').html('')
+                $('#area2Id').append('<option value="">选择市</option>')
+                return;
+            }
+        }
+        $('#area2Id').html('')
+        $('#area2Id').append('<option value="">选择市</option>')
+        $.ajaxSetup({
+            async : false
+        });
+        $.get('/housebeach/resource/area2.json',null,function(res){
+            $(res['code'+area1Code].children).each(function(index,ele){
+                $('#area2Id').append('<option value="'+ele.code+'">'+ele.name+'</option>');
+            })
+        })
+    }
+
+
+    $.ajax({
+        url: "/housebeach/maintain/houseinfo",
+        type: 'post',
+        async: false,
+        data: {houseId: houseId, token: token},
+        success: function (res) {
+            if (res.code == 0) {
+                house = item = res.data;
+
+                $('#alterTimeShow').text(new Date(item.alterTime).toJSON().replace('T',' ').slice(0,-5))
+                $('#addTimeShow').text(new Date(item.addTime).toJSON().replace('T',' ').slice(0,-5))
+
+                $('#name').val(item.name);
+                $('#nameShow').text(item.name);
+
+                $('#area1Id').val(item.area1Id).change();
+                $('#area1Show').text(item.area1);
+
+                $('#area2Id').val(item.area2Id).change();
+                $('#area2Show').text(item.area2);
+
+                if(item.cover){
+                    $('#coverPad').show().find('#cover').attr('src',item.cover)
+                }
+
+
+                $('#introTitle').val(item.introTitle);
+                $('#introTitleShow').text(item.introTitle);
+
+
+                $.get('/housebeach/bigtxt/'+item.introBtId+'/'+item.introBtId,null,function(res){
+                    debugger
+                    introEditor.html(res);
+                    if(res)
+                        $('#introShow').html(res).show();
+                })
+
+for (var i=1 ;i<=10;i++) {
+    var sectionTitle = item['section'+i+'Title'];
+    if(sectionTitle){
+        debugger
+        var  sectionPad = $('[name=sectionPadExample]').clone(true)
+        sectionPad.attr('name','sectionPad')
+        sectionPad.find('[name=sectionTitle]').text(sectionTitle)
+        sectionPad.find('[name=sectionTitleShow]').text(sectionTitle)
+        sectionPad.show()
+        $($('[name=addSectionBt]')).before(sectionPad)
+
+        var id= 'id'+giveup.randomString(8);
+        sectionPad.find('[name=section]').attr('id','id'+id)
+        var sectionEditor = KindEditor.create('#id'+id, {
+            cssPath : '/housebeach/libs/kindeditor/plugins/code/prettify.css',
+            uploadJson : '/housebeach/kindeditor/upload_json.jsp',
+            fileManagerJson : '/housebeach/kindeditor/file_manager_json.jsp',
+            allowFileManager : true,
+            afterCreate : function() {
+                var self = this;
+                KindEditor.ctrl(document, 13, function() {
+                    self.sync();
+                    document.forms['example'].submit();
+                });
+                KindEditor.ctrl(self.edit.doc, 13, function() {
+                    self.sync();
+                    document.forms['example'].submit();
+                });
+            }
+        });
+        prettyPrint();
+        sectionPad[0].sectionEditor=sectionEditor
+        $.get('/housebeach/bigtxt/'+item['section'+i+'BtId']+'/'+item['section'+i+'BtId'],null,function(res){
+            debugger
+            sectionEditor.html(res);
+            if(res)
+                sectionPad.find('[name=sectionShow]').html(res).show();
+        })
+
+    }
+}
+
+                if(item.backCover){
+                    $('#backCoverPad').show().find('#backCover').attr('src',item.backCover)
+                }
+
+                $('#hotIs').val(item.hotIs);
+                $('#hotIsShow').text(item.hotIs?'是':'否');
+
+                $('#averagePrice').val(item.averagePrice);
+                $('#averagePriceShow').text(item.averagePrice);
+                $('#address').val(item.address);
+                $('#addressShow').text(item.address);
+
+                $('#saleTel').val(item.saleTel);
+                $('#saleTelShow').text(item.saleTel);
+
+                $('#type').val(item.type);
+                $('#typeShow').text(item.type==1?'住宅':item.type==2?'别墅':item.type==3?'商铺':item.type==4?'酒店式公寓':item.type==5?'写字楼':'');
+
+                $('#unitPriceMin').val(item.unitPriceMin);
+                $('#unitPriceMinShow').text(item.unitPriceMin);
+
+                $('#unitPriceMax').val(item.unitPriceMax);
+                $('#unitPriceMaxShow').text(item.unitPriceMax);
+
+                $('#squareMin').val(item.squareMin);
+                $('#squareMinShow').text(item.squareMin);
+
+                $('#squareMax').val(item.squareMax);
+                $('#squareMaxhow').text(item.squareMax);
+
+                $('#startSaleTime').val(item.startSaleTime?new Date(item.startSaleTime).toJSON().substr(0,7):null);
+                $('#startSaleTimeShow').text($('#startSaleTime').val());
+
+
+                $('#orderNo').val(item.orderNo);
+                $('#orderNoShow').text(item.orderNo);
+
+
+            } else {
+                alert(res.codeMsg)
+            }
+        }
+    })
+
+
+    function addSection() {
+        debugger
+        if ($('[name=sectionPad]').length > 9){
+            alert('最多添加10个段落')
+            return
+        }
+        var  sectionPad = $('[name=sectionPadExample]').clone(true)
+        sectionPad.attr('name','sectionPad')
+        sectionPad.show()
+
+        var id='id'+giveup.randomString(1,4)
+        sectionPad.find('[name=section]').attr('id',id)
+        $($('[name=addSectionBt]')).before(sectionPad)
+        var sectionEditor = KindEditor.create('#'+id, {
+                cssPath : '/housebeach/libs/kindeditor/plugins/code/prettify.css',
+                uploadJson : '/housebeach/kindeditor/upload_json.jsp',
+                fileManagerJson : '/housebeach/kindeditor/file_manager_json.jsp',
+                allowFileManager : true,
+                afterCreate : function() {
+                    var self = this;
+                    KindEditor.ctrl(document, 13, function() {
+                        self.sync();
+                        document.forms['example'].submit();
+                    });
+                    KindEditor.ctrl(self.edit.doc, 13, function() {
+                        self.sync();
+                        document.forms['example'].submit();
+                    });
+                }
+            });
+            prettyPrint();
+
+        debugger
+        sectionPad[0].sectionEditor=sectionEditor
+
+    }
+
+       function alter() {
+        debugger
+            var param={}
+           param.houseId=houseId;
+           param.token=token;
+           param.name=$('#name').val();
+           param.introTitle=$('#introTitle').val();
+           param.intro=introEditor.html();
+           param.cover= $('#cover').attr('src')
+           param.backCover= $('#backCover').attr('src')
+           param.saleTel= $('#saleTel').val();
+           param.hotIs= $('#hotIs').val();
+           param.type= $('#type').val();
+           param.averagePrice= $('#averagePrice').val();
+           param.unitPriceMin= $('#unitPriceMin').val();
+           param.unitPriceMax= $('#unitPriceMax').val();
+           param.squareMin= $('#squareMin').val();
+           param.squareMax= $('#squareMax').val();
+           param.type= $('#type').val();
+           param.orderNo= $('#orderNo').val();
+           param.address= $('#address').val();
+           param.area1Id= $('#area1Id').val();
+           param.area2Id= $('#area2Id').val();
+           param.area1= $('#area1Id').val()?$('#area1Id > option:selected').text():'';
+           param.area2=$('#area2Id').val()?$('#area2Id > option:selected').text():'';
+           param.startSaleTime= $('#startSaleTime').val()?new Date($('#startSaleTime').val()).toJSON().split('T')[0]:'';
+
+           $('[name=sectionPad]').each(function(index,ele){
+               param['section'+(index+1)+'Title']=$(ele).find('[name=sectionTitle]').val()
+               param['section'+(index+1)]=ele.sectionEditor.html()
+           })
+
+
+           $.ajax({
+                url: "/housebeach/maintain/housealter",
+                type: 'post',
+                async: false,
+                data:param ,
+                success: function (res) {
+                    if (res.code == 0) {
+                        location.reload()
+                    } else {
+                        alert(res.codeMsg)
+                    }
+                }
+            })
+        }
+
+    $('#coverAlter').click(function(){
+        giveup.cutImg({complete:function(param){
+                debugger
+                var blob = giveup.convertBase64UrlToBlob(param.canvas.toDataURL(param.input.files[0].type))
+                // if(blob.size > 153600){
+                //     alert('图片过大，当前'+ Math.round(blob.size/1024)+'KB，最大'+153600/1024+'KB')
+                //     return
+                // }
+                var url = apiDesk.uploadBlob(blob,param.input.files[0].name)
+                $('#coverPad').show().find('#cover').attr('src',url)
+            },xRadio:12,yRadio:9})
+    })
+
+
+    $('#backCoverAlter').click(function(){
+        giveup.cutImg({complete:function(param){
+                debugger
+                var blob = giveup.convertBase64UrlToBlob(param.canvas.toDataURL(param.input.files[0].type))
+                // if(blob.size > 153600){
+                //     alert('图片过大，当前'+ Math.round(blob.size/1024)+'KB，最大'+153600/1024+'KB')
+                //     return
+                // }
+                var url = apiDesk.uploadBlob(blob,param.input.files[0].name)
+                $('#backCoverPad').show().find('#backCover').attr('src',url)
+            },xRadio:12,yRadio:9})
+    })
+
+    $('[name=alterBtn]').click(function(){
+        $('.valueAlter').show()
+        $('.valueShow').hide()
+
+        $('[name=refreshBtn]').hide();
+        $('[name=alterCompleteBtn]').show();
+        $('[name=alterCancelBtn]').show();
+        $('[name=alterBtn]').hide();
+
+    })
+
+    $('[name=alterCompleteBtn]').click(function(){
+        alter();
+        $('[name=refreshBtn]').show();
+        $('[name=alterCompleteBtn]').hide();
+        $('[name=alterCancelBtn]').hide();
+        $('[name=alterBtn]').show();
+    })
+
+    $('[name=alterCancelBtn]').click(function(){
+        location.reload()
+    })
+
+</script>
+
+</html>

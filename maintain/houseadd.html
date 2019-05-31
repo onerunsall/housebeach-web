@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>云房网运维平台-新增楼盘</title>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <script src="/housebeach/libs/giveup.js"></script>
+    <script src="/housebeach/libs/jquery.min.js"></script>
+    <script src="/housebeach/libs/jquery.ztree.all.min.js"></script>
+    <script src="/housebeach/libs/navim.js"></script>
+    <script src="/housebeach/libs/jquery.cookie.js"></script>
+    <script src="/housebeach/libs/jquery.extend.giveup.js"></script>
+    <script src="/housebeach/libs/giveup.cache.js"></script>
+    <script src="/housebeach/libs/public.js"></script>
+    <script src="/housebeach/libs/cropper/cropper.js"></script>
+    <link href="/housebeach/libs/cropper/cropper.css" rel="stylesheet" />
+    <script src="/housebeach/libs/layer/layer.js"></script>
+    <script src="/housebeach/libs/apiDesk.js"></script>
+    <link rel="stylesheet" href="/housebeach/libs/kindeditor/themes/default/default.css" />
+    <link rel="stylesheet" href="/housebeach/libs/kindeditor/plugins/code/prettify.css" />
+    <script charset="utf-8" src="/housebeach/libs/kindeditor/kindeditor-all.js"></script>
+    <script charset="utf-8" src="/housebeach/libs/kindeditor/lang/zh-CN.js"></script>
+    <script charset="utf-8" src="/housebeach/libs/kindeditor/plugins/code/prettify.js"></script>
+
+    <style>
+        .title {
+            font-weight: 600;
+        }
+    </style>
+    <script>
+        var item,token,queryString,currentPath;
+        queryString = giveup.parseQueryStr(location.search.substr(1));
+        token = $.cookie('token');
+        currentPath=queryString.currentPath;
+    </script>
+</head>
+
+<body style="margin:0;">
+<div id="currentPath"  style="padding:5px 5px 5px 5px;font-size: 14px;border-bottom:1px solid black;position: fixed;background-color: white;width:100%"></div>
+<div style="height:29px"></div>
+<div style="padding:10px;" >
+    <div style="margin-top:10px;">
+        <button name="addBtn" style="margin:0 10px;margin-top:5px;width:100px;height:30px">确认</button>
+        <button name="clearBtn" style="margin:0 10px;margin-top:5px;width:100px;height:30px">清空</button>
+    </div>
+    <div style="margin-top:10px;"></div>
+    <form id="detailPad" style="line-height: 20px;">
+        <fieldset>
+            <legend  style="color: #595959">楼盘信息</legend>
+            <div style="margin:15px 0;">
+                <span class="title" style="width:30%;display: inline-block;text-align: right">楼盘</span>
+                <span class="title" style="width:5%;display: inline-block;"></span>
+                <span style="width:50%;display: inline-block;;text-align: left">
+                    <input id="name"  class="giveup-cache" onkeyup="this.v=function(){$(this).next('[name=note]').text('');if(this.value.length>100) $(this).next('[name=note]').text('过长') };this.v()"  style="width:80%;padding:0 3px" type="text" placeholder="最大长度100"/>
+                    <span name="note" style="color:red;font-size: 12px;margin-left:3px;"></span>
+                </span>
+            </div>
+            <div style="margin:15px 0;">
+                <span class="title" style="width:30%;display: inline-block;text-align: right">营销电话</span>
+                <span class="title" style="width:5%;display: inline-block;"></span>
+                <span style="width:50%;display: inline-block;;text-align: left"><input id="saleTel"  style="width:80%;padding:0 3px" class="giveup-cache"  onkeyup="this.v=function(){$(this).next('[name=note]').text('');if(this.value.length>100) $(this).next('[name=note]').text('过长') };this.v()"  type="text" placeholder="最大长度100"/>
+                    <span name="note" style="color:red;font-size: 12px;margin-left:3px;"></span>
+                </span>
+            </div>
+
+            <div style="margin:15px 0;">
+                <span class="title" style="width:30%;display: inline-block;text-align: right;vertical-align: top">地区</span>
+                <span class="title" style="width:5%;display: inline-block;"></span>
+                <span style="width:50%"><select id="area1Id"  class="giveup-cache"  style="vertical-align: middle;" onchange="renderArea2Select()" ><option value="">选择省</option></select>
+                    <select id="area2Id"  class="giveup-cache" style="margin-left:3px;vertical-align: middle;"  ><option value="">选择市</option></select></span>
+            </div>
+
+            <div style="margin:15px 0;">
+                <span class="title" style="width:30%;display: inline-block;text-align: right">地址</span>
+                <span class="title" style="width:5%;display: inline-block;"></span>
+                <span style="width:50%;display: inline-block;;text-align: left">
+                    <input id="address"  style="width:80%;padding:0 3px" class="giveup-cache"  onkeyup="this.v=function(){$(this).next('[name=note]').text('');if(this.value.length>200) $(this).next('[name=note]').text('过长') };this.v()"  type="text" placeholder="最大长度200"/>
+                    <span name="note" style="color:red;font-size: 12px;margin-left:3px;"></span>
+                </span>
+            </div>
+
+            <div style="margin:15px 0;">
+                <span class="title"  style="width:30%;display: inline-block;text-align: right">封面</span>
+                <span class="title" style="width:5%;display: inline-block;"></span>
+                <span>
+                    <span id="coverPad" style="margin-right:5px;">
+                        <img id="cover" onclick="giveup.imgPreview(this.src)" src="/housebeach/resource/defaultHouseCover.jpg" style="width:50px;cursor: pointer;margin-right:5px;" class="giveup-cache"/>
+                        <span style="cursor:pointer" onclick="$('#coverPad').hide()">X</span>
+                    </span>
+                <img id="coverAlter" src="/housebeach/resource/add.jpg" style="width:20px;cursor:pointer;" /></span>
+            </div>
+
+            <div style="margin:15px 0;">
+                <span class="title" class="title" style="width:30%;display: inline-block;text-align: right">类型</span>
+                <span class="title" style="width:5%;display: inline-block;"></span>
+                <span style="width:50%;display: inline-block;;text-align: left">
+                    <select id="type"  class="giveup-cache"  >
+                        <option value="1">住宅</option>
+                        <option value="2">别墅</option>
+                        <option value="3">商铺</option>
+                        <option value="4">酒店式公寓</option>
+                        <option value="5">写字楼</option>
+                    </select>
+                </span>
+            </div>
+
+            <div style="margin:15px 0;">
+                <span class="title" style="width:30%;display: inline-block;text-align: right">均价</span>
+                <span class="title" style="width:5%;display: inline-block;"></span>
+                <span style="width:50%"><input id="averagePrice"  class="giveup-cache"   type="number"  style="text-align: center;padding:0 3px;width:7%"  placeholder=""/><span style="margin-left:5px;font-size:12px">元/平方</span></span>
+            </div>
+
+            <div style="margin:15px 0;">
+                <span class="title" style="width:30%;display: inline-block;text-align: right">最低价</span>
+                <span class="title" style="width:5%;display: inline-block;"></span>
+                <span style="width:50%"><input id="unitPriceMin"  class="giveup-cache"   type="number"  style="text-align: center;padding:0 3px;width:7%"  placeholder=""/><span style="margin-left:5px;font-size:12px">元/平方</span></span>
+            </div>
+
+            <div style="margin:15px 0;">
+                <span class="title" style="width:30%;display: inline-block;text-align: right">最高价</span>
+                <span class="title" style="width:5%;display: inline-block;"></span>
+                <span style="width:50%"><input id="unitPriceMax"  class="giveup-cache"   type="number"  style="text-align: center;padding:0 3px;width:7%"  placeholder=""/><span style="margin-left:5px;font-size:12px">元/平方</span></span>
+            </div>
+
+            <div style="margin:15px 0;">
+                <span class="title" style="width:30%;display: inline-block;text-align: right">最低面积</span>
+                <span class="title" style="width:5%;display: inline-block;"></span>
+                <span style="width:50%"><input id="squareMin"  class="giveup-cache"   type="number"  style="text-align: center;padding:0 3px;width:7%"  placeholder=""/><span style="margin-left:5px;font-size:12px">平方</span></span>
+            </div>
+
+            <div style="margin:15px 0;">
+                <span class="title" style="width:30%;display: inline-block;text-align: right">最高面积</span>
+                <span class="title" style="width:5%;display: inline-block;"></span>
+                <span style="width:50%"><input id="squareMax"  class="giveup-cache"   type="number"  style="text-align: center;padding:0 3px;width:7%"  placeholder=""/><span style="margin-left:5px;font-size:12px">平方</span></span>
+            </div>
+
+            <div style="margin:15px 0;">
+                <span class="title" class="title" style="width:30%;display: inline-block;text-align: right">热销</span>
+                <span class="title" style="width:5%;display: inline-block;"></span>
+                <span style="width:50%;display: inline-block;;text-align: left">
+                    <select id="hotIs"  class="giveup-cache"  >
+                        <option value="1">是</option>
+                        <option value="0">否</option>
+                    </select>
+                </span>
+            </div>
+
+
+            <div style="margin:15px 0;">
+                <span class="title" style="width:30%;display: inline-block;text-align: right;vertical-align: top">开盘时间</span>
+                <span class="title" style="width:5%;display: inline-block;"></span>
+                <span ><input id="startSaleTime" class="giveup-cache"  type="date"/></span>
+            </div>
+
+
+            <div style="margin:15px 0;">
+                <span class="title" style="width:30%;display: inline-block;text-align: right;vertical-align: top">介绍标题</span>
+                <span class="title" style="width:5%;display: inline-block;"></span>
+                <span style="width:40%;display: inline-block;text-align: left"><textarea id="introTitle" class="giveup-cache" placeholder="最大100字" style="width: 100%;height: 30px;padding:1px 4px"></textarea></span>
+            </div>
+
+
+            <div style="margin:15px 0;">
+                <span class="title" style="width:30%;display: inline-block;text-align: right;vertical-align: top">介绍</span>
+                <span class="title" style="width:5%;display: inline-block;"></span>
+                <span style="width:40%;display: inline-block;text-align: left"><textarea id="intro" class="giveup-cache" placeholder="最大100字" style="width: 100%;height: 30px;padding:1px 4px"></textarea></span>
+            </div>
+
+
+
+
+    <div name="sectionPadExample" style="display:none">
+            <div style="margin:15px 0 0 0;" >
+                <span class="title" style="width:30%;display: inline-block;text-align: right;vertical-align: top">段落标题</span>
+                <span class="title" style="width:5%;display: inline-block;"></span>
+                <span style="width:40%;display: inline-block;text-align: left"><textarea name="sectionTitle" class="giveup-cache"  style="width: 100%;height: 30px;padding:1px 4px"></textarea></span>
+            </div>
+
+        <div >
+            <span class="title" style="width:30%;display: inline-block;text-align: right;vertical-align: top">段落内容</span>
+            <span class="title" style="width:5%;display: inline-block;"></span>
+            <span style="width:40%;display: inline-block;text-align: left"><textarea name="section" class="giveup-cache"  style="width: 100%;height: 30px;padding:1px 4px"></textarea></span>
+        </div>
+
+        <div>
+            <span class="title" style="width:30%;display: inline-block;text-align: right;vertical-align: top"></span>
+            <span class="title" style="width:5%;display: inline-block;"></span>
+            <span style="width:40%;display: inline-block;text-align: left"><button onclick="$(this).parents('[name=sectionPad]').remove()" type="button">删除</button> </span>
+        </div>
+    </div>
+
+                <div name="addSectionBt" style="margin:15px 0;" >
+                    <span class="title" style="width:30%;display: inline-block;text-align: right;vertical-align: top"></span>
+                    <span class="title" style="width:5%;display: inline-block;"></span>
+                    <span style="width:40%;display: inline-block;text-align: left"><button onclick="addSection()" type="button">添加段落</button> </span>
+                </div>
+
+
+            <div style="margin:15px 0;">
+                <span class="title"  style="width:30%;display: inline-block;text-align: right">封底</span>
+                <span class="title" style="width:5%;display: inline-block;"></span>
+                <span>
+                    <span id="backCoverPad" style="margin-right:5px;display:none;">
+                        <img id="backCover" onclick="giveup.imgPreview(this.src)"  style="width:50px;cursor: pointer;margin-right:5px;" class="giveup-cache"/>
+                        <span style="cursor:pointer" onclick="$('#backCoverPad').hide()">X</span>
+                    </span>
+                <img id="backCoverAlter" src="/housebeach/resource/add.jpg" style="width:20px;cursor:pointer;" /></span>
+            </div>
+
+
+
+
+            <div style="margin:15px 0;">
+                <span class="title" style="width:30%;display: inline-block;text-align: right">排序</span>
+                <span class="title" style="width:5%;display: inline-block;"></span>
+                <span style="width:50%"><input id="orderNo"  class="giveup-cache"   type="number"  style="text-align: center;padding:0 3px;width:7%"  placeholder=""/></span>
+            </div>
+
+        </fieldset>
+
+
+    </form>
+
+
+    <div style="margin-top:10px;">
+        <button name="addBtn" style="margin:0 10px;margin-top:5px;width:100px;height:30px">确认</button>
+        <button name="clearBtn" style="margin:0 10px;margin-top:5px;width:100px;height:30px">清空</button>
+    </div>
+    <div style="margin-top:20px;"></div>
+</div>
+
+
+
+
+</body>
+<script>
+    navim.push({url:location.href,title:currentPath})
+    $('#currentPath').html('导航: ' + navim.spring())
+
+    var introEditor
+    KindEditor.ready(function(K) {
+         introEditor = K.create('#intro', {
+            cssPath : '/housebeach/libs/kindeditor/plugins/code/prettify.css',
+            uploadJson : '/housebeach/kindeditor/upload_json.jsp',
+            fileManagerJson : '/housebeach/kindeditor/file_manager_json.jsp',
+            allowFileManager : true,
+            afterCreate : function() {
+                var self = this;
+                K.ctrl(document, 13, function() {
+                    self.sync();
+                    document.forms['example'].submit();
+                });
+                K.ctrl(self.edit.doc, 13, function() {
+                    self.sync();
+                    document.forms['example'].submit();
+                });
+            }
+        });
+        prettyPrint();
+    });
+
+
+    $.ajaxSetup({
+        layerIndex:-1,
+        beforeSend: function () {
+            this.layerIndex = layer.load(0, { shade: [0.5, '#393D49'] });
+        },
+        complete: function () {
+            layer.close(this.layerIndex);
+        }
+    });
+
+    renderArea1Select();
+
+    function renderArea1Select(){
+        $('#area1Id').html('')
+        $('#area1Id').append('<option value="">选择省</option>')
+        $.ajaxSetup({
+            async : false
+        });
+        $.get('/housebeach/resource/area1.json',null,function(res){
+            $(res).each(function(index,ele){
+                $('#area1Id').append('<option value="'+ele.code+'">'+ele.name+'</option>');
+            })
+        })
+
+    }
+    function renderArea2Select(area1Code){
+        if(!area1Code){
+            area1Code = $('#area1Id').val()
+            if(!area1Code){
+                $('#area2Id').html('')
+                $('#area2Id').append('<option value="">选择市</option>')
+                return;
+            }
+        }
+        $('#area2Id').html('')
+        $('#area2Id').append('<option value="">选择市</option>')
+        $.ajaxSetup({
+            async : false
+        });
+        $.get('/housebeach/resource/area2.json',null,function(res){
+            $(res['code'+area1Code].children).each(function(index,ele){
+                $('#area2Id').append('<option value="'+ele.code+'">'+ele.name+'</option>');
+            })
+        })
+    }
+
+
+
+
+    $('[name=clearBtn]').click(function () {
+        giveup.cache.clearAll()
+        location.reload()
+    })
+    $('[name=addBtn]').click(function () {
+
+        var param={}
+        param.token=token;
+        param.name=$('#name').val();
+        param.introTitle=$('#introTitle').val();
+        param.intro=introEditor.html();
+        param.cover= $('#cover').attr('src')
+        param.backCover= $('#backCover').attr('src')
+        param.saleTel= $('#saleTel').val();
+        param.hotIs= $('#hotIs').val();
+        param.type= $('#type').val();
+        param.averagePrice= $('#averagePrice').val();
+        param.unitPriceMin= $('#unitPriceMin').val();
+        param.unitPriceMax= $('#unitPriceMax').val();
+        param.squareMin= $('#squareMin').val();
+        param.squareMax= $('#squareMax').val();
+        param.type= $('#type').val();
+        param.orderNo= $('#orderNo').val();
+        param.address= $('#address').val();
+        param.area1Id= $('#area1Id').val();
+        param.area2Id= $('#area2Id').val();
+        param.area1= $('#area1Id').val()?$('#area1Id > option:selected').text():'';
+        param.area2=$('#area2Id').val()?$('#area2Id > option:selected').text():'';
+        param.startSaleTime= $('#startSaleTime').val()?new Date($('#startSaleTime').val()).toJSON().split('T')[0]:'';
+
+
+
+        $('[name=sectionPad]').each(function(index,ele){
+            param['section'+(index+1)+'Title']=$(ele).find('[name=sectionTitle]').val()
+            param['section'+(index+1)]=ele.sectionEditor.html()
+        })
+
+        $.ajax({
+            url: "/housebeach/maintain/houseadd",
+            type: 'post',
+            async: false,
+            data:param ,
+            success: function (res) {
+                if (res.code == 0) {
+                    alert('成功')
+                    giveup.cache.clearAll()
+                    history.back()
+                } else {
+                    alert(res.codeMsg)
+                }
+            }
+        })
+    })
+
+
+    function addSection() {
+        if ($('[name=sectionPad]').length > 9){
+            alert('最多添加10个段落')
+        return
+    }
+        var  sectionPad = $('[name=sectionPadExample]').clone(true)
+        sectionPad.attr('name','sectionPad')
+        sectionPad.show()
+
+        var id='id'+giveup.randomString(1,4)
+        sectionPad.find('[name=section]').attr('id',id)
+        $($('[name=addSectionBt]')).before(sectionPad)
+        var sectionEditor
+            KindEditor.ready(function(K) {
+                debugger
+                sectionEditor = K.create('#'+id, {
+                    cssPath : '/housebeach/libs/kindeditor/plugins/code/prettify.css',
+                    uploadJson : '/housebeach/kindeditor/upload_json.jsp',
+                    fileManagerJson : '/housebeach/kindeditor/file_manager_json.jsp',
+                    allowFileManager : true,
+                    afterCreate : function() {
+                        var self = this;
+                        K.ctrl(document, 13, function() {
+                            self.sync();
+                            document.forms['example'].submit();
+                        });
+                        K.ctrl(self.edit.doc, 13, function() {
+                            self.sync();
+                            document.forms['example'].submit();
+                        });
+                    }
+                });
+                prettyPrint();
+            });
+        debugger
+        sectionPad[0].sectionEditor=sectionEditor
+
+    }
+
+
+    $('#coverAlter').click(function(){
+        giveup.cutImg({complete:function(param){
+                debugger
+                var blob = giveup.convertBase64UrlToBlob(param.canvas.toDataURL(param.input.files[0].type))
+                // if(blob.size > 153600){
+                //     alert('图片过大，当前'+ Math.round(blob.size/1024)+'KB，最大'+153600/1024+'KB')
+                //     return
+                // }
+                var url = apiDesk.uploadBlob(blob,param.input.files[0].name)
+                $('#coverPad').show().find('#cover').attr('src',url).trigger('cache')
+            },xRadio:12,yRadio:9})
+    })
+    $('#backCoverAlter').click(function(){
+        giveup.cutImg({complete:function(param){
+                debugger
+                var blob = giveup.convertBase64UrlToBlob(param.canvas.toDataURL(param.input.files[0].type))
+                // if(blob.size > 153600){
+                //     alert('图片过大，当前'+ Math.round(blob.size/1024)+'KB，最大'+153600/1024+'KB')
+                //     return
+                // }
+                var url = apiDesk.uploadBlob(blob,param.input.files[0].name)
+                $('#backCoverPad').show().find('#backCover').attr('src',url)
+            },xRadio:12,yRadio:9})
+    })
+
+
+</script>
+<script src="/housebeach/libs/giveup.cache.js"></script>
+</html>

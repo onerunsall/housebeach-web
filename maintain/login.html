@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <title>云房网运维平台-登录</title>
+    <script src="/housebeach/libs/giveup.js"></script>
+    <script src="/housebeach/libs/jquery.min.js"></script>
+    <script src="/housebeach/libs/navim.js"></script>
+    <script src="/housebeach/libs/jquery.cookie.js"></script>
+    <script src="/housebeach/libs/jquery.extend.giveup.js"></script>
+    <script src="/housebeach/libs/giveup.cache.js"></script>
+    <script src="/housebeach/libs/layer/layer.js"></script>
+
+</head>
+<body style="background-repeat: no-repeat;background-image: url('./login/resource/bk.jpg')">
+
+    <div style="background-color:#ffffff;text-align: right;border: 1px solid darkgray;border-radius: 10px;padding:20px 40px;position: absolute;left:50%;top:20%;transform:translateX(-50%)">
+        <div>登录</div>
+        <div style="margin-top:20px;"><span>用户名:</span><input name="username" type="text" style="text-align: center;margin-left:10px;border:1px solid darkgray"/></div>
+        <div style="margin-top:10px;"><span>密码:</span><input  name="pwd" type="password" style="text-align: center;margin-left:10px;border:1px solid darkgray"/></div>
+        <div style="margin-top:10px;text-align: center;"><button onclick="login()" style="margin:0 10px;width:40%;margin-top:10px">确定</button><button onclick="alert('暂不开放注册')" style="margin:0 10px;width:40%;margin-top:10px">注册</button></div>
+    </div>
+
+</body>
+
+<script>
+    var token = $.cookie('token');
+
+    $.ajaxSetup({
+        layerIndex:-1,
+        beforeSend: function () {
+            this.layerIndex = layer.load(0, { shade: [0.5, '#393D49'] });
+        },
+        complete: function () {
+            layer.close(this.layerIndex);
+        }
+    });
+
+        if(token){
+            $.ajax({
+                url:'/housebeach/maintain/loginrefresh',
+                data:{token:token},
+                type:'post',
+                async:false,
+                success:function(res){
+                    if(res.code == 0) {
+                        $.cookie('token', res.data.token, { expires: 30 , path: '/housebeach' });
+                        location.href='/housebeach/maintain/index.html';
+                    }
+                    else{
+                        $.removeCookie('token',{path:'/housebeach'});
+                    }
+                }
+            })
+        }
+
+
+    function login(){
+        var username=$('[name=username]').val()
+        var pwd=$('[name=pwd]').val()
+        $.ajax({
+            url:'/housebeach/maintain/login',
+            data:{username:username,pwd:pwd},
+            type:'post',
+            async:false,
+            success:function(res){
+                if(res.code == 0) {
+                    token = res.data.token;
+                    $.ajax({
+                        url:'/housebeach/maintain/loginrefresh',
+                        data:{token:token},
+                        type:'post',
+                        async:false,
+                        success:function(res){
+                            if(res.code == 0) {
+                                $.cookie('token', res.data.token, { expires: 30 , path: '/housebeach' });
+                                location.href='/housebeach/maintain/index.html';
+                            }
+                            else{
+                                $.removeCookie('token',{path:'/housebeach'});
+                                alert(res.codeMsg)
+                            }
+                        }
+                    })
+                }
+                else
+                   alert(res.codeMsg)
+            }
+        })
+    }
+
+</script>
+</html>

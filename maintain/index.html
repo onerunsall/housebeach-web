@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Cache-Control" content="max-age=7200" />
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <title>云房网运维平台</title>
+    <script src="/housebeach/libs/giveup.js"></script>
+    <script src="/housebeach/libs/jquery.min.js"></script>
+    <script src="/housebeach/libs/jquery.ztree.all.min.js"></script>
+    <script src="/housebeach/libs/navim.js"></script>
+    <script src="/housebeach/libs/jquery.cookie.js"></script>
+    <script src="/housebeach/libs/jquery.extend.giveup.js"></script>
+    <script src="/housebeach/libs/giveup.cache.js"></script>
+    <script src="/housebeach/libs/public.js"></script>
+    <script src="/housebeach/libs/layer/layer.js"></script>
+
+</head>
+<body style="margin:0">
+
+     <div style="height:70px;border-bottom: 1px solid darkgray;">
+        <div style="line-height: 70px;float:left;height:100%;width:250px;border-right: 1px solid darkgray;text-align: center;font-weight: 700;font-size: 24px;">云房网运维平台</div>
+        <div style="float:right;height:100%;line-height: 100px;position: relative;right:20px"><a href="#" style="font-size: 14px;" onclick="logout()">退出登录</a></div>
+    </div>
+     <div>
+         <div style="float:left;position: fixed;left: 0;bottom:  0;top:71px;display: inline-block;width:250px;border-right: 1px solid darkgray;text-align: center;overflow: auto;">
+             <div style="width:100%;border-bottom:1px solid #e4e5e7;text-align:center;padding:10px 0;">
+                 <img src="./index/resource/head.png" style="width:60px;">
+                 <div id="username" style="color: rgb(119, 119, 119);"></div>
+             </div>
+             <ul id="menu" style="padding:0;margin:0"></ul>
+         </div>
+         <div style="float:left;position: fixed;left: 251px;;bottom: 0;top:71px;right:0;display: inline-block;">
+             <iframe style="width:100%;height:100%"  frameborder="no"></iframe>
+         </div>
+     </div>
+</body>
+
+<script>
+
+    var token= $.cookie('token'),username,modules,userModuleIds,zNodes;
+
+    $.ajaxSetup({
+        layerIndex:-1,
+        beforeSend: function () {
+            this.layerIndex = layer.load(0, { shade: [0.5, '#393D49'] });
+        },
+        complete: function () {
+            layer.close(this.layerIndex);
+        }
+    });
+
+    if(token){
+        $.ajax({
+            url:'/housebeach/maintain/loginrefresh',
+            data:{token:token},
+            type:'post',
+            async:false,
+            success:function(res){
+                if(res.code == 0) {
+                    $.cookie('token', res.data.token, { expires: 30 , path: '/housebeach' });
+                    username = res.data.username
+                    userModuleIds = res.data.moduleIds
+                }
+                else{
+                    $.removeCookie('token',{path:'/housebeach'});
+                    alert(res.codeMsg)
+                    resCodeProcess(res.code)
+                }
+            }
+        })
+    }else
+        location.href='/housebeach/maintain/login.html';
+
+
+    $('#username').text(username)
+    $.ajax({
+        url:'/housebeach/maintain/maintainmodules',
+        data:{token:token,ps:100},
+        type:'post',
+        async:false,
+        success:function(res){
+            if(res.code == 0 ) {
+                modules= res.data.items;
+            }
+            else{
+                alert(res.codeMsg)
+                resCodeProcess(res.code)
+            }
+
+        }
+    })
+
+    zNodes=[]
+    $(modules).each(function(index,ele){
+        debugger
+            if(userModuleIds.indexOf(ele.maintainModuleId+'')!=-1){
+                var uurl;
+                if(ele.maintainModuleId == 'MM1')
+                    uurl='./sysparam.html?currentPath='+ele.name
+                if(ele.maintainModuleId == 'MM2')
+                    uurl='./house.html?currentPath='+ele.name
+                if(ele.maintainModuleId == 'MM3')
+                    uurl='./datelook.html?currentPath='+ele.name
+                var a = {name:ele.name,uurl:uurl}
+                zNodes.push(a)
+            }
+    })
+        // zTree 的参数配置，深入使用请参考 API 文档（setting 配置详解）
+        var setting = {
+            view: {
+                dblClickExpand: false
+            },
+            callback: {
+                onClick: function (e, treeId, treeNode) {
+                    // zTreeObj.expandNode(treeNode);
+                    navim.clear()
+                    $('iframe').attr('src', treeNode.uurl)
+                    //$(treeNode).parent().parent().css('background-color','#e8e8e8')
+                }
+            }
+        };
+        // zTree 的数据属性，深入使用请参考 API 文档（zTreeNode 节点数据详解）
+        var zTreeObj = $.fn.zTree.init($("#menu"), setting, zNodes);
+
+        for(var i=0;i<zNodes.length;i++){
+            $("#" +zTreeObj.setting.treeId+ "_" + (i+1)).css({'text-align':'left'});
+            $("#" + zTreeObj.setting.treeId + "_" + (i+1) + "_a").css({'cursor':'pointer','margin-left':'15px'});
+            $("#" + zTreeObj.setting.treeId + "_" + (i+1)).css({'border-bottom':'1px solid #e4e5e7','padding':'5px','font-size': '14px','font-weight': 700,'color':'#34495e','letter-spacing':'2px'});
+       }
+
+
+    function logout(){
+        $.removeCookie('token',{path:'/housebeach'});
+        $.ajax({
+            url:'/housebeach/maintain/logout',
+            data:{token:token},
+            async:true
+        })
+        location.href='/housebeach/maintain/login.html';
+    }
+</script>
+</html>
