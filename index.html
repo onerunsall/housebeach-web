@@ -1,0 +1,630 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>云房产-开发商信息展示平台</title>
+    <link rel="stylesheet" href="/housebeach/w/img/php888/temp/bootstrap.min.css">
+    <link rel="stylesheet" href="/housebeach/w/img/php888/temp/navigation.css">
+    <link rel="stylesheet" href="/housebeach/w/img/php888/temp/tabBar.css">
+    <link rel="stylesheet" href="/housebeach/w/img/php888/temp/swiper.min.css">
+    <link rel="stylesheet" href="/housebeach/w/img/php888/temp/style.css">
+    <link rel="stylesheet" href="/housebeach/w/img/php888/temp/animate.min.css">
+    <script src="/housebeach/w/img/php888/temp/wow.min.js"></script>
+    <script src="/housebeach/w/img/php888/temp/jquery.min.js"></script>
+    <script src="/housebeach/w/img/php888/temp/bootstrap2.js"></script>
+    <script src="/housebeach/w/img/php888/temp/ie10-viewport-bug-workaround.js"></script>
+    <script src="/housebeach/w/img/php888/temp/swiper.min.js"></script>
+    <script>new WOW().init();</script>
+</head>
+
+<body>
+<div class="menu-btn hidden-md hidden-lg">
+    <b class="tr"></b>
+    <b class="tr"></b>
+    <b class="tr"></b>
+</div>
+<div class="menu-box hidden-md hidden-lg">
+    <div class="menu text-center">
+        <ul class="list-unstyled no-margin clearfix">
+            <li><span><a href="./index.html">首页</a></span></li>
+            <li><span><a href="./search.html">新房</a></span></li>
+            <li><span><a href="./contact.html">联系我们</a></span></li>
+        </ul>
+    </div>
+</div>
+<header>
+    <div class="qita">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-12 clearfix">
+                    <div class="logo pull-left">
+                        <a href="./index.html">
+                            <img class="hidden-xs hidden-sm"
+                                 src="/housebeach/w/u/201903/13/152114__f682309d5dc3118f6bbccd603e0bc840.png" alt=""/>
+                            <img class="hidden-md hidden-lg"
+                                 src="/housebeach/w/u/201903/13/152114__f682309d5dc3118f6bbccd603e0bc840.png" alt=""/>
+                        </a>
+                    </div>
+                    <div class="pull-left" style="padding-top:32px;"></div>
+                    <div class="yddtel pull-left hidden-md hidden-lg">
+                        <a class='tela' href="">全国统一服务热线<strong class="telshow"></strong></a>
+                    </div>
+                    <div class="rights pull-right hidden-xs hidden-sm">
+                        <div class="menu pull-left">
+                            <ul class="list-unstyled no-margin clearfix">
+                                <li class="pull-left text-center active"><a href="javascript:void(null);"
+                                                                            class="tr overflow">首页</a></li>
+                                <li class="pull-left text-center"><a href="./search.html" class="tr overflow">新房</a></li>
+                                <li class="pull-left text-center"><a href="./contact.html" class="tr overflow">联系我们</a></li>
+                            </ul>
+                        </div>
+                        <div class="tel pull-right hidden-xs hidden-sm">
+                            <div class="biaoti">全国统一服务热线</div>
+                            <div class="shuzi telshow"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div class="banner sizeCover"
+     style="background-image: url(/housebeach/w/u/201901/15/141619__be82262b665027c472a2dc58bf725a34.jpg)">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="maxbiaoti text-center">超值必看好房 为您精心挑选</div>
+                    <div class="minbiaoti text-center">为用户提供从找房、看房、买房、过户等一条龙服务</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="searchbox">
+    <div class="search">
+        <div class="biaoti" style="display: none;">
+            <ul class="list-unstyled no-margin clearfix">
+                <li class="pull-left active"><a class="tr text-center">最新房源</a></li>
+                <li class="pull-left"><a class="tr text-center">热门房源</a></li>
+            </ul>
+
+        </div>
+        <div class="formbox">
+
+            <!--
+            <form action="./product.html" method="get" style="display: block;" name="form1" id="form1">
+            <div class="hang clearfix">
+            <input type="text" class="pull-left"  id="search_text"  name="kw" placeholder="搜索新房">
+            <button type="submit" class="pull-left tr">开始找房</button>
+            </div>
+            </form>
+
+            <form action="./product.html" method="get" name="form1" id="form1">
+            <div class="hang clearfix">
+            <input type="text" class="pull-left"  id="search_text"  name="kw" placeholder="搜索热门">
+            <button type="submit" class="pull-left tr">开始找房</button>
+            </div>
+            </form>
+            -->
+
+            <form action="./product.html" style="display: block;" method="get" name="form1" id="form1">
+                <div class="hang clearfix" style="padding:10px 5px;">
+                    <div class="catelist"><a href="javascript:location.href='search.html'">全部类型</a> &nbsp;<a
+                            href="javascript:location.href='search.html?type=1'">住宅</a> &nbsp;<a
+                            href="javascript:location.href='search.html?type=2'">别墅</a> &nbsp;<a
+                            href="javascript:location.href='search.html?type=3'">商铺</a> &nbsp;<a
+                            href="javascript:location.href='search.html?type=4'">酒店式公寓</a> &nbsp;<a
+                            href="javascript:location.href='search.html?type=5'">写字楼</a> &nbsp;<div class="c_b"></div>
+                    </div>
+                    <div class="catelist"><a href="javascript:location.href='search.html'">全部区域</a> &nbsp;<a
+                            href="javascript:location.href='search.html?areaId=31'">上海市</a> &nbsp;<a href="javascript:location.href='search.html?areaId=32'">江苏省</a>
+                        &nbsp;<a href="javascript:location.href='search.html?areaId=33'">浙江省</a> &nbsp;<div class="c_b"></div>
+                    </div>
+                    <div class="catelist"><a href="javascript:location.href='search.html'">全部单价</a> &nbsp;<a
+                            href="javascript:location.href='search.html?unitPriceMax=10000'">1万以下</a> &nbsp;<a href="javascript:location.href='search.html?unitPriceMin=10000&unitPriceMax=15000'">1万-1.5万</a>
+                        &nbsp;<a href="javascript:location.href='search.html?unitPriceMin=15000&unitPriceMax=20000'">1.5万-2万</a> &nbsp;<a
+                                href="javascript:location.href='search.html?unitPriceMin=20000&unitPriceMax=30000'">2万-3万</a> &nbsp;<a href="javascript:location.href='search.html?unitPriceMin=30000&unitPriceMax=50000'">3万-5万</a>
+                        &nbsp;<a href="javascript:location.href='search.html?unitPriceMin=50000'">5万以上</a> &nbsp;<div class="c_b"></div>
+                    </div>
+                    <div class="catelist"><a href="javascript:location.href='search.html'">全部面积</a> &nbsp;<a
+                            href="javascript:location.href='search.html?squareMin=&squareMax=50'">50㎡以下</a> &nbsp;<a href="javascript:location.href='search.html?squareMin=50&squareMax=90'">50㎡-90㎡</a>
+                        &nbsp;<a href="javascript:location.href='search.html?squareMin=90&squareMax=120'">90㎡-120㎡</a> &nbsp;<a
+                                href="javascript:location.href='search.html?squareMin=120&squareMax=160'">120㎡-160㎡</a> &nbsp;<a
+                                href="javascript:location.href='search.html?squareMin=160&squareMax=250'">160㎡-250㎡</a> &nbsp;<a
+                                href="javascript:location.href='search.html?squareMin=250&squareMax=450'">250㎡-450㎡</a> &nbsp;<a
+                                href="javascript:location.href='search.html?squareMin=450&squareMax='">450㎡以上</a> &nbsp;<div class="c_b"></div>
+                    </div>
+                </div>
+                <div class="hang clearfix">
+                    <input type="text" class="pull-left" id="search_text" name="kw" placeholder="关键字">
+                    <button type="button" class="pull-left tr" onclick="location.href='search.html?kw='+$('[name=kw]').val()">开始找房</button>
+                </div>
+            </form>
+
+
+        </div>
+    </div>
+</div>
+
+<div class="content">
+
+
+    <div class="border-1"></div>
+
+    <div class="main-pad-2">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="title-1 clearfix">
+                        <div class="left pull-left">
+                            <div class="cn">最新房源</div>
+                            <div class="en text-uppercase">latest housing</div>
+                            <div class="kuai"></div>
+                        </div>
+                        <div class="right pull-right hidden-xs hidden-sm">优惠房源信息、买房省心省力</div>
+                    </div>
+                    <div class="pictrue-2">
+                        <ul class="list-unstyled clearfix">
+
+
+                            <li class="pull-left newHouseExample" style="display:none">
+                                <a href="" class="tr">
+                                    <div class="imgbox maximg">
+<span class="tr3 sizeCover"
+      style="background-image: url(/housebeach/w/u/201904/25/115621__9be3f2d385ff0f91e33ea5a364f8e228.jpg)">
+<img src="/housebeach/w/img/php888/temp/p2_mb.png" alt="" style="max-width: 100%;">
+</span>
+                                    </div>
+                                    <div class="textbox clearfix">
+                                        <div class="mc pull-left overflow">山屿海-舟山</div>
+                                        <div class="jiage pull-right text-center">
+                                            均价：
+                                            <span class="shuzi">15000</span>
+                                            元/
+                                            <span class="pinfgang">㎡</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+
+
+                            <!--<li class="pull-left">
+                                <a href="/product/44.html" class="tr">
+                                    <div class="imgbox maximg">
+<span class="tr3 sizeCover"
+      style="background-image: url(/housebeach/w/u/201904/19/150444__2c2ff8d3e605944e03a5e870b188ed65.jpg)">
+<img src="/housebeach/w/img/php888/temp/p2_mb.png" alt="">
+</span>
+                                    </div>
+                                    <div class="textbox clearfix">
+                                        <div class="mc pull-left overflow">裕丰商都-松江</div>
+                                        <div class="jiage pull-right text-center">
+                                            均价：
+                                            <span class="shuzi">26000</span>
+                                            元/
+                                            <span class="pinfgang">㎡</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="pull-left">
+                                <a href="/product/43.html" class="tr">
+                                    <div class="imgbox maximg">
+<span class="tr3 sizeCover"
+      style="background-image: url(/housebeach/w/u/201904/19/145112__f1e9aea168637aa276c95d85b2ee1588.jpg)">
+<img src="/housebeach/w/img/php888/temp/p2_mb.png" alt="">
+</span>
+                                    </div>
+                                    <div class="textbox clearfix">
+                                        <div class="mc pull-left overflow">海云间-海盐</div>
+                                        <div class="jiage pull-right text-center">
+                                            均价：
+                                            <span class="shuzi">12000</span>
+                                            元/
+                                            <span class="pinfgang">㎡</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="pull-left">
+                                <a href="/product/42.html" class="tr">
+                                    <div class="imgbox maximg">
+<span class="tr3 sizeCover"
+      style="background-image: url(/housebeach/w/u/201904/19/132907__34283a43b0a115f5b473b9afd5c04042.jpg)">
+<img src="/housebeach/w/img/php888/temp/p2_mb.png" alt="">
+</span>
+                                    </div>
+                                    <div class="textbox clearfix">
+                                        <div class="mc pull-left overflow">世茂璀灿天悦-平湖</div>
+                                        <div class="jiage pull-right text-center">
+                                            均价：
+                                            <span class="shuzi">15800</span>
+                                            元/
+                                            <span class="pinfgang">㎡</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="pull-left">
+                                <a href="/product/41.html" class="tr">
+                                    <div class="imgbox maximg">
+<span class="tr3 sizeCover"
+      style="background-image: url(/housebeach/w/u/201904/19/124750__2dbf9887ed3101d0a19447a64bfba371.jpg)">
+<img src="/housebeach/w/img/php888/temp/p2_mb.png" alt="">
+</span>
+                                    </div>
+                                    <div class="textbox clearfix">
+                                        <div class="mc pull-left overflow">海上传奇-昆山</div>
+                                        <div class="jiage pull-right text-center">
+                                            均价：
+                                            <span class="shuzi">16000</span>
+                                            元/
+                                            <span class="pinfgang">㎡</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="pull-left">
+                                <a href="/housebeach/product/40.html" class="tr">
+                                    <div class="imgbox maximg">
+<span class="tr3 sizeCover"
+      style="background-image: url(/housebeach/w/u/201904/16/151546__bf14bab9ebc7658641d84f2dd4de2483.png)">
+<img src="/housebeach/w/img/php888/temp/p2_mb.png" alt="">
+</span>
+                                    </div>
+                                    <div class="textbox clearfix">
+                                        <div class="mc pull-left overflow">中都华庭-嘉善</div>
+                                        <div class="jiage pull-right text-center">
+                                            均价：
+                                            <span class="shuzi">13000</span>
+                                            元/
+                                            <span class="pinfgang">㎡</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="pull-left">
+                                <a href="/product/39.html" class="tr">
+                                    <div class="imgbox maximg">
+<span class="tr3 sizeCover" style="background-image: url(/w/u/201904/19/120810__4f17d5e313fb1281a4a27fb1c8beb5f8.png)">
+<img src="/housebeach/w/img/php888/temp/p2_mb.png" alt="">
+</span>
+                                    </div>
+                                    <div class="textbox clearfix">
+                                        <div class="mc pull-left overflow">公园壹号-嘉兴</div>
+                                        <div class="jiage pull-right text-center">
+                                            均价：
+                                            <span class="shuzi">11000</span>
+                                            元/
+                                            <span class="pinfgang">㎡</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="pull-left">
+                                <a href="/product/38.html" class="tr">
+                                    <div class="imgbox maximg">
+<span class="tr3 sizeCover"
+      style="background-image: url(/housebeach/w/u/201904/19/162005__18411deda236e1dcff521d98980068a9.jpg)">
+<img src="/housebeach/w/img/php888/temp/p2_mb.png" alt="">
+</span>
+                                    </div>
+                                    <div class="textbox clearfix">
+                                        <div class="mc pull-left overflow">万达茂公寓-青浦</div>
+                                        <div class="jiage pull-right text-center">
+                                            均价：
+                                            <span class="shuzi">28000</span>
+                                            元/
+                                            <span class="pinfgang">㎡</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>-->
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="sizeCover" style="background-image: url(/housebeach/w/img/php888/temp/bg1_02.jpg)">
+        <div class="main-pad-1" style="background: url(/housebeach/w/img/php888/temp/bg1_mb.png) repeat;">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="title-2 text-center">预约看房</div>
+                        <div class="text-1">
+                            <form method="post" name="form1" id="form1" action="/product?action=lijiyuyue">
+                                <ul class="list-unstyled clearfix">
+                                    <li class="pull-left">
+                                        <div class="hang clearfix tr">
+                                            <div class="mc pull-left">姓名：</div>
+                                            <input type="text" class="pull-left" id="name" name="name" required
+                                                   placeholder="您的姓名">
+                                        </div>
+                                    </li>
+                                    <li class="pull-left">
+                                        <div class="hang clearfix tr">
+                                            <div class="mc pull-left">电话：</div>
+                                            <input type="tel" class="pull-left" id="moblie" name="moblie" required
+                                                   maxlength="11" placeholder="请输入您的手机号">
+                                        </div>
+                                    </li>
+                                    <li class="pull-left">
+                                        <div class="hang clearfix tr">
+                                            <div class="mc pull-left">楼盘：</div>
+                                            <input type="text" class="pull-left" id="productname" name="productname"
+                                                   required placeholder="咨询楼盘">
+                                        </div>
+                                    </li>
+                                    <li class="pull-left">
+                                        <div class="hang clearfix tr">
+                                            <div class="mc pull-left">时间：</div>
+                                            <input type="text" class="pull-left" id="yuyuetime" name="yuyuetime"
+                                                   required placeholder="请输入看房时间">
+                                        </div>
+                                    </li>
+                                </ul>
+                                <button class="tr" type="button" onclick="dateLook()">立即预约</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="main-pad-2 hidden-xs hidden-sm">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="main-1 clearfix">
+                        <div class="text-2 pull-left">
+                            <div class="cn">热门房源</div>
+                            <div class="maxen text-uppercase">Hot</div>
+                            <div class="minen text-uppercase">housing</div>
+                            <div class="more"><a href="javascript:location.href='search.html?sorts=hotIs&orders=desc'" class="tr">更多热门房源 +</a></div>
+                        </div>
+                        <div class="pictrue-4 pull-left " >
+                            <ul class="list-unstyled clearfix">
+                                <li class="pull-left hotHouseExample" style="display:none">
+                                    <a href="/housebeach/product/34.html">
+                                        <div class="imgbox maximg">
+<span class="tr3 sizeCover"
+      style="background-image: url(/housebeach/w/u/201904/11/095210__85365ab4141ad8dc1b763f4161bd65be.png)">
+<img class="hidden-md hidden-lg" src="/housebeach/w/img/php888/temp/p4_mb.png" alt="" style="max-width: 100%;">
+</span>
+                                        </div>
+                                        <div class="textbox">
+                                            <div class="biaoti tr overflow">三迪曼哈顿</div>
+                                            <div class="jiage">均价：28000 元/㎡</div>
+                                        </div>
+                                    </a>
+                                </li>
+
+                                <!--<li class="pull-left">-->
+                                    <!--<a href="/housebeach/product/10.html">-->
+                                        <!--<div class="imgbox maximg">-->
+<!--<span class="tr3 sizeCover"-->
+      <!--style="background-image: url(/housebeach/w/u/201904/19/132241__cd46c917162cc538ec4c5d1969035d97.jpg)">-->
+<!--<img class="hidden-md hidden-lg" src="/housebeach/w/img/php888/temp/p4_mb.png" alt="">-->
+<!--</span>-->
+                                        <!--</div>-->
+                                        <!--<div class="textbox">-->
+                                            <!--<div class="biaoti tr overflow">柳岸春风-海盐</div>-->
+                                            <!--<div class="jiage">均价：12500 元/㎡</div>-->
+                                        <!--</div>-->
+                                    <!--</a>-->
+                                <!--</li>-->
+                                <!--<li class="pull-left">-->
+                                    <!--<a href="/housebeach/product/6.html">-->
+                                        <!--<div class="imgbox maximg">-->
+<!--<span class="tr3 sizeCover" style="background-image: url(/w/u/201904/19/131317__d6a4883631b413f32625405b22f27b61.jpg)">-->
+<!--<img class="hidden-md hidden-lg" src="/housebeach/w/img/php888/temp/p4_mb.png" alt="">-->
+<!--</span>-->
+                                        <!--</div>-->
+                                        <!--<div class="textbox">-->
+                                            <!--<div class="biaoti tr overflow">泰禾海上院子-上海奉贤</div>-->
+                                            <!--<div class="jiage">均价： 元/㎡</div>-->
+                                        <!--</div>-->
+                                    <!--</a>-->
+                                <!--</li>-->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<footer>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="tops clearfix">
+                    <div class="menu pull-left">
+                        <ul class="list-unstyled clearfix no-margin">
+                            <li class="pull-left"><a href="./search.html" class="tr">新房</a></li>
+                            <li class="pull-left"><a href="./about.html" class="tr">事务所简介</a></li>
+                            <li class="pull-left"><a href="./contact.html" class="tr">联系我们</a></li>
+                        </ul>
+                    </div>
+                    <div class="tel pull-left text-center">
+                        <div class="box"><a class="tela telshow"  style="color:#FFFFFF"></a></div>
+                    </div>
+                    <div class="fenxiang pull-right hidden-xs hidden-sm">
+                        <div class="mc pull-left">关注：</div>
+                        <ul class="list-unstyled no-margin pull-left">
+                            <li class="pull-left"><a class="tr"><img src="/housebeach/w/img/php888/temp/fenxiang_1.png"
+                                                                     alt=""></a></li>
+                            <li class="pull-left"><a class="tr"><img src="/housebeach/w/img/php888/temp/fenxiang_2.png"
+                                                                     alt=""></a></li>
+                            <li class="pull-left"><a class="tr"><img src="/housebeach/w/img/php888/temp/fenxiang_3.png"
+                                                                     alt=""></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="bots clearfix">
+                    <div class="copyright pull-left">
+                        Copyright© 2019 【售楼处营销中心直销】上海昂骊房地产经纪事务所 版权所有
+                    </div>
+                    <div class="jishuzhichi pull-right hidden-xs hidden-sm">技术支持：<a href="https://www.yuyueit.com/"
+                                                                                    target="_blank">禹月</a>·<a
+                            href="https://www.brand-plan.com/" target="_blank">品牌规划网</a>， &nbsp; <a
+                            href="http://www.miitbeian.gov.cn" target="_blank">沪ICP备19001776号-1</a>
+                        <script>
+                            var _hmt = _hmt || [];
+                            (function () {
+                                var hm = document.createElement("script");
+                                hm.src = "https://hm.baidu.com/hm.js?97bffcb0640171889499f737c05e5317";
+                                var s = document.getElementsByTagName("script")[0];
+                                s.parentNode.insertBefore(hm, s);
+                            })();
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<div id="tabBar" class="visible-xs">
+    <div class="clickbtn text-center on">
+        <img class="tr" src="/housebeach/w/img/php888/temp/tabBar/tabBar-message.png" alt="">
+        <span class="tr">
+<img src="/housebeach/w/img/php888/temp/tabBar/tabBar-message-h.png" alt="">
+</span>
+    </div>
+    <div class="navigation">
+        <ul class="list-unstyled no-margin clearfix">
+            <li class="pull-left text-center">
+                <a class="tela"  class="clearfix">
+                    <div class="tab-icon pull-left">
+                        <img src="/housebeach/w/img/php888/temp/tabBar/tabBar-tel.png" alt="">
+                    </div>
+                    <div class="tab-title pull-left">电话</div>
+                </a>
+            </li>
+            <li class="pull-left text-center">
+                <a  class="clearfix qqa">
+                    <div class="tab-icon pull-left">
+                        <img src="/housebeach/w/img/php888/temp/tabBar/tabBar-qq.png" alt="">
+                    </div>
+                    <div class="tab-title pull-left">QQ</div>
+                </a>
+            </li>
+            <li class="pull-left text-center">
+                <a href="mailto:" class="clearfix">
+                    <div class="tab-icon pull-left">
+                        <img src="/housebeach/w/img/php888/temp/tabBar/tabBar-message.png" alt="">
+                    </div>
+                    <div class="tab-title pull-left">留言</div>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<script src="/housebeach/w/img/php888/temp/_com2.js"></script>
+
+<script>
+    var publicInfo;
+    $.ajax({
+        url: '/housebeach/publicinfo',
+        dataType: 'json',
+        async: false,
+        success: function (res) {
+            if (res.code == 0) {
+                publicInfo = res.data;
+                $('.tela').attr('href', 'tel:' + publicInfo.tel)
+                $('.telshow').text(publicInfo.tel)
+                $('.addressShow').text(publicInfo.address)
+                $('.qqa').attr('href', 'http://wpa.qq.com/msgrd?v=6&uin=' + publicInfo.QQ+'&site=qq&menu=yes')
+
+            }
+        }
+    })
+
+    $.ajax({
+        url: "/housebeach/houses",
+        type: 'post',
+        async: true,
+        data: {pn:1,ps:8},
+        success: (res) => {
+            if (res.code == 0) {
+                $('.newHouse').remove();
+                var data = res.data;
+                $(data.items).each((index, item) => {
+                    var newHouse = $('.newHouseExample').clone(true)
+                    newHouse.find('a.tr').attr('href','./product.html?houseId='+item.houseId)
+                    newHouse.removeClass('newHouseExample')
+                    newHouse.addClass('newHouse')
+                    newHouse.find('.sizeCover').css('background-image', 'url('+item.cover+')')
+                    newHouse.find('.overflow').text(item.name)
+                    newHouse.find('.shuzi').text(item.averagePrice)
+                    newHouse.show()
+                    $('.newHouseExample').before(newHouse)
+                })
+            }
+        }
+    })
+
+
+    $.ajax({
+        url: "/housebeach/houses",
+        type: 'post',
+        async: true,
+        data: {pn:1,ps:3,hotIs:1},
+        success: (res) => {
+            if (res.code == 0) {
+                $('.hotHouse').remove();
+                var data = res.data;
+                $(data.items).each((index, item) => {
+                    var house = $('.hotHouseExample').clone(true)
+                    house.find('a.tr').attr('href','./product.html?houseId='+item.houseId)
+                    house.removeClass('hotHouseExample')
+                    house.addClass('hotHouse')
+                    house.find('.sizeCover').css('background-image', 'url('+item.cover+')')
+                    house.find('.biaoti').text(item.name)
+                    house.find('.jiage').text('均价：'+item.averagePrice+' 元/㎡')
+                    house.show()
+                    $('.hotHouseExample').before(house)
+                })
+            }
+        }
+    })
+
+
+
+
+function dateLook(){
+    $.ajax({
+        url: "/housebeach/datelook",
+        type: 'post',
+        async: true,
+        data: {tel:$('#moblie').val(),name:$('#name').val(),house:$('#productname').val(),time:$('#yuyuetime').val()},
+        success: (res) => {
+            if (res.code == 0) {
+              alert('预约成功，客服会与您联系！')
+            }else if(res.code != 98){
+                alert(res.codeMsg)
+            }
+        }
+    })
+
+}
+</script>
+</body>
+</html>

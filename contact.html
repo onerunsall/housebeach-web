@@ -1,0 +1,357 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>联系我们_云房产-开发商信息展示平台</title>
+    <link rel="stylesheet" href="/housebeach/w/img/php888/temp/bootstrap.min.css">
+    <link rel="stylesheet" href="/housebeach/w/img/php888/temp/navigation.css">
+    <link rel="stylesheet" href="/housebeach/w/img/php888/temp/tabBar.css">
+    <link rel="stylesheet" href="/housebeach/w/img/php888/temp/swiper.min.css">
+    <link rel="stylesheet" href="/housebeach/w/img/php888/temp/style.css">
+    <link rel="stylesheet" href="/housebeach/w/img/php888/temp/animate.min.css">
+    <script src="/housebeach/w/img/php888/temp/wow.min.js"></script>
+    <script src="/housebeach/w/img/php888/temp/jquery.min.js"></script>
+    <script src="/housebeach/w/img/php888/temp/bootstrap2.js"></script>
+    <script src="/housebeach/w/img/php888/temp/ie10-viewport-bug-workaround.js"></script>
+    <script src="/housebeach/w/img/php888/temp/swiper.min.js"></script>
+    <script src="/housebeach/libs/giveup.js"></script>
+    <script>new WOW().init();</script>
+</head>
+
+<body>
+<div class="menu-btn hidden-md hidden-lg">
+    <b class="tr"></b>
+    <b class="tr"></b>
+    <b class="tr"></b>
+</div>
+<div class="menu-box hidden-md hidden-lg">
+    <div class="menu text-center">
+        <ul class="list-unstyled no-margin clearfix">
+            <li><span><a href="./index.html">首页</a></span></li>
+            <li><span><a href="./search.html">新房</a></span></li>
+            <li><span><a href="./contact.html">联系我们</a></span></li>
+        </ul>
+    </div>
+</div>
+<header>
+    <div class="qita">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-12 clearfix">
+                    <div class="logo pull-left">
+                        <a href="./index.html">
+                            <img class="hidden-xs hidden-sm"
+                                 src="/housebeach/w/u/201903/13/152114__f682309d5dc3118f6bbccd603e0bc840.png" alt=""/>
+                            <img class="hidden-md hidden-lg"
+                                 src="/housebeach/w/u/201903/13/152114__f682309d5dc3118f6bbccd603e0bc840.png" alt=""/>
+                        </a>
+                    </div>
+                    <div class="pull-left" style="padding-top:32px;"></div>
+                    <div class="yddtel pull-left hidden-md hidden-lg">
+                        <a class="tela" >全国统一服务热线<strong class="telshow"></strong></a>
+                    </div>
+                    <div class="rights pull-right hidden-xs hidden-sm">
+                        <div class="menu pull-left">
+                            <ul class="list-unstyled no-margin clearfix">
+                                <li class="pull-left text-center"><a href="./index.html" class="tr overflow">首页</a></li>
+                                <li class="pull-left text-center"><a href="./search.html" class="tr overflow">新房</a></li>
+                                <li class="pull-left text-center active"><a href="javascript:void(null);"
+                                                                            class="tr overflow">联系我们</a></li>
+                            </ul>
+                        </div>
+                        <div class="tel pull-right hidden-xs hidden-sm">
+                            <div class="biaoti">全国统一服务热线</div>
+                            <div class="shuzi telshow"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div class="banner sizeCover"
+     style="background-image: url(/housebeach/w/u/201901/16/094341__1f3380afb045e4d0517a0e56822e8678.jpg)">
+    <div class="textbox text-center">
+        <div class="cn">联系我们</div>
+        <div class="en text-uppercase"></div>
+    </div>
+</div>
+
+<div class="main-pad-2">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-5">
+                <div class="text-3 active maximg">
+                    <p><strong>【售楼处营销中心直销】上海昂骊房地产经纪事务所</strong></p>
+                    <p>电话：<span class="telshow"></span></p>
+                    <p>地址：<span class="addressShow"></span></p>
+                    <p>网址：www.cloudhouseweb.com</p>
+                </div>
+            </div>
+            <div class="col-md-7">
+                <div class="pictrue-5 maximg">
+                    <style type="text/css">
+                        html, body {
+                            margin: 0;
+                            padding: 0;
+                        }
+
+                        .iw_poi_title {
+                            color: #CC5522;
+                            font-size: 14px;
+                            font-weight: bold;
+                            overflow: hidden;
+                            padding-right: 13px;
+                            white-space: nowrap
+                        }
+
+                        .iw_poi_content {
+                            font: 12px arial, sans-serif;
+                            overflow: visible;
+                            padding-top: 4px;
+                            white-space: -moz-pre-wrap;
+                            word-wrap: break-word
+                        }
+                    </style>
+                    <script type="text/javascript" src="http://api.map.baidu.com/api?key=&v=1.1&services=true"></script>
+
+                    <!--百度地图容器-->
+                    <div style="width:100%;height:350px;border:#ccc solid 1px;" id="dituContent"></div>
+
+                    <script type="text/javascript">
+                        //创建和初始化地图函数：
+                        function initMap() {
+                            createMap();//创建地图
+                            setMapEvent();//设置地图事件
+                            addMapControl();//向地图添加控件
+                            addMarker();//向地图中添加marker
+                        }
+
+                        //创建地图函数：
+                        function createMap() {
+                            var map = new BMap.Map("dituContent");//在百度地图容器中创建一个地图
+                            var point = new BMap.Point(121.655188, 30.921796);//定义一个中心点坐标
+                            map.centerAndZoom(point, 17);//设定地图的中心点和坐标并将地图显示在地图容器中
+                            window.map = map;//将map变量存储在全局
+                        }
+
+                        //地图事件设置函数：
+                        function setMapEvent() {
+                            map.enableDragging();//启用地图拖拽事件，默认启用(可不写)
+                            map.enableScrollWheelZoom();//启用地图滚轮放大缩小
+                            map.enableDoubleClickZoom();//启用鼠标双击放大，默认启用(可不写)
+                            map.enableKeyboard();//启用键盘上下左右键移动地图
+                        }
+
+                        //地图控件添加函数：
+                        function addMapControl() {
+//向地图中添加缩放控件
+                            var ctrl_nav = new BMap.NavigationControl({
+                                anchor: BMAP_ANCHOR_TOP_LEFT,
+                                type: BMAP_NAVIGATION_CONTROL_LARGE
+                            });
+                            map.addControl(ctrl_nav);
+//向地图中添加缩略图控件
+                            var ctrl_ove = new BMap.OverviewMapControl({anchor: BMAP_ANCHOR_BOTTOM_RIGHT, isOpen: 0});
+                            map.addControl(ctrl_ove);
+//向地图中添加比例尺控件
+                            var ctrl_sca = new BMap.ScaleControl({anchor: BMAP_ANCHOR_BOTTOM_LEFT});
+                            map.addControl(ctrl_sca);
+                        }
+
+                        //标注点数组
+                        var markerArr = [{
+                            title: "【售楼处营销中心直销】上海昂骊房地产经纪事务所",
+                            content: "上海市奉贤区奉城镇东街98号13幢1364室",
+                            point: "121.655188|30.921796",
+                            isOpen: 1,
+                            icon: {w: 21, h: 21, l: 0, t: 0, x: 6, lb: 5}
+                        }
+                        ];
+
+                        //创建marker
+                        function addMarker() {
+                            for (var i = 0; i < markerArr.length; i++) {
+                                var json = markerArr[i];
+                                var p0 = json.point.split("|")[0];
+                                var p1 = json.point.split("|")[1];
+                                var point = new BMap.Point(p0, p1);
+                                var iconImg = createIcon(json.icon);
+                                var marker = new BMap.Marker(point, {icon: iconImg});
+                                var iw = createInfoWindow(i);
+                                var label = new BMap.Label(json.title, {"offset": new BMap.Size(json.icon.lb - json.icon.x + 10, -20)});
+                                marker.setLabel(label);
+                                map.addOverlay(marker);
+                                label.setStyle({
+                                    borderColor: "#808080",
+                                    color: "#333",
+                                    cursor: "pointer"
+                                });
+
+                                (function () {
+                                    var index = i;
+                                    var _iw = createInfoWindow(i);
+                                    var _marker = marker;
+                                    _marker.addEventListener("click", function () {
+                                        this.openInfoWindow(_iw);
+                                    });
+                                    _iw.addEventListener("open", function () {
+                                        _marker.getLabel().hide();
+                                    })
+                                    _iw.addEventListener("close", function () {
+                                        _marker.getLabel().show();
+                                    })
+                                    label.addEventListener("click", function () {
+                                        _marker.openInfoWindow(_iw);
+                                    })
+                                    if (!!json.isOpen) {
+                                        label.hide();
+                                        _marker.openInfoWindow(_iw);
+                                    }
+                                })()
+                            }
+                        }
+
+                        //创建InfoWindow
+                        function createInfoWindow(i) {
+                            var json = markerArr[i];
+                            var iw = new BMap.InfoWindow("<b class='iw_poi_title' title='" + json.title + "'>" + json.title + "</b><div class='iw_poi_content'>" + json.content + "</div>");
+                            return iw;
+                        }
+
+                        //创建一个Icon
+                        function createIcon(json) {
+                            var icon = new BMap.Icon("https://map.baidu.com/image/us_cursor.gif", new BMap.Size(json.w, json.h), {
+                                imageOffset: new BMap.Size(-json.l, -json.t),
+                                infoWindowOffset: new BMap.Size(json.lb + 5, 1),
+                                offset: new BMap.Size(json.x, json.h)
+                            })
+                            return icon;
+                        }
+
+                        initMap();//创建和初始化地图
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</div>
+<footer>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="tops clearfix">
+                    <div class="menu pull-left">
+                        <ul class="list-unstyled clearfix no-margin">
+                            <li class="pull-left"><a href="./search.html" class="tr">新房</a></li>
+                            <li class="pull-left"><a href="./about.html" class="tr">事务所简介</a></li>
+                            <li class="pull-left"><a href="./contact.html" class="tr">联系我们</a></li>
+                        </ul>
+                    </div>
+                    <div class="tel pull-left text-center">
+                        <div class="box"><a class="tela telshow"  style="color:#FFFFFF"></a></div>
+                    </div>
+                    <div class="fenxiang pull-right hidden-xs hidden-sm">
+                        <div class="mc pull-left">关注：</div>
+                        <ul class="list-unstyled no-margin pull-left">
+                            <li class="pull-left"><a class="tr"><img src="/housebeach/w/img/php888/temp/fenxiang_1.png" alt=""></a>
+                            </li>
+                            <li class="pull-left"><a class="tr"><img src="/housebeach/w/img/php888/temp/fenxiang_2.png" alt=""></a>
+                            </li>
+                            <li class="pull-left"><a class="tr"><img src="/housebeach/w/img/php888/temp/fenxiang_3.png" alt=""></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="bots clearfix">
+                    <div class="copyright pull-left">
+                        Copyright© 2019 【售楼处营销中心直销】上海昂骊房地产经纪事务所 版权所有
+                    </div>
+                    <div class="jishuzhichi pull-right hidden-xs hidden-sm">技术支持：<a href="https://www.yuyueit.com/"
+                                                                                    target="_blank">禹月</a>·<a
+                            href="https://www.brand-plan.com/" target="_blank">品牌规划网</a>， &nbsp; <a
+                            href="http://www.miitbeian.gov.cn" target="_blank">沪ICP备19001776号-1</a>
+                        <script>
+                            var _hmt = _hmt || [];
+                            (function () {
+                                var hm = document.createElement("script");
+                                hm.src = "https://hm.baidu.com/hm.js?97bffcb0640171889499f737c05e5317";
+                                var s = document.getElementsByTagName("script")[0];
+                                s.parentNode.insertBefore(hm, s);
+                            })();
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<div id="tabBar" class="visible-xs">
+    <div class="clickbtn text-center on">
+        <img class="tr" src="/w/img/php888/temp/tabBar/tabBar-message.png" alt="">
+        <span class="tr">
+<img src="/w/img/php888/temp/tabBar/tabBar-message-h.png" alt="">
+</span>
+    </div>
+    <div class="navigation">
+        <ul class="list-unstyled no-margin clearfix">
+            <li class="pull-left text-center">
+                <a  class="clearfix tela">
+                    <div class="tab-icon pull-left">
+                        <img src="/housebeach/w/img/php888/temp/tabBar/tabBar-tel.png" alt="">
+                    </div>
+                    <div class="tab-title pull-left">电话</div>
+                </a>
+            </li>
+            <li class="pull-left text-center">
+                <a  href="#" class="clearfix qqa">
+                    <div class="tab-icon pull-left">
+                        <img src="/housebeach/w/img/php888/temp/tabBar/tabBar-qq.png" alt="">
+                    </div>
+                    <div class="tab-title pull-left">QQ</div>
+                </a>
+            </li>
+            <li class="pull-left text-center">
+                <a href="mailto:" class="clearfix">
+                    <div class="tab-icon pull-left">
+                        <img src="/housebeach/w/img/php888/temp/tabBar/tabBar-message.png" alt="">
+                    </div>
+                    <div class="tab-title pull-left">留言</div>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<script src="/housebeach/w/img/php888/temp/_com2.js"></script>
+</body>
+
+<script>
+
+    var publicInfo;
+    $.ajax({
+        url: '/housebeach/publicinfo',
+        dataType: 'json',
+        async: false,
+        success: function (res) {
+            if (res.code == 0) {
+                publicInfo = res.data;
+                $('.tela').attr('href', 'tel:' + publicInfo.tel)
+                $('.telshow').text(publicInfo.tel)
+                $('.addressShow').text(publicInfo.address)
+                $('.qqa').attr('href', 'http://wpa.qq.com/msgrd?v=6&uin=' + publicInfo.QQ+'&site=qq&menu=yes')
+
+
+            }
+        }
+    })
+</script>
+</html>
