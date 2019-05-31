@@ -398,7 +398,7 @@
                         <div class="pictrue-4 pull-left " >
                             <ul class="list-unstyled clearfix">
                                 <li class="pull-left hotHouseExample" style="display:none">
-                                    <a href="/housebeach/product/34.html">
+                                    <a class="toinfo">
                                         <div class="imgbox maximg">
 <span class="tr3 sizeCover"
       style="background-image: url(/housebeach/w/u/201904/11/095210__85365ab4141ad8dc1b763f4161bd65be.png)">
@@ -593,7 +593,7 @@
                 var data = res.data;
                 $(data.items).each((index, item) => {
                     var house = $('.hotHouseExample').clone(true)
-                    house.find('a.tr').attr('href','./product.html?houseId='+item.houseId)
+                    house.find('a.toinfo').attr('href','./product.html?houseId='+item.houseId)
                     house.removeClass('hotHouseExample')
                     house.addClass('hotHouse')
                     house.find('.sizeCover').css('background-image', 'url('+item.cover+')')

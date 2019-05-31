@@ -348,11 +348,11 @@
             this.queryParams.ps = this.pageSize;
             this.queryParams.sorts = ''
             this.queryParams.orders = ''
-            for (sortColumn in  this.sorts) {
-                if (this.sorts[sortColumn]) {
-                    this.queryParams.sorts = this.queryParams.sorts + sortColumn + ','
-                    this.queryParams.orders = this.queryParams.orders + this.orders[sortColumn] + ','
-                }
+            for (i in  this.sorts) {
+
+                    this.queryParams.sorts = this.queryParams.sorts + this.sorts[i] + ','
+                    this.queryParams.orders = this.queryParams.orders + this.orders[i] + ','
+
             }
             this.hasMoreItems = null
             this.itemsMap = {}
