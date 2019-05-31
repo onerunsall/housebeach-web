@@ -26,7 +26,6 @@
 
      <div style="height:70px;border-bottom: 1px solid darkgray;">
         <div style="line-height: 70px;float:left;height:100%;width:250px;border-right: 1px solid darkgray;text-align: center;font-weight: 700;font-size: 24px;">云房网运维平台</div>
-        <div style="float:right;height:100%;line-height: 100px;position: relative;right:20px"><a href="#" style="font-size: 14px;" onclick="logout()">退出登录</a></div>
     </div>
      <div>
          <div style="float:left;position: fixed;left: 0;bottom:  0;top:71px;display: inline-block;width:250px;border-right: 1px solid darkgray;text-align: center;overflow: auto;">
@@ -112,6 +111,7 @@
                 zNodes.push(a)
             }
     })
+    zNodes.push({name:'退出登录',uurl:''})
         // zTree 的参数配置，深入使用请参考 API 文档（setting 配置详解）
         var setting = {
             view: {
@@ -119,6 +119,10 @@
             },
             callback: {
                 onClick: function (e, treeId, treeNode) {
+                    if(treeNode.name=='退出登录'){
+                        logout();
+                        return
+                    }
                     // zTreeObj.expandNode(treeNode);
                     navim.clear()
                     $('iframe').attr('src', treeNode.uurl)
@@ -134,7 +138,6 @@
             $("#" + zTreeObj.setting.treeId + "_" + (i+1) + "_a").css({'cursor':'pointer','margin-left':'15px'});
             $("#" + zTreeObj.setting.treeId + "_" + (i+1)).css({'border-bottom':'1px solid #e4e5e7','padding':'5px','font-size': '14px','font-weight': 700,'color':'#34495e','letter-spacing':'2px'});
        }
-
 
     function logout(){
         $.removeCookie('token',{path:'/housebeach'});
