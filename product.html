@@ -257,11 +257,29 @@
         #bottomBar li.active {
             background-color:#EB4B29;
             color:#ffffff;
-
         }
 
-        #bottomBar img {
-           width:30%;
+        #bottomBar li.active span.bk1{
+            background-image: url('/housebeach/resource/dianhuaback.png')!important;
+        }
+        #bottomBar li.active span.bk2{
+            background-image: url('/housebeach/resource/dianhuaback.png')!important;
+        }
+        #bottomBar li.active span.bk3{
+            background-image: url('/housebeach/resource/dianhuaback.png')!important;
+        }
+        #bottomBar li.active span.bk4{
+            background-image: url('/housebeach/resource/dianhuaback.png')!important;
+        }
+        #bottomBar li .bk{
+            display: inline-block;
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            width: 30%;
+        }
+        #bottomBar .bk img {
+           width:100%;
+            visibility: hidden;
         }
 
         #bottomBar li:last-child {
@@ -272,12 +290,24 @@
             text-decoration:none;
             color:inherit;
         }
+
+
     </style>
     <ul id="bottomBar">
-        <li onclick="$('#nb_icon_wrap').click()"><img src="/housebeach/resource/qiche.png" style="background-color: white;"/><br/>免费班车</li>
-        <li onclick="$('#nb_icon_wrap').click()"><img src="/housebeach/resource/yuyue.png"  style="background-color: white;"/><br/>预约看房</li>
-        <li onclick="$('#nb_icon_wrap').click()"><img src="/housebeach/resource/zixun.png"  style="background-color: white;"/><br/>获取定位</li>
-        <li><a class="tela"><img src="/housebeach/resource/dianhua.png"  style="background-color: white;"/><br/>电话咨询</a></li>
+        <li onclick="$('#nb_icon_wrap').click()"><span class="bk bk4" style="background-image: url('/housebeach/resource/qiche.png');">
+                <img  src="/housebeach/resource/xy.png" />
+            </span><br/>免费班车</li>
+        <li onclick="$('#nb_icon_wrap').click()"><span class="bk bk4" style="background-image: url('/housebeach/resource/yuyue.png');">
+                <img  src="/housebeach/resource/xy.png" />
+            </span><br/>预约看房</li>
+        <li onclick="$('#nb_icon_wrap').click()"><span class="bk bk4" style="background-image: url('/housebeach/resource/zixun.png');">
+                <img  src="/housebeach/resource/xy.png" />
+            </span><br/>获取定位</li>
+        <li><a class="tela">
+            <span class="bk bk4" style="background-image: url('/housebeach/resource/dianhua.png');">
+                <img  src="/housebeach/resource/xy.png" />
+            </span>
+            <br/><span>电话咨询</span></a></li>
     </ul>
 </div>
 
