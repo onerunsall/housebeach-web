@@ -143,7 +143,11 @@
                             <span class="cell cell1"><input type="radio" name="itemChosen" style="margin:0"></span>
                             <span class="cell cell2" :title="item.name" v-html="giveup.strongKeyword(item.name, queryParams.kw)"></span>
                             <span class="cell cell3" :title="item.area1+' '+item.area2"  v-html="giveup.strongKeyword(item.area1+' '+item.area2, queryParams.kw)"></span>
-                            <span class="cell cell4"  ><a v-if="item.cover" :href="item.cover" target="_blank"><img   :src="item.cover" style="width:30px;" /></a></span>
+                            <span class="cell cell4"  >
+                                  <span  onclick="giveup.imgPreview($(this).attr('imgSrc'))" :imgSrc="item.cover" style="width:30px;cursor:pointer;display: inline-block;   background-position: 50% 50%; background-size: cover;" :style="{backgroundImage:'url(' + item.cover + ')'}">
+                                      <img  src="/housebeach/resource/xy.png" style=" max-width:100%;visibility: hidden;vertical-align: middle;"/>
+                                </span>
+                                </span>
                             <span class="cell cell5"   v-html="item.squareMin+'-'+item.squareMax"></span>
                             <span class="cell cell6"   v-html="item.averagePrice" style="text-align: right"></span>
                             <span class="cell cell6"   v-html="item.orderNo" style="text-align: right"></span>

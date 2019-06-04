@@ -450,33 +450,29 @@
 
 
     $('#coverAlter').click(function () {
-        giveup.cutImg({
-            complete: function (param) {
-                debugger
-                var blob = giveup.convertBase64UrlToBlob(param.canvas.toDataURL(param.input.files[0].type))
-                // if(blob.size > 153600){
-                //     alert('图片过大，当前'+ Math.round(blob.size/1024)+'KB，最大'+153600/1024+'KB')
-                //     return
-                // }
-                var url = apiDesk.uploadBlob(blob, param.input.files[0].name)
-                $('#coverPad').show().find('#cover').attr('src', url).trigger('cache')
-            }, xRadio: 12, yRadio: 9
-        })
+        $('<input type="file" style="display:none"/>').change(function(){
+            var url = apiDesk.uploadFile(this)
+            $('#coverPad').show().find('#cover').attr('src', url)
+        }).click()
     })
 
     $('#backCoverAlter').click(function () {
-        giveup.cutImg({
-            complete: function (param) {
-                debugger
-                var blob = giveup.convertBase64UrlToBlob(param.canvas.toDataURL(param.input.files[0].type))
-                // if(blob.size > 153600){
-                //     alert('图片过大，当前'+ Math.round(blob.size/1024)+'KB，最大'+153600/1024+'KB')
-                //     return
-                // }
-                var url = apiDesk.uploadBlob(blob, param.input.files[0].name)
-                $('#backCoverPad').show().find('#backCover').attr('src', url).trigger('cache')
-            }, xRadio: 12, yRadio: 9
-        })
+        $('<input type="file" style="display:none"/>').change(function(){
+            var url = apiDesk.uploadFile(this)
+            $('#backCoverPad').show().find('#backCover').attr('src', url)
+        }).click()
+        // giveup.cutImg({
+        //     complete: function (param) {
+        //         debugger
+        //         var blob = giveup.convertBase64UrlToBlob(param.canvas.toDataURL(param.input.files[0].type))
+        //         // if(blob.size > 153600){
+        //         //     alert('图片过大，当前'+ Math.round(blob.size/1024)+'KB，最大'+153600/1024+'KB')
+        //         //     return
+        //         // }
+        //         var url = apiDesk.uploadBlob(blob, param.input.files[0].name)
+        //
+        //     }, xRadio: 12, yRadio: 9
+        // })
     })
 
 
