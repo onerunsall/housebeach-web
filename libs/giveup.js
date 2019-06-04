@@ -363,7 +363,6 @@ giveup.cutImg = function (params){
             if(!file.type || file.type.indexOf('image') != 0){
                 throw '选择的文件不是图片格式';
             }else {
-
                 var img = new Image();
                 url = window.URL.createObjectURL(file) // 得到bolb对象路径，可当成普通的文件路径一样使用，赋值给src;
 
