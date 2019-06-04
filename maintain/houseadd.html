@@ -275,9 +275,9 @@
 
 <div name="cutImgPadExample" style="text-align: center;display:none;">
     <button name="cancel" onclick="$(this).parents('[name=cutImgPad]').remove()">取消</button>
-    <button name="confirm" >确认</button>
+    <button name="confirm">确认</button>
     <br/>
-    <img />
+    <img/>
 </div>
 </body>
 <script>
@@ -450,29 +450,67 @@
 
 
     $('#coverAlter').click(function () {
-        $('<input type="file" style="display:none"/>').change(function(){
-            var url = apiDesk.uploadFile(this)
-            $('#coverPad').show().find('#cover').attr('src', url)
-        }).click()
+        $('<input type="file" name="file" style="display:none"/>').change(function () {
+            var r = prompt('该文件大小' + Math.round(this.files[0].size / 1024) + 'KB，是否压缩？质量从低到高输入1-9，其他值不压缩。', '8')
+            r = parseInt(r);
+            r = (isNaN(r) || r < 1 || r > 9) ? '' : r;
+            if(r=='' && !confirm('您的输入非1-9，将使用原图，确定？'))
+                return;
+            var inputDom = this;
+            var file = inputDom.files[0];
+            var fd = new FormData()
+            fd.append('file', file);
+            $.ajax({
+                url: '/housebeach/imgupload?' + $.param({quality: r}),
+                type: 'POST',
+                data: fd,
+                cache: false,
+                processData: false,
+                contentType: false,
+                async: true,
+                success: function (res) {
+                    if (res.code == 0) {
+                        alert('当前文件大小' + Math.round(res.data.size / 1024) + 'KB')
+                        $('#coverPad').show().find('#cover').attr('src', res.data.url)
+                    } else {
+                        alert(res.codeMsg);
+                    }
+                    $(inputDom).remove()
+                }
+            })
+        }).appendTo($('body')).click()
     })
 
     $('#backCoverAlter').click(function () {
-        $('<input type="file" style="display:none"/>').change(function(){
-            var url = apiDesk.uploadFile(this)
-            $('#backCoverPad').show().find('#backCover').attr('src', url)
-        }).click()
-        // giveup.cutImg({
-        //     complete: function (param) {
-        //         debugger
-        //         var blob = giveup.convertBase64UrlToBlob(param.canvas.toDataURL(param.input.files[0].type))
-        //         // if(blob.size > 153600){
-        //         //     alert('图片过大，当前'+ Math.round(blob.size/1024)+'KB，最大'+153600/1024+'KB')
-        //         //     return
-        //         // }
-        //         var url = apiDesk.uploadBlob(blob, param.input.files[0].name)
-        //
-        //     }, xRadio: 12, yRadio: 9
-        // })
+        $('<input type="file" name="file" style="display:none"/>').change(function () {
+            var r = prompt('该文件大小' + Math.round(this.files[0].size / 1024) + 'KB，是否压缩？质量从低到高输入1-9，其他值不压缩。', '8')
+            r = parseInt(r);
+            r = (isNaN(r) || r < 1 || r > 9) ? '' : r;
+            if(r=='' && !confirm('您的输入非1-9，将使用原图，确定？'))
+                return;
+            var inputDom = this;
+            var file = inputDom.files[0];
+            var fd = new FormData()
+            fd.append('file', file);
+            $.ajax({
+                url: '/housebeach/imgupload?' + $.param({quality: r}),
+                type: 'POST',
+                data: fd,
+                cache: false,
+                processData: false,
+                contentType: false,
+                async: true,
+                success: function (res) {
+                    if (res.code == 0) {
+                        alert('当前文件大小' + Math.round(res.data.size / 1024) + 'KB')
+                        $('#backCoverPad').show().find('#backCover').attr('src', res.data.url)
+                    } else {
+                        alert(res.codeMsg);
+                    }
+                    $(inputDom).remove()
+                }
+            })
+        }).appendTo($('body')).click()
     })
 
 
