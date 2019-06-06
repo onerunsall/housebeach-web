@@ -86,8 +86,10 @@
             <span class="title" style="width:5%;display: inline-block;"></span>
             <span style="width:50%">
                 <span id="area1Show" class="valueShow"></span>
-                <select id="area1Id"  class="valueAlter"  style="vertical-align: middle;" onchange="renderArea2Select()" ><option value="">选择省</option></select>
-               <span id="area2Show" class="valueShow"></span>     <select id="area2Id"  class="valueAlter" style="margin-left:3px;vertical-align: middle;"  ><option value="">选择市</option></select></span>
+                <select id="area1Id"  class="valueAlter"  style="vertical-align: middle;" onchange="renderArea2Select()" ><option value="">请选择</option></select>
+               <span id="area2Show" class="valueShow"></span>     <select id="area2Id"  class="valueAlter" style="margin-left:3px;vertical-align: middle;"  onchange="renderArea3Select()" ><option value="">请选择</option></select>
+            <span id="area3Show" class="valueShow"></span>     <select id="area3Id"  class="valueAlter" style="margin-left:3px;vertical-align: middle;"  ><option value="">请选择</option></select>
+            </span>
         </div>
 
         <div style="margin:15px 0;">
@@ -322,7 +324,7 @@
 
     function renderArea1Select(){
         $('#area1Id').html('')
-        $('#area1Id').append('<option value="">选择省</option>')
+        $('#area1Id').append('<option value="">请选择</option>')
         $.ajaxSetup({
             async : false
         });
@@ -333,27 +335,51 @@
         })
 
     }
-    function renderArea2Select(area1Code){
-        if(!area1Code){
+    function renderArea2Select(area1Code) {
+        if (!area1Code) {
             area1Code = $('#area1Id').val()
-            if(!area1Code){
+            if (!area1Code) {
                 $('#area2Id').html('')
-                $('#area2Id').append('<option value="">选择市</option>')
+                $('#area2Id').append('<option value="">请选择</option>')
+                $('#area3Id').html('')
+                $('#area3Id').append('<option value="">请选择</option>')
                 return;
             }
         }
         $('#area2Id').html('')
-        $('#area2Id').append('<option value="">选择市</option>')
+        $('#area2Id').append('<option value="">请选择</option>')
+        $('#area3Id').html('')
+        $('#area3Id').append('<option value="">请选择</option>')
         $.ajaxSetup({
-            async : false
+            async: false
         });
-        $.get('/housebeach/resource/area2.json',null,function(res){
-            $(res['code'+area1Code].children).each(function(index,ele){
-                $('#area2Id').append('<option value="'+ele.code+'">'+ele.name+'</option>');
+        $.get('/housebeach/resource/area2.json', null, function (res) {
+            $(res['code' + area1Code].children).each(function (index, ele) {
+                $('#area2Id').append('<option value="' + ele.code + '">' + ele.name + '</option>');
             })
         })
     }
 
+    function renderArea3Select(area2Code) {
+        if (!area2Code) {
+            area2Code = $('#area2Id').val()
+            if (!area2Code) {
+                $('#area3Id').html('')
+                $('#area3Id').append('<option value="">请选择</option>')
+                return;
+            }
+        }
+        $('#area3Id').html('')
+        $('#area3Id').append('<option value="">请选择</option>')
+        $.ajaxSetup({
+            async: false
+        });
+        $.get('/housebeach/resource/area3.json', null, function (res) {
+            $(res['code' + area2Code].children).each(function (index, ele) {
+                $('#area3Id').append('<option value="' + ele.code + '">' + ele.name + '</option>');
+            })
+        })
+    }
 
     $.ajax({
         url: "/housebeach/maintain/houseinfo",
@@ -375,6 +401,9 @@
 
                 $('#area2Id').val(item.area2Id).change();
                 $('#area2Show').text(item.area2);
+
+                $('#area3Id').val(item.area3Id).change();
+                $('#area3Show').text(item.area3);
 
                 if(item.cover){
                     $('#coverPad').show().find('#cover').attr('src',item.cover)
@@ -537,10 +566,12 @@ for (var i=1 ;i<=10;i++) {
            param.type= $('#type').val();
            param.orderNo= $('#orderNo').val();
            param.address= $('#address').val();
-           param.area1Id= $('#area1Id').val();
-           param.area2Id= $('#area2Id').val();
-           param.area1= $('#area1Id').val()?$('#area1Id > option:selected').text():'';
-           param.area2=$('#area2Id').val()?$('#area2Id > option:selected').text():'';
+           param.area1Id = $('#area1Id').val();
+           param.area2Id = $('#area2Id').val();
+           param.area3Id = $('#area3Id').val();
+           param.area1 = $('#area1Id').val() ? $('#area1Id > option:selected').text() : '';
+           param.area2 = $('#area2Id').val() ? $('#area2Id > option:selected').text() : '';
+           param.area3 = $('#area3Id').val() ? $('#area3Id > option:selected').text() : '';
            param.startSaleTime= $('#startSaleTime').val()?new Date($('#startSaleTime').val()).toJSON().split('T')[0]:'';
 
            $('[name=sectionPad]').each(function(index,ele){

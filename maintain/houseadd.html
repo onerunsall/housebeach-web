@@ -81,9 +81,11 @@
                       style="width:30%;display: inline-block;text-align: right;vertical-align: top">地区</span>
                 <span class="title" style="width:5%;display: inline-block;"></span>
                 <span style="width:50%"><select id="area1Id" class="giveup-cache" style="vertical-align: middle;"
-                                                onchange="renderArea2Select()"><option value="">选择省</option></select>
-                    <select id="area2Id" class="giveup-cache" style="margin-left:3px;vertical-align: middle;"><option
-                            value="">选择市</option></select></span>
+                                                onchange="renderArea2Select()"><option value="">请选择</option></select>
+                    <select id="area2Id" class="giveup-cache" style="margin-left:3px;vertical-align: middle;"  onchange="renderArea3Select()"><option
+                            value="">请选择</option></select>
+                 <select id="area3Id" class="giveup-cache" style="margin-left:3px;vertical-align: middle;"><option
+                         value="">请选择</option></select></span>
             </div>
 
             <div style="margin:15px 0;">
@@ -338,12 +340,16 @@
             area1Code = $('#area1Id').val()
             if (!area1Code) {
                 $('#area2Id').html('')
-                $('#area2Id').append('<option value="">选择市</option>')
+                $('#area2Id').append('<option value="">请选择</option>')
+                $('#area3Id').html('')
+                $('#area3Id').append('<option value="">请选择</option>')
                 return;
             }
         }
         $('#area2Id').html('')
-        $('#area2Id').append('<option value="">选择市</option>')
+        $('#area2Id').append('<option value="">请选择</option>')
+        $('#area3Id').html('')
+        $('#area3Id').append('<option value="">请选择</option>')
         $.ajaxSetup({
             async: false
         });
@@ -353,7 +359,26 @@
             })
         })
     }
-
+    function renderArea3Select(area2Code) {
+        if (!area2Code) {
+            area2Code = $('#area2Id').val()
+            if (!area2Code) {
+                $('#area3Id').html('')
+                $('#area3Id').append('<option value="">请选择</option>')
+                return;
+            }
+        }
+        $('#area3Id').html('')
+        $('#area3Id').append('<option value="">请选择</option>')
+        $.ajaxSetup({
+            async: false
+        });
+        $.get('/housebeach/resource/area3.json', null, function (res) {
+            $(res['code' + area2Code].children).each(function (index, ele) {
+                $('#area3Id').append('<option value="' + ele.code + '">' + ele.name + '</option>');
+            })
+        })
+    }
 
     $('[name=clearBtn]').click(function () {
         giveup.cache.clearAll()
@@ -381,8 +406,10 @@
         param.address = $('#address').val();
         param.area1Id = $('#area1Id').val();
         param.area2Id = $('#area2Id').val();
+        param.area3Id = $('#area3Id').val();
         param.area1 = $('#area1Id').val() ? $('#area1Id > option:selected').text() : '';
         param.area2 = $('#area2Id').val() ? $('#area2Id > option:selected').text() : '';
+        param.area3 = $('#area3Id').val() ? $('#area3Id > option:selected').text() : '';
         param.startSaleTime = $('#startSaleTime').val() ? new Date($('#startSaleTime').val()).toJSON().split('T')[0] : '';
 
 
