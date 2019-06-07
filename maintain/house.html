@@ -112,7 +112,7 @@
                         <div  v-for='item in items' :key="item.sysparamCode" class="row row-item" >
                             <span class="cell " style="width:50px;text-align: center"><input type="radio" name="itemChosen" style="margin:0"></span>
                             <span class="cell "  :title="item.name" v-html="giveup.strongKeyword(item.name, queryParams.kw)"></span>
-                            <span class="cell "  :title="item.area1+' '+item.area2"  v-html="giveup.strongKeyword(item.area1+' '+item.area2, queryParams.kw)"></span>
+                            <span class="cell "  :title="(item.area1||'')+' '+(item.area2||'')"  v-html="giveup.strongKeyword((item.area1||'')+' '+(item.area2||''), queryParams.kw)"></span>
                             <span class="cell "  style="width:50px;text-align: center">
                                   <span  onclick="giveup.imgPreview($(this).attr('imgSrc'))" :imgSrc="item.cover" style="width:30px;cursor:pointer;display: inline-block;   background-position: 50% 50%; background-size: cover;" :style="{backgroundImage:'url(' + item.cover + ')'}">
                                       <img  src="/housebeach/resource/xy.png" style=" max-width:100%;visibility: hidden;vertical-align: middle;"/>
