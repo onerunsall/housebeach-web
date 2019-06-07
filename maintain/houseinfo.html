@@ -28,6 +28,7 @@
     <script charset="utf-8" src="/housebeach/libs/kindeditor/kindeditor-all.js"></script>
     <script charset="utf-8" src="/housebeach/libs/kindeditor/lang/zh-CN.js"></script>
     <script charset="utf-8" src="/housebeach/libs/kindeditor/plugins/code/prettify.js"></script>
+    <script src="/housebeach/libs/moment.js"></script>
     <style>
 
 
@@ -109,7 +110,7 @@
             <span>
                     <span id="coverPad" style="display:none;margin-right:5px;">
                         <img id="cover" onclick="giveup.imgPreview(this.src)" style="width:50px;cursor: pointer;margin-right:5px;" />
-                        <span style="cursor:pointer" class="valueAlter" onclick="$('#coverPad').hide()">X</span>
+                        <span style="cursor:pointer" class="valueAlter" onclick="$('#coverPad').hide();$('#cover').attr('src','')">X</span>
                     </span>
                 <img id="coverAlter" class="valueAlter" src="/housebeach/resource/add.jpg" style="width:20px;cursor:pointer;" /></span>
         </div>
@@ -134,7 +135,7 @@
             <span class="title" style="width:5%;display: inline-block;"></span>
             <span style="width:50%">
                  <span id="averagePriceShow" class="valueShow"></span>
-                <input id="averagePrice"  class="valueAlter"   type="number"  style="text-align: center;padding:0 3px;width:7%"  placeholder=""/><span style="margin-left:5px;font-size:12px">元/平方</span></span>
+                <input id="averagePrice"  class="valueAlter"   type="number"  style="text-align: right;padding:0 3px;width:7%"  placeholder=""/><span style="margin-left:5px;font-size:12px">元/平方</span></span>
         </div>
 
         <div style="margin:15px 0;">
@@ -142,7 +143,7 @@
             <span class="title" style="width:5%;display: inline-block;"></span>
             <span style="width:50%">
                 <span id="unitPriceMinShow" class="valueShow"></span>
-                <input id="unitPriceMin"  class="valueAlter"   type="number"  style="text-align: center;padding:0 3px;width:7%"  placeholder=""/><span style="margin-left:5px;font-size:12px">元/平方</span></span>
+                <input id="unitPriceMin"  class="valueAlter"   type="number"  style="text-align: right;padding:0 3px;width:7%"  placeholder=""/><span style="margin-left:5px;font-size:12px">元/平方</span></span>
         </div>
 
         <div style="margin:15px 0;">
@@ -150,7 +151,7 @@
             <span class="title" style="width:5%;display: inline-block;"></span>
             <span style="width:50%">
                  <span id="unitPriceMaxShow" class="valueShow"></span>
-                <input id="unitPriceMax"  class="valueAlter"   type="number"  style="text-align: center;padding:0 3px;width:7%"  placeholder=""/><span style="margin-left:5px;font-size:12px">元/平方</span></span>
+                <input id="unitPriceMax"  class="valueAlter"   type="number"  style="text-align: right;padding:0 3px;width:7%"  placeholder=""/><span style="margin-left:5px;font-size:12px">元/平方</span></span>
         </div>
 
         <div style="margin:15px 0;">
@@ -158,7 +159,7 @@
             <span class="title" style="width:5%;display: inline-block;"></span>
             <span style="width:50%">
                  <span id="squareMinShow" class="valueShow"></span>
-                <input id="squareMin"  class="valueAlter"   type="number"  style="text-align: center;padding:0 3px;width:7%"  placeholder=""/><span style="margin-left:5px;font-size:12px">平方</span></span>
+                <input id="squareMin"  class="valueAlter"   type="number"  style="text-align: right;padding:0 3px;width:7%"  placeholder=""/><span style="margin-left:5px;font-size:12px">平方</span></span>
         </div>
 
         <div style="margin:15px 0;">
@@ -166,7 +167,7 @@
             <span class="title" style="width:5%;display: inline-block;"></span>
             <span style="width:50%">
                  <span id="squareMaxShow" class="valueShow"></span>
-                <input id="squareMax"  class="valueAlter"   type="number"  style="text-align: center;padding:0 3px;width:7%"  placeholder=""/><span style="margin-left:5px;font-size:12px">平方</span></span>
+                <input id="squareMax"  class="valueAlter"   type="number"  style="text-align: right;padding:0 3px;width:7%"  placeholder=""/><span style="margin-left:5px;font-size:12px">平方</span></span>
         </div>
 
         <div style="margin:15px 0;">
@@ -246,7 +247,7 @@
             <span>
                     <span id="backCoverPad" style="margin-right:5px;display:none;">
                         <img id="backCover" onclick="giveup.imgPreview(this.src)"  style="width:50px;cursor: pointer;margin-right:5px;" />
-                        <span style="cursor:pointer" class="valueAlter" onclick="$('#backCoverPad').hide()">X</span>
+                        <span style="cursor:pointer" class="valueAlter" onclick="$('#backCoverPad').hide();$('#backCover').attr('src','')">X</span>
                     </span>
                 <img id="backCoverAlter" class="valueAlter" src="/housebeach/resource/add.jpg" style="width:20px;cursor:pointer;" /></span>
         </div>
@@ -259,7 +260,7 @@
             <span class="title" style="width:5%;display: inline-block;"></span>
             <span style="width:50%">
                  <span id="orderNoShow" class="valueShow"></span>
-                <input id="orderNo"  class="valueAlter"   type="number"  style="text-align: center;padding:0 3px;width:7%"  placeholder=""/></span>
+                <input id="orderNo"  class="valueAlter"   type="number"  style="text-align: right;padding:0 3px;width:7%"  placeholder=""/></span>
         </div>
 
         <div style="margin:15px 0;">
@@ -390,8 +391,8 @@
             if (res.code == 0) {
                 house = item = res.data;
 
-                $('#alterTimeShow').text(new Date(item.alterTime).toJSON().replace('T',' ').slice(0,-5))
-                $('#addTimeShow').text(new Date(item.addTime).toJSON().replace('T',' ').slice(0,-5))
+                $('#alterTimeShow').text(moment(item.alterTime).format('YYYY-MM-DD HH:mm:ss'))
+                $('#addTimeShow').text(moment(item.addTime).format('YYYY-MM-DD HH:mm:ss'))
 
                 $('#name').val(item.name);
                 $('#nameShow').text(item.name);
@@ -493,7 +494,8 @@ for (var i=1 ;i<=10;i++) {
                 $('#squareMax').val(item.squareMax);
                 $('#squareMaxhow').text(item.squareMax);
 
-                $('#startSaleTime').val(item.startSaleTime?new Date(item.startSaleTime).toJSON().substr(0,7):null);
+
+                $('#startSaleTime').val(item.startSaleTime? moment(item.startSaleTime).format('YYYY-MM-DD'):null);
                 $('#startSaleTimeShow').text($('#startSaleTime').val());
 
 

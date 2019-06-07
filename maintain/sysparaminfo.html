@@ -20,7 +20,7 @@
     <script src="/housebeach/libs/giveup.cache.js"></script>
     <script src="/housebeach/libs/public.js"></script>
     <script src="/housebeach/libs/layer/layer.js"></script>
-
+    <script src="/housebeach/libs/moment.js"></script>
 
     <style>
 
@@ -124,7 +124,7 @@
 
                 $('#remarkShow').text(sysparam.remark);
 
-                $('#alterTimeShow').text(sysparam.alterTime?new Date(sysparam.alterTime).toJSON().replace('T',' ').slice(0,-5):null);
+                $('#alterTimeShow').text(moment(sysparam.alterTime).format('YYYY-MM-DD HH:mm:ss'));
 
             } else {
                alert(res.codeMsg)

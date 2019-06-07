@@ -21,6 +21,16 @@
 </head>
 
 <body>
+<div id="topIntroInfo" style="padding:5px;background-color: #E6E6E6;"><img style="width:20px;height:20px;vertical-align: middle;display:none" />
+    <button style="position: absolute;top: 55px;z-index: 999999999;" onclick="location.reload()">首页</button>
+    <img name="r1Img"  style="width:25px;display: none;"/>
+    <span style="display: inline-block;vertical-align: middle;letter-spacing:1px;font-weight: 600;margin-left:5px;">
+        <span name="r2Text" style="font-size: 12px"></span>
+        <img style="height: 11px;" src="/housebeach/resource/123.png"/><br/>
+        <span  name="r3Text" style="letter-spacing:1px;color:red;"></span>
+    </span>
+    <a name="r4Tel" style="font-size: 12px;color:inherit;margin-left:30px;display: inline-block;" ></a>
+</div>
 <div class="menu-btn hidden-md hidden-lg">
     <b class="tr"></b>
     <b class="tr"></b>
@@ -348,7 +358,24 @@
                 $('.telshow').text(publicInfo.tel)
                 $('.addressShow').text(publicInfo.address)
                 $('.qqa').attr('href', 'http://wpa.qq.com/msgrd?v=6&uin=' + publicInfo.QQ+'&site=qq&menu=yes')
-
+                if(publicInfo.topIntroInfoShowIs=='1'){
+                    $('#topIntroInfo').show()
+                    var topIntroInfos = publicInfo.topIntroInfo.split('+=+')
+                    if(topIntroInfos[0]){
+                        $('#topIntroInfo [name=r1Img]').attr('src',topIntroInfos[0]).show();
+                    }
+                    if(topIntroInfos[1]){
+                        $('#topIntroInfo [name=r2Text]').text(topIntroInfos[1])
+                    }
+                    if(topIntroInfos[2]){
+                        $('#topIntroInfo [name=r3Text]').text(topIntroInfos[2])
+                    }
+                    if(topIntroInfos[3]){
+                        $('#topIntroInfo [name=r4Tel]').text(topIntroInfos[3]).attr('href','tel:'+topIntroInfos[3])
+                    }
+                }else{
+                    $('#topIntroInfo').hide()
+                }
 
             }
         }

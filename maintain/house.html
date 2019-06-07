@@ -20,6 +20,7 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/vue-cookies@1.5.12/vue-cookies.js"></script>
     <script src="/housebeach/libs/layer/layer.js"></script>
+    <script src="/housebeach/libs/moment.js"></script>
 
     <style>
         .cell {
@@ -31,44 +32,13 @@
             white-space: nowrap;
             text-overflow: ellipsis;
             cursor: default;
-        }
-
-        .cell1 {
-            width: 60px;
-        }
-
-        .cell2 {
-            width: 200px;
-            border-left: 1px solid #7d7d7d;
-        }
-
-        .cell3 {
             width: 150px;
             border-left: 1px solid #7d7d7d;
-        }
 
-        .cell4 {
-            width: 60px;
-            border-left: 1px solid #7d7d7d;
         }
-
-        .cell5 {
-            width: 100px;
-            border-left: 1px solid #7d7d7d;
+        .row .cell {
+            text-align: left;
         }
-        .cell6 {
-            width: 100px;
-            border-left: 1px solid #7d7d7d;
-        }
-        .cell7 {
-            width: 150px;
-            border-left: 1px solid #7d7d7d;
-        }
-        .cell8 {
-            width: 150px;
-            border-left: 1px solid #7d7d7d;
-        }
-
         .row {
             border-bottom: 1px solid #7d7d7d;
             padding: 3px 0;
@@ -118,41 +88,41 @@
 
 <div style="clear: both"></div>
 <div id="itemsContainer" style="width:99%;border: 2px solid black;margin:0 auto;margin-top:10px;position:relative">
-        <div id="sum" style="border-bottom: 1px solid black;font-size: 15px;padding:3px;color: #1006F1;">{{'总条数 ' + sum.totalItemCount }}
+    <div id="sum" style="border-bottom: 1px solid black;font-size: 15px;padding:3px;color: #1006F1;">总条数:<span>{{sum.totalItemCount}}</span>
         </div>
         <div class="row-title">
-            <span class="cell cell1">选择</span>
-            <span class="cell cell2">楼盘</span>
-            <span class="cell cell3">地区</span>
-            <span class="cell cell4">封面</span>
-            <span class="cell cell5" style="cursor: pointer" @click="sortItems('squareMin')">面积<span
+            <span class="cell " style="width:50px;">选择</span>
+            <span class="cell ">楼盘</span>
+            <span class="cell ">地区</span>
+            <span class="cell " style="width:50px;">封面</span>
+            <span class="cell " style="cursor: pointer" @click="sortItems('squareMin')">面积<span
                     class="sortBtn">{{newSort?'-':(sorts.squareMin=='desc'?'↓':(sorts.squareMin=='asc'?'↑':'-'))}}</span></span>
-            <span class="cell cell6" style="cursor: pointer" @click="sortItems('averagePrice')">均价<span
+            <span class="cell " style="cursor: pointer" @click="sortItems('averagePrice')">均价<span
                     class="sortBtn">{{newSort?'-':(sorts.averagePrice=='desc'?'↓':(sorts.averagePrice=='asc'?'↑':'-'))}}</span></span>
-            <span class="cell cell6" style="cursor: pointer" @click="sortItems('orderNo')">排序<span
+            <span class="cell " style="cursor: pointer" @click="sortItems('orderNo')">排序<span
                     class="sortBtn">{{newSort?'-':(sorts.orderNo=='desc'?'↓':(sorts.orderNo=='asc'?'↑':'-'))}}</span></span>
-            <span class="cell cell7" style="cursor: pointer" @click="sortItems('alterTime')">更新时间<span
+            <span class="cell " style="cursor: pointer" @click="sortItems('alterTime')">更新时间<span
                     class="sortBtn">{{newSort?'-':(sorts.alterTime=='desc'?'↓':(sorts.alterTime=='asc'?'↑':'-'))}}</span></span>
-            <span class="cell cell8">操作</span>
+            <span class="cell ">操作</span>
         </div>
 
             <div name="itemsShow" style="height:400px;border-top:1px solid black;border-bottom:1px solid black;overflow: auto">
                 <div v-show="sum.totalItemCount == 0"
                 style="margin-top:10%;text-align:center;color:#7d7d7d">无数据</div>
                         <div  v-for='item in items' :key="item.sysparamCode" class="row row-item" >
-                            <span class="cell cell1"><input type="radio" name="itemChosen" style="margin:0"></span>
-                            <span class="cell cell2" :title="item.name" v-html="giveup.strongKeyword(item.name, queryParams.kw)"></span>
-                            <span class="cell cell3" :title="item.area1+' '+item.area2"  v-html="giveup.strongKeyword(item.area1+' '+item.area2, queryParams.kw)"></span>
-                            <span class="cell cell4"  >
+                            <span class="cell " style="width:50px;text-align: center"><input type="radio" name="itemChosen" style="margin:0"></span>
+                            <span class="cell "  :title="item.name" v-html="giveup.strongKeyword(item.name, queryParams.kw)"></span>
+                            <span class="cell "  :title="item.area1+' '+item.area2"  v-html="giveup.strongKeyword(item.area1+' '+item.area2, queryParams.kw)"></span>
+                            <span class="cell "  style="width:50px;text-align: center">
                                   <span  onclick="giveup.imgPreview($(this).attr('imgSrc'))" :imgSrc="item.cover" style="width:30px;cursor:pointer;display: inline-block;   background-position: 50% 50%; background-size: cover;" :style="{backgroundImage:'url(' + item.cover + ')'}">
                                       <img  src="/housebeach/resource/xy.png" style=" max-width:100%;visibility: hidden;vertical-align: middle;"/>
                                 </span>
                                 </span>
-                            <span class="cell cell5"   v-html="item.squareMin+'-'+item.squareMax"></span>
-                            <span class="cell cell6"   v-html="item.averagePrice" style="text-align: right"></span>
-                            <span class="cell cell6"   v-html="item.orderNo" style="text-align: right"></span>
-                            <span class="cell cell7" >{{new Date(item.alterTime).toLocaleDateString().replace(/\//g,'-')+' '+ new Date(item.alterTime).toTimeString().split('GMT')[0].replace(/\s/g,'')}}</span>
-                            <span class="cell cell8" style="text-align: left"><button  @click="window.location.href = `./houseinfo.html?houseId=${item.houseId}&currentPath=楼盘详情`">详情</button><button  style="margin-left:3px;" @click="itemDel(item)">删除</button></span>
+                            <span class="cell "   v-html="item.squareMin+'-'+item.squareMax" style="text-align: center"></span>
+                            <span class="cell "   v-html="item.averagePrice" style="text-align: right"></span>
+                            <span class="cell "   v-html="item.orderNo" style="text-align: right"></span>
+                            <span class="cell " >{{moment(item.alterTime).format('YYYY-MM-DD HH:mm:ss')}}</span>
+                            <span class="cell " style="text-align: left"><button  @click="window.location.href = `./houseinfo.html?houseId=${item.houseId}&currentPath=楼盘详情`">详情</button><button  style="margin-left:3px;" @click="itemDel(item)">删除</button></span>
                     </div>
 
         </div>
@@ -188,6 +158,9 @@
     Vue.prototype.giveup=giveup;
     Vue.prototype.navim=navim;
     Vue.prototype.window=window;
+    Vue.prototype.moment=moment;
+
+
     var app = new Vue({
         el: '#app',
         data: {

@@ -107,7 +107,7 @@
                         <img id="cover" onclick="giveup.imgPreview(this.src)"
                              src="/housebeach/resource/defaultHouseCover.jpg"
                              style="width:50px;cursor: pointer;margin-right:5px;" class="giveup-cache"/>
-                        <span style="cursor:pointer" onclick="$('#coverPad').hide()">X</span>
+                        <span style="cursor:pointer" onclick="$('#coverPad').hide();$('#cover').attr('src','')">X</span>
                     </span>
                 <img id="coverAlter" src="/housebeach/resource/add.jpg" style="width:20px;cursor:pointer;"/></span>
             </div>
@@ -130,7 +130,7 @@
                 <span class="title" style="width:30%;display: inline-block;text-align: right">均价</span>
                 <span class="title" style="width:5%;display: inline-block;"></span>
                 <span style="width:50%"><input id="averagePrice" class="giveup-cache" type="number"
-                                               style="text-align: center;padding:0 3px;width:7%" placeholder=""/><span
+                                               style="text-align: right;padding:0 3px;width:7%" placeholder=""/><span
                         style="margin-left:5px;font-size:12px">元/平方</span></span>
             </div>
 
@@ -138,7 +138,7 @@
                 <span class="title" style="width:30%;display: inline-block;text-align: right">最低价</span>
                 <span class="title" style="width:5%;display: inline-block;"></span>
                 <span style="width:50%"><input id="unitPriceMin" class="giveup-cache" type="number"
-                                               style="text-align: center;padding:0 3px;width:7%" placeholder=""/><span
+                                               style="text-align: right;padding:0 3px;width:7%" placeholder=""/><span
                         style="margin-left:5px;font-size:12px">元/平方</span></span>
             </div>
 
@@ -146,7 +146,7 @@
                 <span class="title" style="width:30%;display: inline-block;text-align: right">最高价</span>
                 <span class="title" style="width:5%;display: inline-block;"></span>
                 <span style="width:50%"><input id="unitPriceMax" class="giveup-cache" type="number"
-                                               style="text-align: center;padding:0 3px;width:7%" placeholder=""/><span
+                                               style="text-align: right;padding:0 3px;width:7%" placeholder=""/><span
                         style="margin-left:5px;font-size:12px">元/平方</span></span>
             </div>
 
@@ -154,7 +154,7 @@
                 <span class="title" style="width:30%;display: inline-block;text-align: right">最低面积</span>
                 <span class="title" style="width:5%;display: inline-block;"></span>
                 <span style="width:50%"><input id="squareMin" class="giveup-cache" type="number"
-                                               style="text-align: center;padding:0 3px;width:7%" placeholder=""/><span
+                                               style="text-align: right;padding:0 3px;width:7%" placeholder=""/><span
                         style="margin-left:5px;font-size:12px">平方</span></span>
             </div>
 
@@ -162,7 +162,7 @@
                 <span class="title" style="width:30%;display: inline-block;text-align: right">最高面积</span>
                 <span class="title" style="width:5%;display: inline-block;"></span>
                 <span style="width:50%"><input id="squareMax" class="giveup-cache" type="number"
-                                               style="text-align: center;padding:0 3px;width:7%" placeholder=""/><span
+                                               style="text-align: right;padding:0 3px;width:7%" placeholder=""/><span
                         style="margin-left:5px;font-size:12px">平方</span></span>
             </div>
 
@@ -249,7 +249,7 @@
                     <span id="backCoverPad" style="margin-right:5px;display:none;">
                         <img id="backCover" onclick="giveup.imgPreview(this.src)"
                              style="width:50px;cursor: pointer;margin-right:5px;" class="giveup-cache"/>
-                        <span style="cursor:pointer" onclick="$('#backCoverPad').hide()">X</span>
+                        <span style="cursor:pointer" onclick="$('#backCoverPad').hide();$('#backCover').attr('src','')">X</span>
                     </span>
                 <img id="backCoverAlter" src="/housebeach/resource/add.jpg" style="width:20px;cursor:pointer;"/></span>
             </div>
@@ -259,7 +259,7 @@
                 <span class="title" style="width:30%;display: inline-block;text-align: right">排序</span>
                 <span class="title" style="width:5%;display: inline-block;"></span>
                 <span style="width:50%"><input id="orderNo" class="giveup-cache" type="number"
-                                               style="text-align: center;padding:0 3px;width:7%" placeholder=""/></span>
+                                               style="text-align: right;padding:0 3px;width:7%" placeholder=""/></span>
             </div>
 
         </fieldset>

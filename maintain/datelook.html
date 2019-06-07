@@ -20,7 +20,7 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/vue-cookies@1.5.12/vue-cookies.js"></script>
     <script src="/housebeach/libs/layer/layer.js"></script>
-
+    <script src="/housebeach/libs/moment.js"></script>
     <style>
         .cell {
             text-align: center;
@@ -31,39 +31,12 @@
             white-space: nowrap;
             text-overflow: ellipsis;
             cursor: default;
-        }
-
-        .cell1 {
-            width: 60px;
-        }
-
-        .cell2 {
             width: 150px;
             border-left: 1px solid #7d7d7d;
         }
 
-        .cell3 {
-            width: 150px;
-            border-left: 1px solid #7d7d7d;
-        }
-
-        .cell4 {
-            width: 150px;
-            border-left: 1px solid #7d7d7d;
-        }
-
-        .cell5 {
-            width: 150px;
-            border-left: 1px solid #7d7d7d;
-        }
-        .cell6 {
-            width: 150px;
-            border-left: 1px solid #7d7d7d;
-        }
-
-        .cell7 {
-            width: 150px;
-            border-left: 1px solid #7d7d7d;
+        .row .cell {
+            text-align: left;
         }
 
         .row {
@@ -113,16 +86,16 @@
 
 <div style="clear: both"></div>
 <div id="itemsContainer" style="width:99%;border: 2px solid black;margin:0 auto;margin-top:10px;position:relative">
-        <div id="sum" style="border-bottom: 1px solid black;font-size: 15px;padding:3px;color: #1006F1;">{{'总条数 ' + sum.totalItemCount }}
+    <div id="sum" style="border-bottom: 1px solid black;font-size: 15px;padding:3px;color: #1006F1;">总条数:<span>{{sum.totalItemCount}}</span>
         </div>
         <div class="row-title">
-            <span class="cell cell1">选择</span>
-            <span class="cell cell2">姓名</span>
-            <span class="cell cell3">电话</span>
-            <span class="cell cell4">楼盘</span>
-            <span class="cell cell4">车牌号</span>
-            <span class="cell cell5">时间</span>
-            <span class="cell cell6" style="cursor: pointer" @click="sortItems('addTime')">发布时间<span
+            <span class="cell " style="width:50px;">选择</span>
+            <span class="cell ">姓名</span>
+            <span class="cell ">电话</span>
+            <span class="cell ">楼盘</span>
+            <span class="cell ">车牌号</span>
+            <span class="cell ">时间</span>
+            <span class="cell " style="cursor: pointer" @click="sortItems('addTime')">发布时间<span
                     class="sortBtn">{{newSort?'-':(sorts.addTime=='desc'?'↓':(sorts.addTime=='asc'?'↑':'-'))}}</span></span>
             <span class="cell cell7">操作</span>
         </div>
@@ -131,14 +104,14 @@
                 <div v-show="sum.totalItemCount == 0"
                 style="margin-top:10%;text-align:center;color:#7d7d7d">无数据</div>
                         <div  v-for='item in items' :key="item.sysparamCode" class="row row-item" >
-                            <span class="cell cell1"><input type="radio" name="itemChosen" style="margin:0"></span>
-                            <span class="cell cell2" :title="item.name" v-html="giveup.strongKeyword(item.name, queryParams.kw)"></span>
-                            <span class="cell cell3" :title="item.tel" v-html="giveup.strongKeyword(item.tel, queryParams.kw)"></span>
-                            <span class="cell cell4" :title="item.house" v-html="giveup.strongKeyword(item.house, queryParams.kw)"></span>
-                            <span class="cell cell4" :title="item.carLisenceNo" v-html="giveup.strongKeyword(item.carLisenceNo, queryParams.kw)"></span>
-                            <span class="cell cell5" :title="item.time" v-html="item.time"></span>
-                            <span class="cell cell6" >{{new Date(item.addTime).toLocaleDateString().replace(/\//g,'-')+' '+ new Date(item.addTime).toTimeString().split('GMT')[0].replace(/\s/g,'')}}</span>
-                            <span class="cell cell7" style="text-align: left"></span>
+                            <span class="cell " style="width:50px;text-align: center"><input type="radio" name="itemChosen" style="margin:0"></span>
+                            <span class="cell " :title="item.name" v-html="giveup.strongKeyword(item.name, queryParams.kw)"></span>
+                            <span class="cell " :title="item.tel" v-html="giveup.strongKeyword(item.tel, queryParams.kw)"></span>
+                            <span class="cell " :title="item.house" v-html="giveup.strongKeyword(item.house, queryParams.kw)"></span>
+                            <span class="cell " :title="item.carLisenceNo" v-html="giveup.strongKeyword(item.carLisenceNo, queryParams.kw)"></span>
+                            <span class="cell " :title="item.time" v-html="item.time"></span>
+                            <span class="cell " >{{moment(item.alterTime).format('YYYY-MM-DD HH:mm:ss')}}</span>
+                            <span class="cell " style="text-align: left"></span>
                     </div>
 
         </div>
@@ -174,6 +147,9 @@
     Vue.prototype.giveup=giveup;
     Vue.prototype.navim=navim;
     Vue.prototype.window=window;
+    Vue.prototype.moment=moment;
+
+
     var app = new Vue({
         el: '#app',
         data: {

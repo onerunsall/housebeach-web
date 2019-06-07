@@ -272,10 +272,13 @@ giveup.layer=function (params){
     }
 }
 
-giveup.imgPreview=function(src){
-    giveup.domUtils.layer({init:function(layer){
-        $(layer).append('<img style="margin:50px auto;display:block;position:relative;max-width:95%" src="'+src+'">')
-    },clickClose:true})
+giveup.imgPreview = function (src) {
+    if (src)
+        giveup.layer({
+            init: function (layer) {
+                $(layer).append('<img style="margin:50px auto;display:block;position:relative;max-width:95%" src="' + src + '">')
+            }, clickClose: true
+        })
 }
 
 giveup.toShow=function(value){
@@ -309,15 +312,6 @@ giveup.getEventTarget = function(e){
 }
 
 
-
-giveup.imgPreview=function(src){
-    this.layer({init:function(layer){
-            $(layer).append('<img style="margin:50px auto;display:block;position:relative;max-width:95%" src="'+src+'">')
-            layer.onclick= function (){
-                this.parentNode.removeChild(this)
-            }
-        }})
-}
 
 
 

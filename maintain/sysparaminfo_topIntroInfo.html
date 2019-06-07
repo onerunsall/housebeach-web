@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>修改汽车</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Cache-Control" content="max-age=7200"/>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <script src="/housebeach/libs/giveup.js"></script>
+    <script src="/housebeach/libs/jquery.min.js"></script>
+    <script src="/housebeach/libs/jquery.ztree.all.min.js"></script>
+    <script src="/housebeach/libs/navim.js"></script>
+    <script src="/housebeach/libs/jquery.cookie.js"></script>
+    <script src="/housebeach/libs/jquery.extend.giveup.js"></script>
+    <script src="/housebeach/libs/giveup.cache.js"></script>
+    <script src="/housebeach/libs/public.js"></script>
+    <script src="/housebeach/libs/layer/layer.js"></script>
+    <script src="/housebeach/libs/moment.js"></script>
+
+    <style>
+
+
+        .title {
+            font-weight: 600;
+        }
+
+        .valueAlter {
+            display: none
+        }
+    </style>
+
+</head>
+
+<body style="margin:0;">
+<div id="currentPath"
+     style="padding:5px 5px 5px 5px;font-size: 14px;border-bottom:1px solid black;position: fixed;background-color: white;width:100%"></div>
+<div style="height:29px"></div>
+<div style="width:100%;">
+    <div style="margin-top:20px;">
+        <button name="refreshBtn" style="margin:0 10px;margin-top:5px;width:100px;height:30px"
+                onclick=" location.reload()">刷新
+        </button>
+        <button name="alterBtn" style="margin:0 10px;margin-top:5px;width:100px;height:30px">修改</button>
+        <button name="alterCancelBtn" style="margin:0 10px;margin-top:5px;width:100px;height:30px;display: none">取消修改
+        </button>
+        <button name="alterCompleteBtn" style="margin:0 10px;margin-top:5px;width:100px;height:30px;display: none">
+            完成修改
+        </button>
+    </div>
+    <div style="margin-top:10px;"></div>
+    <form id="detailPad" style="line-height: 20px;">
+        <fieldset>
+            <legend style="color: #595959">参数详情</legend>
+            <div style="margin:15px 0;">
+                <span class="title" style="width:30%;display: inline-block;text-align: right">参数</span>
+                <span class="title" style="width:5%;display: inline-block;"></span>
+                <span style="width:50%;display: inline-block;;text-align: left"><span id="nameShow"></span></span>
+            </div>
+            <div style="margin:15px 0;">
+                <span class="title" style="width:30%;display: inline-block;text-align: right">Logo</span>
+                <span class="title" style="width:5%;display: inline-block;"></span>
+                <span>
+                    <span id="r1Pad" style="margin-right:5px;display:none;">
+                        <img id="r1" onclick="giveup.imgPreview(this.src)"
+                             style="width:50px;cursor: pointer;margin-right:5px;"/>
+                        <span style="cursor:pointer" class="valueAlter" onclick="$('#r1Pad').hide();$('#r1').attr('src','')">X</span>
+                    </span>
+                <img id="r1Alter" class="valueAlter" src="/housebeach/resource/add.jpg"
+                     style="width:20px;cursor:pointer;"/></span>
+            </div>
+
+            <div style="margin:15px 0;">
+                <span class="title"
+                      style="width:30%;display: inline-block;text-align: right;vertical-align: top">公司名</span>
+                <span class="title" style="width:5%;display: inline-block;"></span>
+                <span style="width:50%;display: inline-block;;text-align: left">
+                    <div id="r2Show" class="valueShow" style="word-wrap: break-word;word-break:break-all;"></div>
+                    <textarea id="r2" class="valueAlter" style="width:80%;padding:0 3px"
+                              onkeyup="this.v=function(){$(this).next('[name=note]').text('');if(this.value.length>100) $(this).next('[name=note]').text('过长') };this.v()"
+                              type="text" placeholder="最大长度1000"></textarea>
+                    <span name="note" style="color:red;font-size: 12px;margin-left:3px;"></span>
+                </span>
+            </div>
+            <div style="margin:15px 0;">
+                <span class="title"
+                      style="width:30%;display: inline-block;text-align: right;vertical-align: top">公司副名</span>
+                <span class="title" style="width:5%;display: inline-block;"></span>
+                <span style="width:50%;display: inline-block;;text-align: left">
+                    <div id="r3Show" class="valueShow" style="word-wrap: break-word;word-break:break-all;"></div>
+                    <textarea id="r3" class="valueAlter" style="width:80%;padding:0 3px"
+                              onkeyup="this.v=function(){$(this).next('[name=note]').text('');if(this.value.length>100) $(this).next('[name=note]').text('过长') };this.v()"
+                              type="text" placeholder="最大长度1000"></textarea>
+                    <span name="note" style="color:red;font-size: 12px;margin-left:3px;"></span>
+                </span>
+            </div>
+            <div style="margin:15px 0;">
+                <span class="title"
+                      style="width:30%;display: inline-block;text-align: right;vertical-align: top">电话</span>
+                <span class="title" style="width:5%;display: inline-block;"></span>
+                <span style="width:50%;display: inline-block;;text-align: left">
+                    <div id="r4Show" class="valueShow" style="word-wrap: break-word;word-break:break-all;"></div>
+                    <textarea id="r4" class="valueAlter" style="width:80%;padding:0 3px"
+                              onkeyup="this.v=function(){$(this).next('[name=note]').text('');if(this.value.length>100) $(this).next('[name=note]').text('过长') };this.v()"
+                              type="text" placeholder="最大长度1000"></textarea>
+                    <span name="note" style="color:red;font-size: 12px;margin-left:3px;"></span>
+                </span>
+            </div>
+            <div style="margin:15px 0;">
+                <span class="title" style="width:30%;display: inline-block;text-align: right">备注</span>
+                <span class="title" style="width:5%;display: inline-block;"></span>
+                <span style="width:50%;display: inline-block;;text-align: left"><span id="remarkShow"></span></span>
+            </div>
+            <div style="margin:15px 0;">
+                <span class="title" style="width:30%;display: inline-block;text-align: right">更新时间</span>
+                <span class="title" style="width:5%;display: inline-block;"></span>
+                <span style="width:50%;display: inline-block;;text-align: left"><span id="alterTimeShow"></span></span>
+            </div>
+        </fieldset>
+    </form>
+
+
+    <div style="margin-top:20px;">
+        <button name="refreshBtn" style="margin:0 10px;margin-top:5px;width:100px;height:30px"
+                onclick=" location.reload()">刷新
+        </button>
+        <button name="alterBtn" style="margin:0 10px;margin-top:5px;width:100px;height:30px">修改</button>
+        <button name="alterCancelBtn" style="margin:0 10px;margin-top:5px;width:100px;height:30px;display: none">取消修改
+        </button>
+        <button name="alterCompleteBtn" style="margin:0 10px;margin-top:5px;width:100px;height:30px;display: none">
+            完成修改
+        </button>
+    </div>
+    <div style="margin-top:20px;"></div>
+</div>
+
+</body>
+<script>
+    var sysparam, sysparamCode, token, queryString, currentPath;
+    queryString = giveup.parseQueryStr(location.search.substr(1));
+    token = $.cookie('token');
+    currentPath = queryString.currentPath;
+    sysparamCode = queryString.sysparamCode
+    navim.push({url: location.href, title: currentPath})
+    $('#currentPath').html('导航: ' + navim.spring())
+
+
+    $.ajaxSetup({
+        layerIndex: -1,
+        beforeSend: function () {
+            this.layerIndex = layer.load(0, {shade: [0.5, '#393D49']});
+        },
+        complete: function () {
+            layer.close(this.layerIndex);
+        }
+    });
+
+    $.ajax({
+        url: "/housebeach/maintain/sysparaminfo",
+        type: 'post',
+        async: false,
+        data: {sysparamCode: sysparamCode, token: token},
+        success: function (res) {
+            if (res.code == 0) {
+                sysparam = res.data;
+                $('#nameShow').text(sysparam.name);
+
+                var topIntroInfos = sysparam.value.split('+=+')
+                if (topIntroInfos[0]) {
+                    $('#r1').attr('src', topIntroInfos[0]);
+                    $('#r1Pad').show();
+                }
+                if (topIntroInfos[1]) {
+                    $('#r2Show').text(topIntroInfos[1])
+                    $('#r2').val(topIntroInfos[1])
+                }
+                if (topIntroInfos[2]) {
+                    $('#r3Show').text(topIntroInfos[2])
+                    $('#r3').val(topIntroInfos[2])
+                }
+                if (topIntroInfos[3]) {
+                    $('#r4Show').text(topIntroInfos[3])
+                    $('#r4').val(topIntroInfos[3])
+                }
+
+
+                $('#remarkShow').text(sysparam.remark);
+
+                $('#alterTimeShow').text(moment(sysparam.alterTime).format('YYYY-MM-DD HH:mm:ss'));
+
+            } else {
+                alert(res.codeMsg)
+                resCodeProcess(res.code)
+            }
+        }
+    })
+
+
+    $('#r1Alter').click(function () {
+        $('<input type="file" name="file" style="display:none"/>').change(function () {
+            var compressIs = false;
+            var r = prompt('该文件大小' + Math.round(this.files[0].size / 1024) + 'KB，是否压缩？质量从低到高输入1-9，其他值不压缩。', '8')
+            r = parseInt(r);
+            r = (isNaN(r) || r < 1 || r > 9) ? '' : r;
+            compressIs = r == '' ? false : true;
+            if (!compressIs && !confirm('您的输入非1-9，将使用原图，确定？'))
+                return;
+
+            var inputDom = this;
+            var file = inputDom.files[0];
+            var fd = new FormData()
+            fd.append('file', file);
+            $.ajax({
+                url: '/housebeach/imgupload?' + $.param({quality: r}),
+                type: 'POST',
+                data: fd,
+                cache: false,
+                processData: false,
+                contentType: false,
+                async: true,
+                success: function (res) {
+                    if (res.code == 0) {
+                        if (compressIs)
+                            alert('压缩后文件大小' + Math.round(res.data.size / 1024) + 'KB')
+                        $('#r1Pad').show().find('#r1').attr('src', res.data.url)
+                    } else {
+                        alert(res.codeMsg);
+                    }
+                    $(inputDom).remove()
+                }
+            })
+        }).appendTo($('body')).click()
+    })
+
+    function alter() {
+        var param = {}
+        param.sysparamCode = sysparamCode;
+        param.token = token;
+        param.r1 = $('#r1').attr("src");
+        param.r2 = $('#r2').val();
+        param.r3 = $('#r3').val();
+        param.r4 = $('#r4').val();
+
+        $.ajax({
+            url: "/housebeach/maintain/sysparamalter_topintroinfo",
+            type: 'post',
+            async: false,
+            data: param,
+            success: function (res) {
+                if (res.code == 0) {
+                    location.reload()
+                } else {
+                    alert(res.codeMsg)
+                    resCodeProcess(res.code)
+                }
+            }
+        })
+    }
+
+
+    $('[name=alterBtn]').click(function () {
+        $('.valueAlter').show()
+        $('.valueShow').hide()
+
+        $('[name=refreshBtn]').hide();
+        $('[name=alterCompleteBtn]').show();
+        $('[name=alterCancelBtn]').show();
+        $('[name=alterBtn]').hide();
+
+    })
+
+    $('[name=alterCompleteBtn]').click(function () {
+        alter();
+        $('[name=refreshBtn]').show();
+        $('[name=alterCompleteBtn]').hide();
+        $('[name=alterCancelBtn]').hide();
+        $('[name=alterBtn]').show();
+    })
+
+    $('[name=alterCancelBtn]').click(function () {
+        location.reload()
+    })
+
+</script>
+
+</html>
