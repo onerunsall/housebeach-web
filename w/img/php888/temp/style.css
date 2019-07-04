@@ -120,7 +120,7 @@ header .menu ul li.active a{ color: #fff; background: #c1182a; }
 
 .backhome{ position:fixed; left: 0; bottom: 140px; z-index: 999; width: 100%; padding-right:10px; text-align:right;}
 
-.text-8{ position:fixed; left: 0; bottom: 0; z-index: 999; width: 100%; }
+.text-8{ /*position:fixed; left: 0; bottom: 0;*/ z-index: 999; width: 100%; }
 .text-8 .biankuang{ height: 16px; background: url(text8_bian_02.png); }
 .text-8 .box{ background: #c1182a; }
 .text-8 .box .textbox{ padding:20px 0; width: 320px; color: #ffecaa; }
@@ -283,7 +283,7 @@ footer .bots .jishuzhichi a{ color: rgba(255,255,255,0.45); }
 	.text-8 .box .textbox .mc .biaoti{ font-size: 18px; line-height: 20px; }
 	.text-8 .box .textbox .mc .qita{ padding-top: 4px; font-size: 14px; line-height: 16px; }
 	.text-8 .box .textbox .jieshao{ float: left; margin-left: 10px; padding-top: 4px;font-size: 14px; line-height: 16px; }
-	.text-8 .box .biaodan{ padding: 0 0 10px; width: 100%; }
+	.text-8 .box .biaodan{ padding: 0 0 25px; width: 100%; }
 	.text-8 .box .biaodan form .hang .mc{ font-size: 14px; line-height: 30px; }
 	.text-8 .box .biaodan form .hang input{ height: 30px; font-size:12px; line-height: 28px; }
 	.text-8 .box .biaodan form button{ height: 30px; font-size: 14px; line-height: 30px; }

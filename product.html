@@ -18,18 +18,23 @@
     <script src="/housebeach/w/img/php888/temp/ie10-viewport-bug-workaround.js"></script>
     <script src="/housebeach/w/img/php888/temp/swiper.min.js"></script>
     <script src="/housebeach/libs/giveup.js"></script>
+    <link rel="stylesheet" href="/housebeach/resource/media_01.css">
+    <link rel="stylesheet" href="/housebeach/resource/media_02.css">
+    <link rel="stylesheet" href="/housebeach/resource/media_03.css">
+    <link rel="stylesheet" href="/housebeach/resource/media_04.css">
+
     <script>new WOW().init();</script>
 </head>
 <body>
-<div id="topIntroInfo" style="padding:5px;background-color: #E6E6E6;"><img style="width:20px;height:20px;vertical-align: middle;display:none" />
-    <button style="position: absolute;top: 55px;z-index: 999999999;" onclick="location.reload()">首页</button>
-    <img name="r1Img"  style="width:25px;display: none;"/>
-    <span style="display: inline-block;vertical-align: middle;letter-spacing:1px;font-weight: 600;margin-left:5px;">
+<div id="topIntroInfo" style="background-color: #E6E6E6;padding:8px"><img style="width:20px;height:20px;vertical-align: middle;display:none" />
+    <button style="position: absolute;top: 42px;left:15px;z-index: 999999999;" onclick="location.reload()">首页</button>
+    <img name="r1Img"  style="width:100px;display: none;"/>
+    <span style="display: inline-block;vertical-align: middle;font-weight: 600;margin-left:-5px;display:none;">
         <span name="r2Text" style="font-size: 12px"></span>
-        <img style="height: 11px;" src="/housebeach/resource/123.png"/><br/>
-        <span  name="r3Text" style="letter-spacing:1px;color:red;"></span>
+        <img style="height: 11px;margin-left:-4px;" src="/housebeach/resource/123.png"/><br/>
+        <span  name="r3Text" style="color:red;"></span>
     </span>
-    <a name="r4Tel" style="font-size: 12px;color:inherit;margin-left:30px;display: inline-block;" ></a>
+    <a name="r4Tel" style="font-size: 12px;color:inherit;display: inline-block;float: right;margin-right: 20px;" ></a>
 </div>
 <div class="cpbanner text-center maximg sizeCover">
     <img src="/w/u/201905/29/205813__7941eb46a23956cfc9a3370cfaef3a4a.jpg" style="max-width:100%;">
@@ -42,7 +47,7 @@
                 <div class="col-xs-12">
                     <div class="text-4 text-center">
                         <div class="box clearfix">
-                            <div class="icon pull-left"><img src="/w/img/php888/temp/text4_tel.png" alt=""></div>
+                            <div class="icon pull-left"><img src="/housebeach/w/img/php888/temp/text4_tel.png" alt=""></div>
                             <div class="biaoti pull-left">
                                 <a class='tela'  style="color:#fae4af">
                                     营销中心热线：<span class="telshow"></span></a></div>
@@ -198,126 +203,157 @@
 
 
 <div style="height:150px;"></div>
+<style>
+    #bottomBar {
+        padding:0;
+        margin:0;
+        list-style: none;
+    }
 
-<div class="text-8">
-    <div class="biankuang"></div>
-    <div class="box">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-xs-12 clearfix">
-                    <div class="textbox pull-left">
-                        <div class="mc clearfix">
-                            <div class="biaoti pull-left" id="yyleft">买房就找开发商，无中间商赚差价。<br/>报名即享专属折扣优惠。<br/>自驾登记有补贴，预约专享有班车。</div>
-                        </div>
-                    </div>
-                    <div class="biaodan pull-left">
-                        <form method="post" name="form1" id="form1"  action="?action=lijiyuyue" onSubmit="return lijiyuyue();">
-                            <div class="hang pull-left">
-                                <div class="mc pull-left">姓名:</div>
-                                <input type="text" class="pull-left tr"  id="name" name="name" required placeholder="您的姓名">
-                            </div>
-                            <div class="hang pull-left">
-                                <div class="mc pull-left">手机:</div>
-                                <input type="text" class="pull-left tr" id="mobile" name="mobile" required placeholder="请输入您的手机号" maxlength="11">
-                                <input type="hidden"  id="productid" name="productid" value="48">
-                                <input type="hidden"  id="productname" name="productname" value="颐景园江南院-浦东新区">
-                            </div>
-                            <div class="hang pull-left">
-                                <div class="mc pull-left">时间:</div>
-                                <input type="text" class="pull-left tr"  id="yuyuetime" name="yuyuetime" required placeholder="请输入看房时间">
-                            </div>
-                            <div class="hang pull-left">
-                                <div class="mc pull-left">车牌:</div>
-                                <input type="text" class="pull-left tr"  id="chepai" name="chepai" placeholder="请输入车牌号">
-                            </div>
+    #bottomBar li {
+        float: left;
+        width:25%;
+        padding:10px 0 ;
+        text-align: center;
+        background-color: #ffffff;
+        border-top:1px solid #909090;
+        border-bottom:1px solid #909090;
+        border-right:1px solid #909090;
+        color:#909090;
+    }
 
-                        </form>
-                        <!--<form>-->
-                            <!--<div style="onetelzone">-->
-                                <!--<a id="onetel" class="tela" >一键免费电话</a>-->
-                            <!--</div>-->
-                        <!--</form>-->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <style>
-        #bottomBar {
-            padding:0;
-            margin:0;
-            list-style: none;
-        }
+    #bottomBar li.active {
+        background-color:#EB4B29;
+        color:#ffffff;
+    }
 
-        #bottomBar li {
-            float: left;
-            width:25%;
-            padding:10px 0 ;
-            text-align: center;
-            background-color: #ffffff;
-            border-top:1px solid #909090;
-            border-bottom:1px solid #909090;
-            border-right:1px solid #909090;
-            color:#909090;
-        }
+    #bottomBar li.active span.bk1{
+        background-image: url('/housebeach/resource/yuyueback.png')!important;
+    }
+    #bottomBar li.active span.bk2{
+        background-image: url('/housebeach/resource/qicheback.png')!important;
+    }
+    #bottomBar li.active span.bk3{
+        background-image: url('/housebeach/resource/zixunback.png')!important;
+    }
+    #bottomBar li.active span.bk4{
+        background-image: url('/housebeach/resource/dianhuaback.png')!important;
+    }
+    #bottomBar li .bk{
+        display: inline-block;
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        width: 30%;
+    }
+    #bottomBar .bk img {
+        width:100%;
+        visibility: hidden;
+    }
 
-        #bottomBar li.active {
-            background-color:#EB4B29;
-            color:#ffffff;
-        }
+    #bottomBar li:last-child {
+        border-right:none;
+    }
 
-        #bottomBar li.active span.bk1{
-            background-image: url('/housebeach/resource/yuyueback.png')!important;
-        }
-        #bottomBar li.active span.bk2{
-            background-image: url('/housebeach/resource/qicheback.png')!important;
-        }
-        #bottomBar li.active span.bk3{
-            background-image: url('/housebeach/resource/zixunback.png')!important;
-        }
-        #bottomBar li.active span.bk4{
-            background-image: url('/housebeach/resource/dianhuaback.png')!important;
-        }
-        #bottomBar li .bk{
-            display: inline-block;
-            background-repeat: no-repeat;
-            background-size: 100% 100%;
-            width: 30%;
-        }
-        #bottomBar .bk img {
-           width:100%;
-            visibility: hidden;
-        }
-
-        #bottomBar li:last-child {
-             border-right:none;
-         }
-
-        #bottomBar .tela {
-            text-decoration:none;
-            color:inherit;
-        }
+    #bottomBar .tela {
+        text-decoration:none;
+        color:inherit;
+    }
 
 
-    </style>
-    <ul id="bottomBar">
-        <li onclick="dateLook()" ><span class="bk bk1" style="background-image: url('/housebeach/resource/yuyue.png');">
+
+</style>
+
+
+
+<ul id="bottomBar" style="display: none;">
+    <li onclick="dateLook()" ><span class="bk bk1" style="background-image: url('/housebeach/resource/yuyue.png');">
                 <img  src="/housebeach/resource/xy.png" />
             </span><br/>提交预约</li>
-        <li onclick="$('#nb_icon_wrap').click()"><span class="bk bk2" style="background-image: url('/housebeach/resource/qiche.png');">
+    <li onclick="$('#nb_icon_wrap').click()"><span class="bk bk2" style="background-image: url('/housebeach/resource/qiche.png');">
                 <img  src="/housebeach/resource/xy.png" />
             </span><br/>免费班车</li>
-        <li onclick="$('#nb_icon_wrap').click()"><span class="bk bk3" style="background-image: url('/housebeach/resource/zixun.png');">
+    <li onclick="$('#nb_icon_wrap').click()"><span class="bk bk3" style="background-image: url('/housebeach/resource/zixun.png');">
                 <img  src="/housebeach/resource/xy.png" />
             </span><br/>获取定位</li>
-        <li><a class="tela">
+    <li><a class="tela">
             <span class="bk bk4" style="background-image: url('/housebeach/resource/dianhua.png');">
                 <img  src="/housebeach/resource/xy.png" />
             </span>
-            <br/><span>电话咨询</span></a></li>
-    </ul>
-</div>
+        <br/><span>电话咨询</span></a></li>
+</ul>
 
+<div class="youyan" style="position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;">
+    <div class="footer">
+        <div class="text-8">
+            <div class="biankuang"></div>
+            <div class="box">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-xs-12 clearfix">
+                            <div class="textbox pull-left">
+                                <div class="mc clearfix">
+                                    <div class="biaoti pull-left" id="yyleft">买房就找开发商，无中间商赚差价。<br/>报名即享专属折扣优惠。<br/>自驾登记有补贴，预约专享有班车。</div>
+                                </div>
+                            </div>
+                            <div class="biaodan pull-left">
+                                <form method="post" name="form1" id="form1"  action="?action=lijiyuyue" onSubmit="return lijiyuyue();">
+                                    <div class="hang pull-left">
+                                        <div class="mc pull-left">姓名:</div>
+                                        <input type="text" class="pull-left tr"  id="name" name="name" required placeholder="您的姓名">
+                                    </div>
+                                    <div class="hang pull-left">
+                                        <div class="mc pull-left">手机:</div>
+                                        <input type="text" class="pull-left tr" id="mobile" name="mobile" required placeholder="请输入您的手机号" maxlength="11">
+                                        <input type="hidden"  id="productid" name="productid" value="48">
+                                        <input type="hidden"  id="productname" name="productname" value="颐景园江南院-浦东新区">
+                                    </div>
+                                    <div class="hang pull-left">
+                                        <div class="mc pull-left">时间:</div>
+                                        <input type="text" class="pull-left tr"  id="yuyuetime" name="yuyuetime" required placeholder="请输入看房时间">
+                                    </div>
+                                    <div class="hang pull-left">
+                                        <div class="mc pull-left">车牌:</div>
+                                        <input type="text" class="pull-left tr"  id="chepai" name="chepai" placeholder="请输入车牌号">
+                                    </div>
+
+                                </form>
+                                <!--<form>-->
+                                <!--<div style="onetelzone">-->
+                                <!--<a id="onetel" class="tela" >一键免费电话</a>-->
+                                <!--</div>-->
+                                <!--</form>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <ul>
+            <li class="foot-li02" onclick="dateLook()">
+                <a>提交预约</a>
+            </li>
+            <li class="foot-li01" onclick="$('#nb_icon_wrap').click()">
+                <a>免费专车</a>
+            </li>
+            <li class="foot-li03">
+                <a class="tela">
+                    <span><img src="/housebeach/resource/foot-img03.png" style="    position: relative;"></span>
+                    售楼处热线
+                </a>
+            </li>
+            <li class="foot-li04" onclick="$('#nb_icon_wrap').click()">
+                <a >在线咨询</a>
+            </li>
+            <li class="foot-li05" onclick="$('#nb_icon_wrap').click()">
+                <a>获取地址</a>
+            </li>
+        </ul>
+    </div>
+</div>
 
 <style>
     #tabBar {
