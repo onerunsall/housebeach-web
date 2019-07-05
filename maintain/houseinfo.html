@@ -193,6 +193,16 @@
 
 
         <div style="margin:15px 0;">
+            <span class="title" style="width:30%;display: inline-block;text-align: right">页面标题</span>
+            <span class="title" style="width:5%;display: inline-block;"></span>
+            <span style="width:50%;display: inline-block;;text-align: left">
+                <span id="pageTitleShow" class="valueShow"></span>
+                <input id="pageTitle"  style="width:80%;padding:0 3px" class="valueAlter"  onkeyup="this.v=function(){$(this).next('[name=note]').text('');if(this.value.length>300) $(this).next('[name=note]').text('过长') };this.v()"  type="text" placeholder="最大长度300"/>
+                    <span name="note" style="color:red;font-size: 12px;margin-left:3px;"></span>
+                </span>
+        </div>
+
+        <div style="margin:15px 0;">
             <span class="title" style="width:30%;display: inline-block;text-align: right;vertical-align: top">介绍标题</span>
             <span class="title" style="width:5%;display: inline-block;"></span>
             <span style="width:40%;display: inline-block;text-align: left">
@@ -227,17 +237,13 @@
                 <textarea name="section" style="width: 100%;height: 30px;padding:1px 4px"></textarea></span>
                 </span>
             </div>
-            <div  class="valueAlter">
-                <span class="title" style="width:30%;display: inline-block;text-align: right;vertical-align: top"></span>
-                <span class="title" style="width:5%;display: inline-block;"></span>
-                <span style="width:40%;display: inline-block;text-align: left"><button onclick="$(this).parents('[name=sectionPad]').remove()" type="button">删除</button> </span>
-            </div>
+
         </div>
 
         <div name="addSectionBt" style="margin:15px 0;" class="valueAlter">
             <span class="title" style="width:30%;display: inline-block;text-align: right;vertical-align: top"></span>
             <span class="title" style="width:5%;display: inline-block;"></span>
-            <span style="width:40%;display: inline-block;text-align: left"><button onclick="addSection()" type="button">添加段落</button> </span>
+            <span style="width:40%;display: inline-block;text-align: left"><button onclick="addSection()" type="button">添加段落</button> <button onclick="$('[name=sectionPad]').last().remove()" type="button">删除段落</button> </span>
         </div>
 
 
@@ -291,6 +297,7 @@
     $('#currentPath').html('导航: '+navim.spring())
 
     var introEditor = KindEditor.create('#intro', {
+        autoHeightMode : true,
             cssPath : '/housebeach/libs/kindeditor/plugins/code/prettify.css',
             uploadJson : '/housebeach/kindeditor/upload_json.jsp',
             fileManagerJson : '/housebeach/kindeditor/file_manager_json.jsp',
@@ -436,6 +443,7 @@ for (var i=1 ;i<=10;i++) {
         var id= 'id'+giveup.randomString(8);
         sectionPad.find('[name=section]').attr('id','id'+id)
         var sectionEditor = KindEditor.create('#id'+id, {
+            autoHeightMode : true,
             cssPath : '/housebeach/libs/kindeditor/plugins/code/prettify.css',
             uploadJson : '/housebeach/kindeditor/upload_json.jsp',
             fileManagerJson : '/housebeach/kindeditor/file_manager_json.jsp',
@@ -478,6 +486,9 @@ for (var i=1 ;i<=10;i++) {
 
                 $('#saleTel').val(item.saleTel);
                 $('#saleTelShow').text(item.saleTel);
+
+                $('#pageTitle').val(item.pageTitle);
+                $('#pageTitleShow').text(item.pageTitle);
 
                 $('#type').val(item.type);
                 $('#typeShow').text(item.type==1?'住宅':item.type==2?'别墅':item.type==3?'商铺':item.type==4?'酒店式公寓':item.type==5?'写字楼':'');
@@ -524,6 +535,7 @@ for (var i=1 ;i<=10;i++) {
         sectionPad.find('[name=section]').attr('id',id)
         $($('[name=addSectionBt]')).before(sectionPad)
         var sectionEditor = KindEditor.create('#'+id, {
+            autoHeightMode : true,
                 cssPath : '/housebeach/libs/kindeditor/plugins/code/prettify.css',
                 uploadJson : '/housebeach/kindeditor/upload_json.jsp',
                 fileManagerJson : '/housebeach/kindeditor/file_manager_json.jsp',
@@ -559,6 +571,7 @@ for (var i=1 ;i<=10;i++) {
            param.backCover= $('#backCover').attr('src')
            param.saleTel= $('#saleTel').val();
            param.hotIs= $('#hotIs').val();
+           param.pageTitle= $('#pageTitle').val();
            param.type= $('#type').val();
            param.averagePrice= $('#averagePrice').val();
            param.unitPriceMin= $('#unitPriceMin').val();
@@ -683,10 +696,7 @@ for (var i=1 ;i<=10;i++) {
 
     $('[name=alterCompleteBtn]').click(function(){
         alter();
-        $('[name=refreshBtn]').show();
-        $('[name=alterCompleteBtn]').hide();
-        $('[name=alterCancelBtn]').hide();
-        $('[name=alterBtn]').show();
+
     })
 
     $('[name=alterCancelBtn]').click(function(){

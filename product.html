@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>颐景园江南院-浦东新区_新房_云房产-开发商信息展示平台</title>
+    <title></title>
     <link rel="stylesheet" href="/housebeach/w/img/php888/temp/bootstrap.min.css">
     <link rel="stylesheet" href="/housebeach/w/img/php888/temp/navigation.css">
     <link rel="stylesheet" href="/housebeach/w/img/php888/temp/tabBar.css">
@@ -29,7 +29,7 @@
 <div id="topIntroInfo" style="background-color: #E6E6E6;padding:8px"><img style="width:20px;height:20px;vertical-align: middle;display:none" />
     <button style="position: absolute;top: 42px;left:15px;z-index: 999999999;" onclick="location.reload()">首页</button>
     <img name="r1Img"  style="width:100px;display: none;"/>
-    <span style="display: inline-block;vertical-align: middle;font-weight: 600;margin-left:-5px;display:none;">
+    <span style="display: inline-block;vertical-align: middle;font-weight: 600;margin-left:-5px;">
         <span name="r2Text" style="font-size: 12px"></span>
         <img style="height: 11px;margin-left:-4px;" src="/housebeach/resource/123.png"/><br/>
         <span  name="r3Text" style="color:red;"></span>
@@ -69,7 +69,7 @@
                         <div class="box">
                             <div class="title-3 text-center">
                                 <div class="top_bg"><img src="/housebeach/w/img/php888/temp/title3_top_bg.png" alt=""></div>
-                                <div class="biaoti" id="title2" style=" white-space: pre;"></div>
+                                <div class="biaoti" id="title2" style=" "></div>
                                 <div class="bot_bg"><img src="/housebeach/w/img/php888/temp/title3_bot_bg.png" alt=""></div>
                             </div>
                             <div class="text-5 text-center maximg" style="padding-top: 0;">
@@ -83,7 +83,7 @@
                         <div class="box">
                             <div class="title-3 text-center">
                                 <div class="top_bg"><img src="/housebeach/w/img/php888/temp/title3_top_bg.png" alt=""></div>
-                                <div class="biaoti" style=" white-space: pre;"></div>
+                                <div class="biaoti" style=" "></div>
                                 <div class="bot_bg"><img src="/housebeach/w/img/php888/temp/title3_bot_bg.png" alt=""></div>
                             </div>
                             <div class="text-5 text-center maximg" style="padding-top: 0;">
@@ -179,7 +179,7 @@
                         </div>
                     </div>-->
 
-                    <div class="main-2 active" style="margin-bottom:100px">
+                    <div class="main-2 active" style="">
                         <div class="box">
                             <div class="title-4 text-center">
                                 <img src="" alt="" style="width:100%;max-width:100%;">
@@ -190,6 +190,13 @@
                                         营销中心热线：<span class="telshow"></span></a></div>
                                 <div style="clear:both"></div>
 
+                            </div>
+
+                            <div class="footer-m" style="">
+                                <!--<p>Copyright2016-2016 All Rights Reserved</p>-->
+                                <p><span name="comName"></span>   <span name="icp"></span></p>
+                                <p>联系电话：<a class="tela telshow"></a> <!--&nbsp; <span name="jingliming"></span>：<a name="jinglidianhua"></a>--> </p>
+                                <p><a href="/housebeach">返回首页</a>&nbsp; <a href="/housebeach/about.html">关于我们</a>&nbsp;<a href="/housebeach/contact.html">联系我们</a> </p>
                             </div>
                         </div>
                     </div>
@@ -259,8 +266,17 @@
         color:inherit;
     }
 
-
-
+    .footer-m {
+        /*background-color: #e4e4e4;*/
+        /*background-image: url(/housebeach/resource/footer-bg-m.jpg);*/
+        background-size: auto 100%;
+        /*color: #fff;*/
+        text-align: center;
+        padding: 20px 0;
+    }
+    .footer-m p {
+        margin-bottom: 5px;
+    }
 </style>
 
 
@@ -282,6 +298,8 @@
         <br/><span>电话咨询</span></a></li>
 </ul>
 
+
+
 <div class="youyan" style="position: fixed;
     left: 0;
     bottom: 0;
@@ -295,7 +313,7 @@
                         <div class="col-xs-12 clearfix">
                             <div class="textbox pull-left">
                                 <div class="mc clearfix">
-                                    <div class="biaoti pull-left" id="yyleft">买房就找开发商，无中间商赚差价。<br/>报名即享专属折扣优惠。<br/>自驾登记有补贴，预约专享有班车。</div>
+                                    <div class="biaoti pull-left" id="yyleft"></div>
                                 </div>
                             </div>
                             <div class="biaodan pull-left">
@@ -308,7 +326,7 @@
                                         <div class="mc pull-left">手机:</div>
                                         <input type="text" class="pull-left tr" id="mobile" name="mobile" required placeholder="请输入您的手机号" maxlength="11">
                                         <input type="hidden"  id="productid" name="productid" value="48">
-                                        <input type="hidden"  id="productname" name="productname" value="颐景园江南院-浦东新区">
+                                        <input type="hidden"  id="productname" name="productname" value="">
                                     </div>
                                     <div class="hang pull-left">
                                         <div class="mc pull-left">时间:</div>
@@ -332,6 +350,7 @@
             </div>
 
         </div>
+
         <ul>
             <li class="foot-li02" onclick="dateLook()">
                 <a>提交预约</a>
@@ -353,6 +372,7 @@
             </li>
         </ul>
     </div>
+
 </div>
 
 <style>
@@ -431,6 +451,13 @@
             if (res.code == 0) {
                 publicInfo = res.data;
                 $('.tela').attr('href', 'tel:' + publicInfo.tel)
+                $('[name=jinglidianhua]').attr('href', 'tel:' + publicInfo.jinglidianhua)
+                $('[name=jingliming]').text(publicInfo.jingliming)
+                $('[name=jinglidianhua]').text(publicInfo.jinglidianhua)
+                $('[name=comName]').text(publicInfo.comName)
+                $('[name=icp]').text(publicInfo.icp)
+                $('#yyleft').html(publicInfo.loupanxiangqingguanggaoci.replace(/\n/g,'<br/>').replace(/\s/g,'&nbsp;'))
+
                 $('.telshow').text(publicInfo.tel)
                 if(publicInfo.topIntroInfoShowIs=='1'){
                     $('#topIntroInfo').show()
@@ -471,7 +498,7 @@
                 var tel = data.saleTel?data.saleTel:publicInfo.tel
                 $('.tela').attr('href', 'tel:' + tel)
                 $('.telshow').text(tel)
-                $('#title2').html(data.introTitle)
+                $('#title2').html(data.introTitle.replace(/\n/g, "<br/>").replace(/\t/g,'&nbsp;&nbsp;&nbsp;&nbsp;').replace(/\s/g,'&nbsp;'))
 
                 if(data.introBtId){
                     $.get('/housebeach/bigtxt/'+data.introBtId+'/'+data.introBtId,null,function(res){
@@ -480,7 +507,7 @@
                 }
 
 
-
+                document.getElementsByTagName("title")[0].innerText =data.pageTitle?data.pageTitle:data.name;
 
                 for(var i =1 ;i <=10 ;i++){
                     var sectionTitle = data['section'+i+'Title'];
@@ -489,7 +516,7 @@
                         var sectionDom = $('.sectionExample').clone(true)
                         sectionDom.removeClass('sectionExample');
                         sectionDom.addClass('section')
-                        sectionDom.find('.biaoti').text(sectionTitle)
+                        sectionDom.find('.biaoti').text(sectionTitle.replace(/\n/g, "<br/>").replace(/\t/g,'&nbsp;&nbsp;&nbsp;&nbsp;').replace(/\s/g,'&nbsp;'))
                         sectionDom.show();
                         $('.sectionExample').before(sectionDom)
 

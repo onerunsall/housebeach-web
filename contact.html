@@ -24,7 +24,7 @@
 <div id="topIntroInfo" style="background-color: #E6E6E6;padding:8px"><img style="width:20px;height:20px;vertical-align: middle;display:none" />
     <button style="position: absolute;top: 42px;left:15px;z-index: 999999999;" onclick="location.reload()">首页</button>
     <img name="r1Img"  style="width:100px;display: none;"/>
-    <span style="display: inline-block;vertical-align: middle;font-weight: 600;margin-left:-5px;display:none;">
+    <span style="display: inline-block;vertical-align: middle;font-weight: 600;margin-left:-5px;">
         <span name="r2Text" style="font-size: 12px"></span>
         <img style="height: 11px;margin-left:-4px;" src="/housebeach/resource/123.png"/><br/>
         <span  name="r3Text" style="color:red;"></span>
@@ -287,7 +287,7 @@
                     <div class="jishuzhichi pull-right hidden-xs hidden-sm">技术支持：<a href="https://www.yuyueit.com/"
                                                                                     target="_blank">禹月</a>·<a
                             href="https://www.brand-plan.com/" target="_blank">品牌规划网</a>， &nbsp; <a
-                            href="http://www.miitbeian.gov.cn" target="_blank">沪ICP备19001776号-1</a>
+                            href="http://www.miitbeian.gov.cn" target="_blank" name="icp"></a>
                         <script>
                             var _hmt = _hmt || [];
                             (function () {
@@ -357,6 +357,7 @@
                 $('.tela').attr('href', 'tel:' + publicInfo.tel)
                 $('.telshow').text(publicInfo.tel)
                 $('.addressShow').text(publicInfo.address)
+                $('[name=icp]').text(publicInfo.icp)
                 $('.qqa').attr('href', 'http://wpa.qq.com/msgrd?v=6&uin=' + publicInfo.QQ+'&site=qq&menu=yes')
                 if(publicInfo.topIntroInfoShowIs=='1'){
                     $('#topIntroInfo').show()

@@ -92,14 +92,15 @@
         </div>
         <div class="row-title">
             <span class="cell " style="width:50px;">选择</span>
-            <span class="cell ">楼盘</span>
+            <span class="cell " style="width:200px">楼盘</span>
             <span class="cell ">地区</span>
             <span class="cell " style="width:50px;">封面</span>
-            <span class="cell " style="cursor: pointer" @click="sortItems('squareMin')">面积<span
+            <span class="cell " style="cursor: pointer;width:100px;" @click="sortItems('squareMin')">面积<span
                     class="sortBtn">{{newSort?'-':(sorts.squareMin=='desc'?'↓':(sorts.squareMin=='asc'?'↑':'-'))}}</span></span>
-            <span class="cell " style="cursor: pointer" @click="sortItems('averagePrice')">均价<span
+            <span class="cell " style="cursor: pointer;width:80px;" @click="sortItems('averagePrice')">均价<span
                     class="sortBtn">{{newSort?'-':(sorts.averagePrice=='desc'?'↓':(sorts.averagePrice=='asc'?'↑':'-'))}}</span></span>
-            <span class="cell " style="cursor: pointer" @click="sortItems('orderNo')">排序<span
+            <span class="cell " style="width:50px;">预览</span>
+            <span class="cell " style="cursor: pointer;width:50px;" @click="sortItems('orderNo')">排序<span
                     class="sortBtn">{{newSort?'-':(sorts.orderNo=='desc'?'↓':(sorts.orderNo=='asc'?'↑':'-'))}}</span></span>
             <span class="cell " style="cursor: pointer" @click="sortItems('alterTime')">更新时间<span
                     class="sortBtn">{{newSort?'-':(sorts.alterTime=='desc'?'↓':(sorts.alterTime=='asc'?'↑':'-'))}}</span></span>
@@ -111,16 +112,17 @@
                 style="margin-top:10%;text-align:center;color:#7d7d7d">无数据</div>
                         <div  v-for='item in items' :key="item.sysparamCode" class="row row-item" >
                             <span class="cell " style="width:50px;text-align: center"><input type="radio" name="itemChosen" style="margin:0"></span>
-                            <span class="cell "  :title="item.name" v-html="giveup.strongKeyword(item.name, queryParams.kw)"></span>
+                            <span class="cell "  :title="item.name" style="width:200px" v-html="giveup.strongKeyword(item.name, queryParams.kw)"></span>
                             <span class="cell "  :title="(item.area1||'')+' '+(item.area2||'')"  v-html="giveup.strongKeyword((item.area1||'')+' '+(item.area2||''), queryParams.kw)"></span>
                             <span class="cell "  style="width:50px;text-align: center">
                                   <span  onclick="giveup.imgPreview($(this).attr('imgSrc'))" :imgSrc="item.cover" style="width:30px;cursor:pointer;display: inline-block;   background-position: 50% 50%; background-size: cover;" :style="{backgroundImage:'url(' + item.cover + ')'}">
                                       <img  src="/housebeach/resource/xy.png" style=" max-width:100%;visibility: hidden;vertical-align: middle;"/>
                                 </span>
                                 </span>
-                            <span class="cell "   v-html="item.squareMin+'-'+item.squareMax" style="text-align: center"></span>
-                            <span class="cell "   v-html="item.averagePrice" style="text-align: right"></span>
-                            <span class="cell "   v-html="item.orderNo" style="text-align: right"></span>
+                            <span class="cell "   v-html="item.squareMin+'-'+item.squareMax" style="text-align: center;width:100px;"></span>
+                            <span class="cell "   v-html="item.averagePrice" style="text-align: right;width:80px;"></span>
+                            <span class="cell " style="width:50px;text-align: center;" ><a target="_blank" :href=`/housebeach/product.html?houseId=${item.houseId}`>预览</a></span>
+                            <span class="cell "   v-html="item.orderNo" style="text-align: right;width:50px;"></span>
                             <span class="cell " >{{moment(item.alterTime).format('YYYY-MM-DD HH:mm:ss')}}</span>
                             <span class="cell " style="text-align: left"><button  @click="window.location.href = `./houseinfo.html?houseId=${item.houseId}&currentPath=楼盘详情`">详情</button><button  style="margin-left:3px;" @click="itemDel(item)">删除</button></span>
                     </div>

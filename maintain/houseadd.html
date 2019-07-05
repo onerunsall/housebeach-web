@@ -187,6 +187,20 @@
 
 
             <div style="margin:15px 0;">
+                <span class="title" style="width:30%;display: inline-block;text-align: right">页面标题</span>
+                <span class="title" style="width:5%;display: inline-block;"></span>
+                <span style="width:50%;display: inline-block;;text-align: left"><input id="pageTitle"
+                                                                                       style="width:80%;padding:0 3px"
+                                                                                       class="giveup-cache"
+                                                                                       onkeyup="this.v=function(){$(this).next('[name=note]').text('');if(this.value.length>300) $(this).next('[name=note]').text('过长') };this.v()"
+                                                                                       type="text"
+                                                                                       placeholder="最大长度300"/>
+                    <span name="note" style="color:red;font-size: 12px;margin-left:3px;"></span>
+                </span>
+            </div>
+
+
+            <div style="margin:15px 0;">
                 <span class="title"
                       style="width:30%;display: inline-block;text-align: right;vertical-align: top">介绍标题</span>
                 <span class="title" style="width:5%;display: inline-block;"></span>
@@ -289,6 +303,7 @@
     var introEditor
     KindEditor.ready(function (K) {
         introEditor = K.create('#intro', {
+            autoHeightMode : true,
             cssPath: '/housebeach/libs/kindeditor/plugins/code/prettify.css',
             uploadJson: '/housebeach/kindeditor/upload_json.jsp',
             fileManagerJson: '/housebeach/kindeditor/file_manager_json.jsp',
@@ -411,7 +426,7 @@
         param.area2 = $('#area2Id').val() ? $('#area2Id > option:selected').text() : '';
         param.area3 = $('#area3Id').val() ? $('#area3Id > option:selected').text() : '';
         param.startSaleTime = $('#startSaleTime').val() ? new Date($('#startSaleTime').val()).toJSON().split('T')[0] : '';
-
+        param.pageTitle = $('#pageTitle').val();
 
         $('[name=sectionPad]').each(function (index, ele) {
             param['section' + (index + 1) + 'Title'] = $(ele).find('[name=sectionTitle]').val()

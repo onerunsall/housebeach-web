@@ -90,7 +90,7 @@
         <div class="row-title">
             <span class="cell " style="width:50px;">选择</span>
             <span class="cell ">参数名</span>
-            <span class="cell ">值</span>
+            <span class="cell " style="width:300px;">值</span>
             <span class="cell " style="cursor: pointer" @click="sortItems('alterTime')">更新时间<span
                     class="sortBtn">{{newSort?'-':(sorts.alterTime=='desc'?'↓':(sorts.alterTime=='asc'?'↑':'-'))}}</span></span>
             <span class="cell ">操作</span>
@@ -102,7 +102,7 @@
                         <div  v-for='item in items' :key="item.sysparamCode" class="row row-item" >
                             <span class="cell "  style="width:50px;text-align: center"><input type="radio" name="itemChosen" style="margin:0"></span>
                             <span class="cell " :title="item.name" v-html="giveup.strongKeyword(item.name, queryParams.kw)"></span>
-                            <span class="cell " :title="item.value"  v-html="giveup.strongKeyword(item.value, queryParams.kw)"></span>
+                            <span class="cell " style="width:300px;" :title="item.value"  v-html="giveup.strongKeyword(item.value, queryParams.kw)"></span>
                             <span class="cell " >{{moment(item.alterTime).format('YYYY-MM-DD HH:mm:ss')}}</span>
                             <span class="cell "><button name="detailEnt" @click="goItemInfo(item.sysparamCode)">详情</button></span>
                     </div>

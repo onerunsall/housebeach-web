@@ -110,7 +110,7 @@
                             <span class="cell " :title="item.house" v-html="giveup.strongKeyword(item.house, queryParams.kw)"></span>
                             <span class="cell " :title="item.carLisenceNo" v-html="giveup.strongKeyword(item.carLisenceNo, queryParams.kw)"></span>
                             <span class="cell " :title="item.time" v-html="item.time"></span>
-                            <span class="cell " >{{moment(item.alterTime).format('YYYY-MM-DD HH:mm:ss')}}</span>
+                            <span class="cell " >{{moment(item.addTime).format('YYYY-MM-DD HH:mm:ss')}}</span>
                             <span class="cell " style="text-align: left"></span>
                     </div>
 
