@@ -76,7 +76,7 @@
             success:function(res){
                 if(res.code == 0) {
                     $.cookie('token', res.data.token, { expires: 30 , path: '/housebeach' });
-                    location.href='../index.html';
+                    location.href='./index.html';
                 }
                 else{
                     $.removeCookie('token',{path:'/housebeach'});
@@ -105,7 +105,7 @@
                         success:function(res){
                             if(res.code == 0) {
                                 $.cookie('token', res.data.token, { expires: 30 , path: '/housebeach' });
-                                location.href='index.html';
+                                location.href='./index.html';
                             }
                             else{
                                 $.removeCookie('token',{path:'/housebeach'});
