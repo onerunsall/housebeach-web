@@ -59,8 +59,8 @@
                 <span class="title" style="width:30%;display: inline-block;text-align: right;vertical-align: top">值</span>
                 <span class="title" style="width:5%;display: inline-block;"></span>
                 <span style="width:50%;display: inline-block;;text-align: left">
-                    <div id="valueShow" class="valueShow" style="word-wrap: break-word;word-break:break-all;"></div>
-                    <textarea id="value" class="valueAlter"  style="width:80%;padding:0 3px"  onkeyup="this.v=function(){$(this).next('[name=note]').text('');if(this.value.length>100) $(this).next('[name=note]').text('过长') };this.v()"  type="text" placeholder="最大长度1000"></textarea>
+                    <textarea id="valueShow" class="valueShow" style="word-wrap: break-word;word-break:break-all;width:80%;" rows="7" disabled ></textarea>
+                    <textarea id="value" class="valueAlter" rows="7" style="width:80%;padding:0 3px"  onkeyup="this.v=function(){$(this).next('[name=note]').text('');if(this.value.length>1000) $(this).next('[name=note]').text('过长') };this.v()"  type="text" placeholder="最大长度1000"></textarea>
                     <span name="note" style="color:red;font-size: 12px;margin-left:3px;"></span>
                 </span>
             </div>
