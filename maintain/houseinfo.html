@@ -392,7 +392,7 @@
     $.ajax({
         url: "/housebeach/maintain/houseinfo",
         type: 'post',
-        async: false,
+        async: true,
         data: {houseId: houseId, token: token},
         success: function (res) {
             if (res.code == 0) {
