@@ -547,7 +547,7 @@
             url: "/housebeach/datelook",
             type: 'post',
             async: true,
-            data: {tel:$('#mobile').val(),name:$('#name').val(),time:$('#yuyuetime').val(),carLisenceNo:$('#chepai').val()},
+            data: {tel:$('#mobile').val(),name:$('#name').val(),time:$('#yuyuetime').val(),carLisenceNo:$('#chepai').val(),house:house.name},
             success: (res) => {
                 if (res.code == 0) {
                     alert('预约成功，客服会与您联系！')
