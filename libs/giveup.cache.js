@@ -41,13 +41,11 @@ var giveup = giveup ? giveup : {};
                             dom.options[j].selected = false
                     }
             } else {
-                if (value)
-                    dom.value = value
+                    dom.value = value||''
             }
             $(dom).change()
         } else if (dom.tagName == 'INPUT') {
-            if (value)
-                dom.value = value
+                dom.value = value||''
         }
     }
 
