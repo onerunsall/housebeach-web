@@ -645,6 +645,10 @@ function dateLook(){
         success: (res) => {
             if (res.code == 0) {
               alert('预约成功，客服会与您联系！')
+                $('#moblie').val('')
+                $('#name').val('')
+                $('#yuyuetime').val('')
+                $('#productname').val('')
             }else if(res.code != 98){
                 alert(res.codeMsg)
             }

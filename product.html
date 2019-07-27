@@ -179,7 +179,7 @@
                         </div>
                     </div>-->
 
-                    <div class="main-2 active" style="">
+                    <div class="main-2 active" style="margin-bottom:45px;">
                         <div class="box">
                             <div class="title-4 text-center">
                                 <img src="" alt="" style="width:100%;max-width:100%;">
@@ -192,7 +192,7 @@
 
                             </div>
 
-                            <div class="footer-m" style="">
+                            <div class="footer-m" style="display:none;">
                                 <!--<p>Copyright2016-2016 All Rights Reserved</p>-->
                                 <p><span name="comName"></span>   <span name="icp"></span></p>
                                 <p>联系电话：<a class="tela telshow"></a> <!--&nbsp; <span name="jingliming"></span>：<a name="jinglidianhua"></a>--> </p>
@@ -458,6 +458,9 @@
                 $('[name=icp]').text(publicInfo.icp)
                 $('#yyleft').html(publicInfo.loupanxiangqingguanggaoci.replace(/\n/g,'<br/>').replace(/\s/g,'&nbsp;'))
 
+                if(publicInfo.housePageBottomInfoShow=='1') {
+                    $('.footer-m').show()
+                }
                 $('.telshow').text(publicInfo.tel)
                 if(publicInfo.topIntroInfoShowIs=='1'){
                     $('#topIntroInfo').show()
@@ -551,6 +554,11 @@
             success: (res) => {
                 if (res.code == 0) {
                     alert('预约成功，客服会与您联系！')
+                    $('#mobile').val('')
+                    $('#name').val('')
+                    $('#yuyuetime').val('')
+                    $('#chepai').val('')
+
                 }else if(res.code != 98){
                     alert(res.codeMsg)
                 }
