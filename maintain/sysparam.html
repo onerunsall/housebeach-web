@@ -99,8 +99,8 @@
             <div name="itemsShow" style="height:400px;border-top:1px solid black;border-bottom:1px solid black;overflow: auto">
                 <div v-show="sum.totalItemCount == 0"
                 style="margin-top:10%;text-align:center;color:#7d7d7d">无数据</div>
-                        <div  v-for='item in items' :key="item.sysparamCode" class="row row-item" >
-                            <span class="cell "  style="width:50px;text-align: center"><input type="radio" name="itemChosen" style="margin:0"></span>
+                        <div  v-for='item in items' :key="item.sysparamCode" class="row row-item" @click="checkedItemId=item.sysparamCode"  :style="{'background-color':checkedItemId==item.sysparamCode?'#e8e8e8':''}">
+                            <span class="cell "  style="width:50px;text-align: center"><input type="radio" name="itemChosen" style="margin:0" :checked="checkedItemId==item.sysparamCode"></span>
                             <span class="cell " :title="item.name" v-html="giveup.strongKeyword(item.name, queryParams.kw)"></span>
                             <span class="cell " style="width:300px;" :title="item.value"  v-html="giveup.strongKeyword(item.value, queryParams.kw)"></span>
                             <span class="cell " >{{moment(item.alterTime).format('YYYY-MM-DD HH:mm:ss')}}</span>
@@ -157,11 +157,11 @@
             pageSize: 30,
             sum: {totalItemCount:null},
             currentPageItemCount: null,
+            checkedItemId:null,
         },
         mounted: function () {
             debugger
             this.navim.push({url: location.href, title: this.queryString.currentPath})
-            this.eventToRows()
             this.initQuery();
             this.loadItems();
         },
@@ -207,7 +207,7 @@
                 }
                 this.loadItems();
             },
-            eventToRows: function () {
+            rowClick: function () {
                 $('.row').click(function () {
                     $('.row [name=itemChosen] ').prop("checked", false);
                     $(this).find('[name=itemChosen]').prop("checked", true);

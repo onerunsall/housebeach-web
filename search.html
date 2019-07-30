@@ -352,12 +352,12 @@
             this.queryParams.ps = this.pageSize;
             this.queryParams.sorts = ''
             this.queryParams.orders = ''
-            for (i in  this.sorts) {
-
-                    this.queryParams.sorts = this.queryParams.sorts + this.sorts[i] + ','
-                    this.queryParams.orders = this.queryParams.orders + this.orders[i] + ','
-
-            }
+                for (i in  this.sorts) {
+                        this.queryParams.sorts =  this.queryParams.sorts + ','+this.sorts[i]
+                        this.queryParams.orders =this.queryParams.orders + ','+ this.orders[i]
+                }
+            this.queryParams.sorts=this.queryParams.sorts.substr(1)
+            this.queryParams.orders=this.queryParams.orders.substr(1)
             this.hasMoreItems = null
             this.itemsMap = {}
             this.items = []
