@@ -32,7 +32,7 @@ p{ padding:0px; margin:0px;}
 .main-2 .kuang_t:after{ right:-63px; top: 0; background-image: url(biankuang_rt_wk.png); }
 .main-2 .kuang_b:before{ left:-63px; bottom: 0; background-image: url(biankuang_lb_wk.png); }
 .main-2 .kuang_b:after{ right:-63px; bottom: 0; background-image: url(biankuang_rb_wk.png); }
-.main-2 .box{ position:relative; padding:15px 50px 70px; min-height: 142px; background-color: #f5f4ed; }
+.main-2 .box{ position:relative; padding:15px 50px 70px; min-height: 142px; background-color: #f5f4ed; padding: 0!important;}
 .main-2 .box .kuang_lt,.main-2 .box .kuang_rt,.main-2 .box .kuang_lb,.main-2 .box .kuang_rb{ position: absolute; z-index: 1; width: 61px; height: 71px; background-repeat: no-repeat; }
 .main-2 .box .kuang_lt{ left: 0; top: 0; background-image: url(biankuang_lt.png); }
 .main-2 .box .kuang_rt{ right: 0; top: 0; background-image: url(biankuang_rt.png); }
