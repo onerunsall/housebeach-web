@@ -1,6 +1,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="zh-cn">
 <head>
-    <link rel="shortcut icon" href="/housebeach/maintain/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/maintain/favicon.ico" type="image/x-icon" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <!-- 让 Bootstrap 兼容 IE 兼容模型 -->
@@ -13,14 +13,14 @@
     <title>云房网运维平台-登录</title>
     <link rel="stylesheet" href="libs/all.css"/>
     <link rel="stylesheet" href="login/resource/login.css"/>
-    <link rel="stylesheet" href="/housebeach/libs/bootstrap.min.css"/>
-    <script src="/housebeach/libs/giveup.js"></script>
-    <script src="/housebeach/libs/jquery.min.js"></script>
-    <script src="/housebeach/libs/navim.js"></script>
-    <script src="/housebeach/libs/jquery.cookie.js"></script>
-    <script src="/housebeach/libs/jquery.extend.giveup.js"></script>
-    <script src="/housebeach/libs/giveup.cache.js"></script>
-    <script src="/housebeach/libs/layer/layer.js"></script>
+    <link rel="stylesheet" href="/libs/bootstrap.min.css"/>
+    <script src="/libs/giveup.js"></script>
+    <script src="/libs/jquery.min.js"></script>
+    <script src="/libs/navim.js"></script>
+    <script src="/libs/jquery.cookie.js"></script>
+    <script src="/libs/jquery.extend.giveup.js"></script>
+    <script src="/libs/giveup.cache.js"></script>
+    <script src="/libs/layer/layer.js"></script>
     <script src="libs/rem.js"></script>
 </head>
 <body>
@@ -71,17 +71,17 @@
 
     if(token){
         $.ajax({
-            url:'/housebeach/maintain/loginrefresh',
+            url:'/maintain/loginrefresh',
             data:{token:token},
             type:'post',
             async:false,
             success:function(res){
                 if(res.code == 0) {
-                    $.cookie('token', res.data.token, { expires: 30 , path: '/housebeach' });
+                    $.cookie('token', res.data.token, { expires: 30 , path: '/' });
                     location.href='./index.html';
                 }
                 else{
-                    $.removeCookie('token',{path:'/housebeach'});
+                    $.removeCookie('token',{path:'/'});
                 }
             }
         })
@@ -92,7 +92,7 @@
         var username=$('.phone input').val();
         var pwd=$('.pwd input').val();
         $.ajax({
-            url:'/housebeach/maintain/login',
+            url:'/maintain/login',
             data:{username:username,pwd:pwd},
             type:'post',
             async:false,
@@ -100,17 +100,17 @@
                 if(res.code == 0) {
                     token = res.data.token;
                     $.ajax({
-                        url:'/housebeach/maintain/loginrefresh',
+                        url:'/maintain/loginrefresh',
                         data:{token:token},
                         type:'post',
                         async:false,
                         success:function(res){
                             if(res.code == 0) {
-                                $.cookie('token', res.data.token, { expires: 30 , path: '/housebeach' });
+                                $.cookie('token', res.data.token, { expires: 30 , path: '/' });
                                 location.href='./index.html';
                             }
                             else{
-                                $.removeCookie('token',{path:'/housebeach'});
+                                $.removeCookie('token',{path:'/'});
                                 resCodeProcess(res.code,res.codeMsg)
                             }
                         }

@@ -11,16 +11,16 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
-    <script src="/housebeach/libs/giveup.js"></script>
-    <script src="/housebeach/libs/jquery.min.js"></script>
-    <script src="/housebeach/libs/jquery.ztree.all.min.js"></script>
-    <script src="/housebeach/libs/navim.js"></script>
-    <script src="/housebeach/libs/jquery.cookie.js"></script>
-    <script src="/housebeach/libs/jquery.extend.giveup.js"></script>
-    <script src="/housebeach/libs/giveup.cache.js"></script>
-    <script src="/housebeach/libs/public.js"></script>
-    <script src="/housebeach/libs/layer/layer.js"></script>
-    <script src="/housebeach/libs/moment.js"></script>
+    <script src="/libs/giveup.js"></script>
+    <script src="/libs/jquery.min.js"></script>
+    <script src="/libs/jquery.ztree.all.min.js"></script>
+    <script src="/libs/navim.js"></script>
+    <script src="/libs/jquery.cookie.js"></script>
+    <script src="/libs/jquery.extend.giveup.js"></script>
+    <script src="/libs/giveup.cache.js"></script>
+    <script src="/libs/public.js"></script>
+    <script src="/libs/layer/layer.js"></script>
+    <script src="/libs/moment.js"></script>
 
     <style>
 
@@ -90,11 +90,11 @@
 
 </body>
 <script>
-    var sysparam,sysparamCode,token,queryString,currentPath;
+    var sysparam,sysparamId,token,queryString,currentPath;
     queryString = giveup.parseQueryStr(location.search.substr(1));
     token = $.cookie('token');
     currentPath=queryString.currentPath;
-    sysparamCode = queryString.sysparamCode
+    sysparamId = queryString.sysparamId
     navim.push({url:location.href,title:currentPath})
     $('#currentPath').html('导航: '+navim.spring())
 
@@ -110,10 +110,10 @@
     });
 
     $.ajax({
-        url: "/housebeach/maintain/sysparaminfo",
+        url: "/maintain/sysparaminfo",
         type: 'post',
         async: false,
-        data: {sysparamCode: sysparamCode, token: token},
+        data: {sysparamId: sysparamId, token: token},
         success: function (res) {
             if (res.code == 0) {
                 sysparam = res.data;
@@ -138,12 +138,12 @@
 
     function alter() {
         var param={}
-        param.sysparamCode=sysparamCode;
+        param.sysparamId=sysparamId;
         param.token=token;
         param.value=$('#value').val();
 
         $.ajax({
-            url: "/housebeach/maintain/sysparamalter",
+            url: "/maintain/sysparamalter",
             type: 'post',
             async: false,
             data:param ,

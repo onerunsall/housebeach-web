@@ -11,16 +11,16 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
-    <script src="/housebeach/libs/giveup.js"></script>
-    <script src="/housebeach/libs/jquery.min.js"></script>
-    <script src="/housebeach/libs/jquery.ztree.all.min.js"></script>
-    <script src="/housebeach/libs/navim.js"></script>
-    <script src="/housebeach/libs/jquery.cookie.js"></script>
-    <script src="/housebeach/libs/jquery.extend.giveup.js"></script>
-    <script src="/housebeach/libs/giveup.cache.js"></script>
-    <script src="/housebeach/libs/public.js"></script>
-    <script src="/housebeach/libs/layer/layer.js"></script>
-    <script src="/housebeach/libs/moment.js"></script>
+    <script src="/libs/giveup.js"></script>
+    <script src="/libs/jquery.min.js"></script>
+    <script src="/libs/jquery.ztree.all.min.js"></script>
+    <script src="/libs/navim.js"></script>
+    <script src="/libs/jquery.cookie.js"></script>
+    <script src="/libs/jquery.extend.giveup.js"></script>
+    <script src="/libs/giveup.cache.js"></script>
+    <script src="/libs/public.js"></script>
+    <script src="/libs/layer/layer.js"></script>
+    <script src="/libs/moment.js"></script>
 
     <style>
 
@@ -70,7 +70,7 @@
                              style="width:50px;cursor: pointer;margin-right:5px;"/>
                         <span style="cursor:pointer" class="valueAlter" onclick="$('#r1Pad').hide();$('#r1').attr('src','')">X</span>
                     </span>
-                <img id="r1Alter" class="valueAlter" src="/housebeach/resource/add.jpg"
+                <img id="r1Alter" class="valueAlter" src="/resource/add.jpg"
                      style="width:20px;cursor:pointer;"/></span>
             </div>
 
@@ -140,11 +140,11 @@
 
 </body>
 <script>
-    var sysparam, sysparamCode, token, queryString, currentPath;
+    var sysparam, sysparamId, token, queryString, currentPath;
     queryString = giveup.parseQueryStr(location.search.substr(1));
     token = $.cookie('token');
     currentPath = queryString.currentPath;
-    sysparamCode = queryString.sysparamCode
+    sysparamId = queryString.sysparamId
     navim.push({url: location.href, title: currentPath})
     $('#currentPath').html('导航: ' + navim.spring())
 
@@ -160,10 +160,10 @@
     });
 
     $.ajax({
-        url: "/housebeach/maintain/sysparaminfo",
+        url: "/maintain/sysparaminfo",
         type: 'post',
         async: false,
-        data: {sysparamCode: sysparamCode, token: token},
+        data: {sysparamId: sysparamId, token: token},
         success: function (res) {
             if (res.code == 0) {
                 sysparam = res.data;
@@ -215,7 +215,7 @@
             var fd = new FormData()
             fd.append('file', file);
             $.ajax({
-                url: '/housebeach/imgupload?' + $.param({quality: r}),
+                url: '/imgupload?' + $.param({quality: r}),
                 type: 'POST',
                 data: fd,
                 cache: false,
@@ -238,7 +238,7 @@
 
     function alter() {
         var param = {}
-        param.sysparamCode = sysparamCode;
+        param.sysparamId = sysparamId;
         param.token = token;
         param.r1 = $('#r1').attr("src");
         param.r2 = $('#r2').val();
@@ -246,7 +246,7 @@
         param.r4 = $('#r4').val();
 
         $.ajax({
-            url: "/housebeach/maintain/sysparamalter_topintroinfo",
+            url: "/maintain/sysparamalter_topintroinfo",
             type: 'post',
             async: false,
             data: param,

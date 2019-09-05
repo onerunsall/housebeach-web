@@ -9,23 +9,23 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
-    <script src="/housebeach/libs/giveup.js"></script>
-    <script src="/housebeach/libs/jquery.min.js"></script>
-    <script src="/housebeach/libs/jquery.ztree.all.min.js"></script>
-    <script src="/housebeach/libs/navim.js"></script>
-    <script src="/housebeach/libs/jquery.cookie.js"></script>
-    <script src="/housebeach/libs/jquery.extend.giveup.js"></script>
-    <script src="/housebeach/libs/giveup.cache.js"></script>
-    <script src="/housebeach/libs/public.js"></script>
-    <script src="/housebeach/libs/cropper/cropper.js"></script>
-    <link href="/housebeach/libs/cropper/cropper.css" rel="stylesheet"/>
-    <script src="/housebeach/libs/layer/layer.js"></script>
-    <script src="/housebeach/libs/apiDesk.js"></script>
-    <link rel="stylesheet" href="/housebeach/libs/kindeditor/themes/default/default.css"/>
-    <link rel="stylesheet" href="/housebeach/libs/kindeditor/plugins/code/prettify.css"/>
-    <script charset="utf-8" src="/housebeach/libs/kindeditor/kindeditor-all.js"></script>
-    <script charset="utf-8" src="/housebeach/libs/kindeditor/lang/zh-CN.js"></script>
-    <script charset="utf-8" src="/housebeach/libs/kindeditor/plugins/code/prettify.js"></script>
+    <script src="/libs/giveup.js"></script>
+    <script src="/libs/jquery.min.js"></script>
+    <script src="/libs/jquery.ztree.all.min.js"></script>
+    <script src="/libs/navim.js"></script>
+    <script src="/libs/jquery.cookie.js"></script>
+    <script src="/libs/jquery.extend.giveup.js"></script>
+    <script src="/libs/giveup.cache.js"></script>
+    <script src="/libs/public.js"></script>
+    <script src="/libs/cropper/cropper.js"></script>
+    <link href="/libs/cropper/cropper.css" rel="stylesheet"/>
+    <script src="/libs/layer/layer.js"></script>
+    <script src="/libs/apiDesk.js"></script>
+    <link rel="stylesheet" href="/libs/kindeditor/themes/default/default.css"/>
+    <link rel="stylesheet" href="/libs/kindeditor/plugins/code/prettify.css"/>
+    <script charset="utf-8" src="/libs/kindeditor/kindeditor-all.js"></script>
+    <script charset="utf-8" src="/libs/kindeditor/lang/zh-CN.js"></script>
+    <script charset="utf-8" src="/libs/kindeditor/plugins/code/prettify.js"></script>
 
     <style>
         .title {
@@ -105,11 +105,11 @@
                 <span>
                     <span id="coverPad" style="margin-right:5px;">
                         <img id="cover" onclick="giveup.imgPreview(this.src)"
-                             src="/housebeach/resource/defaultHouseCover.jpg"
+                             src="/resource/defaultHouseCover.jpg"
                              style="width:50px;cursor: pointer;margin-right:5px;" class="giveup-cache"/>
                         <span style="cursor:pointer" onclick="$('#coverPad').hide();$('#cover').attr('src','')">X</span>
                     </span>
-                <img id="coverAlter" src="/housebeach/resource/add.jpg" style="width:20px;cursor:pointer;"/></span>
+                <img id="coverAlter" src="/resource/add.jpg" style="width:20px;cursor:pointer;"/></span>
             </div>
 
             <div style="margin:15px 0;">
@@ -265,7 +265,7 @@
                              style="width:50px;cursor: pointer;margin-right:5px;" class="giveup-cache"/>
                         <span style="cursor:pointer" onclick="$('#backCoverPad').hide();$('#backCover').attr('src','')">X</span>
                     </span>
-                <img id="backCoverAlter" src="/housebeach/resource/add.jpg" style="width:20px;cursor:pointer;"/></span>
+                <img id="backCoverAlter" src="/resource/add.jpg" style="width:20px;cursor:pointer;"/></span>
             </div>
 
 
@@ -304,9 +304,9 @@
     KindEditor.ready(function (K) {
         introEditor = K.create('#intro', {
             autoHeightMode : true,
-            cssPath: '/housebeach/libs/kindeditor/plugins/code/prettify.css',
-            uploadJson: '/housebeach/kindeditor/upload_json.jsp',
-            fileManagerJson: '/housebeach/kindeditor/file_manager_json.jsp',
+            cssPath: '/libs/kindeditor/plugins/code/prettify.css',
+            uploadJson: '/kindeditor/upload_json.jsp',
+            fileManagerJson: '/kindeditor/file_manager_json.jsp',
             allowFileManager: true,
             afterCreate: function () {
                 var self = this;
@@ -342,7 +342,7 @@
         $.ajaxSetup({
             async: false
         });
-        $.get('/housebeach/resource/area1.json', null, function (res) {
+        $.get('/resource/area1.json', null, function (res) {
             $(res).each(function (index, ele) {
                 $('#area1Id').append('<option value="' + ele.code + '">' + ele.name + '</option>');
             })
@@ -368,7 +368,7 @@
         $.ajaxSetup({
             async: false
         });
-        $.get('/housebeach/resource/area2.json', null, function (res) {
+        $.get('/resource/area2.json', null, function (res) {
             $(res['code' + area1Code].children).each(function (index, ele) {
                 $('#area2Id').append('<option value="' + ele.code + '">' + ele.name + '</option>');
             })
@@ -388,7 +388,7 @@
         $.ajaxSetup({
             async: false
         });
-        $.get('/housebeach/resource/area3.json', null, function (res) {
+        $.get('/resource/area3.json', null, function (res) {
             $(res['code' + area2Code].children).each(function (index, ele) {
                 $('#area3Id').append('<option value="' + ele.code + '">' + ele.name + '</option>');
             })
@@ -434,7 +434,7 @@
         })
 
         $.ajax({
-            url: "/housebeach/maintain/houseadd",
+            url: "/maintain/houseadd",
             type: 'post',
             async: false,
             data: param,
@@ -467,9 +467,9 @@
         KindEditor.ready(function (K) {
             debugger
             sectionEditor = K.create('#' + id, {
-                cssPath: '/housebeach/libs/kindeditor/plugins/code/prettify.css',
-                uploadJson: '/housebeach/kindeditor/upload_json.jsp',
-                fileManagerJson: '/housebeach/kindeditor/file_manager_json.jsp',
+                cssPath: '/libs/kindeditor/plugins/code/prettify.css',
+                uploadJson: '/kindeditor/upload_json.jsp',
+                fileManagerJson: '/kindeditor/file_manager_json.jsp',
                 allowFileManager: true,
                 afterCreate: function () {
                     var self = this;
@@ -506,7 +506,7 @@
             var fd = new FormData()
             fd.append('file', file);
             $.ajax({
-                url: '/housebeach/imgupload?' + $.param({quality: r}),
+                url: '/imgupload?' + $.param({quality: r}),
                 type: 'POST',
                 data: fd,
                 cache: false,
@@ -541,7 +541,7 @@
             var fd = new FormData()
             fd.append('file', file);
             $.ajax({
-                url: '/housebeach/imgupload?' + $.param({quality: r}),
+                url: '/imgupload?' + $.param({quality: r}),
                 type: 'POST',
                 data: fd,
                 cache: false,
@@ -564,5 +564,5 @@
 
 
 </script>
-<script src="/housebeach/libs/giveup.cache.js"></script>
+<script src="/libs/giveup.cache.js"></script>
 </html>

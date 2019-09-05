@@ -7,15 +7,15 @@
 
     <meta name="format-detection" content="telephone=no">
     <title>云房网运维平台</title>
-    <script src="/housebeach/libs/giveup.js"></script>
-    <script src="/housebeach/libs/jquery.min.js"></script>
-    <script src="/housebeach/libs/jquery.ztree.all.min.js"></script>
-    <script src="/housebeach/libs/navim.js"></script>
-    <script src="/housebeach/libs/jquery.cookie.js"></script>
-    <script src="/housebeach/libs/jquery.extend.giveup.js"></script>
-    <script src="/housebeach/libs/giveup.cache.js"></script>
-    <script src="/housebeach/libs/public.js"></script>
-    <script src="/housebeach/libs/layer/layer.js"></script>
+    <script src="/libs/giveup.js"></script>
+    <script src="/libs/jquery.min.js"></script>
+    <script src="/libs/jquery.ztree.all.min.js"></script>
+    <script src="/libs/navim.js"></script>
+    <script src="/libs/jquery.cookie.js"></script>
+    <script src="/libs/jquery.extend.giveup.js"></script>
+    <script src="/libs/giveup.cache.js"></script>
+    <script src="/libs/public.js"></script>
+    <script src="/libs/layer/layer.js"></script>
 
 </head>
 <body style="margin:0">
@@ -63,24 +63,24 @@
 
     if(token){
         $.ajax({
-            url:'/housebeach/maintain/loginrefresh',
+            url:'/maintain/loginrefresh',
             data:{token:token},
             type:'post',
             async:false,
             success:function(res){
                 if(res.code == 0) {
-                    $.cookie('token', res.data.token, { expires: 30 , path: '/housebeach' });
+                    $.cookie('token', res.data.token, { expires: 30 , path: '/' });
                     username = res.data.username
                 }
                 else{
-                    $.removeCookie('token',{path:'/housebeach'});
+                    $.removeCookie('token',{path:'/'});
                     alert(res.codeMsg)
                     resCodeProcess(res.code)
                 }
             }
         })
     }else
-        location.href='/housebeach/maintain/login.html';
+        location.href='/maintain/login.html';
 
 
     $('#username').text(username)
@@ -121,13 +121,13 @@
        }
 
     function logout(){
-        $.removeCookie('token',{path:'/housebeach'});
+        $.removeCookie('token',{path:'/'});
         $.ajax({
-            url:'/housebeach/maintain/logout',
+            url:'/maintain/logout',
             data:{token:token},
             async:true
         })
-        location.href='/housebeach/maintain/login.html';
+        location.href='/maintain/login.html';
     }
 
         function hideLeftPad(){

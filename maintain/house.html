@@ -9,18 +9,18 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
-    <script src="/housebeach/libs/giveup.js"></script>
-    <script src="/housebeach/libs/jquery.min.js"></script>
-    <script src="/housebeach/libs/jquery.ztree.all.min.js"></script>
-    <script src="/housebeach/libs/navim.js"></script>
-    <script src="/housebeach/libs/jquery.cookie.js"></script>
-    <script src="/housebeach/libs/jquery.extend.giveup.js"></script>
-    <script src="/housebeach/libs/giveup.cache.js"></script>
-    <script src="/housebeach/libs/public.js"></script>
+    <script src="/libs/giveup.js"></script>
+    <script src="/libs/jquery.min.js"></script>
+    <script src="/libs/jquery.ztree.all.min.js"></script>
+    <script src="/libs/navim.js"></script>
+    <script src="/libs/jquery.cookie.js"></script>
+    <script src="/libs/jquery.extend.giveup.js"></script>
+    <script src="/libs/giveup.cache.js"></script>
+    <script src="/libs/public.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/vue-cookies@1.5.12/vue-cookies.js"></script>
-    <script src="/housebeach/libs/layer/layer.js"></script>
-    <script src="/housebeach/libs/moment.js"></script>
+    <script src="/libs/layer/layer.js"></script>
+    <script src="/libs/moment.js"></script>
 
     <style>
         .cell {
@@ -110,18 +110,18 @@
             <div name="itemsShow" style="height:400px;border-top:1px solid black;border-bottom:1px solid black;overflow: auto">
                 <div v-show="sum.totalItemCount == 0"
                 style="margin-top:10%;text-align:center;color:#7d7d7d">无数据</div>
-                        <div  v-for='item in items' :key="item.sysparamCode" class="row row-item" @click="checkedItemId=item.houseId"  :style="{'background-color':checkedItemId==item.houseId?'#e8e8e8':''}">
+                        <div  v-for='item in items' :key="item.sysparamId" class="row row-item" @click="checkedItemId=item.houseId"  :style="{'background-color':checkedItemId==item.houseId?'#e8e8e8':''}">
                             <span class="cell " style="width:50px;text-align: center"><input type="radio" name="itemChosen" style="margin:0" :checked="checkedItemId==item.houseId"></span>
                             <span class="cell "  :title="item.name" style="width:200px" v-html="giveup.strongKeyword(item.name, queryParams.kw)"></span>
                             <span class="cell "  :title="(item.area1||'')+' '+(item.area2||'')"  v-html="giveup.strongKeyword((item.area1||'')+' '+(item.area2||''), queryParams.kw)"></span>
                             <span class="cell "  style="width:50px;text-align: center">
                                   <span  onclick="giveup.imgPreview($(this).attr('imgSrc'))" :imgSrc="item.cover" style="width:30px;cursor:pointer;display: inline-block;   background-position: 50% 50%; background-size: cover;" :style="{backgroundImage:'url(' + item.cover + ')'}">
-                                      <img  src="/housebeach/resource/xy.png" style=" max-width:100%;visibility: hidden;vertical-align: middle;"/>
+                                      <img  src="/resource/xy.png" style=" max-width:100%;visibility: hidden;vertical-align: middle;"/>
                                 </span>
                                 </span>
                             <span class="cell "   v-html="item.squareMin+'-'+item.squareMax" style="text-align: center;width:100px;"></span>
                             <span class="cell "   v-html="item.averagePrice" style="text-align: right;width:80px;"></span>
-                            <span class="cell " style="width:50px;text-align: center;" ><a target="_blank" :href=`/housebeach/product.html?houseId=${item.houseId}`>预览</a></span>
+                            <span class="cell " style="width:50px;text-align: center;" ><a target="_blank" :href=`/product.html?houseId=${item.houseId}`>预览</a></span>
                             <span class="cell "   v-html="item.orderNo" style="text-align: right;width:50px;"></span>
                             <span class="cell " >{{moment(item.alterTime).format('YYYY-MM-DD HH:mm:ss')}}</span>
                             <span class="cell " style="text-align: left"><button  @click="window.location.href = `./houseinfo.html?houseId=${item.houseId}&currentPath=楼盘详情`">详情</button><button  style="margin-left:3px;" @click="itemDel(item)">删除</button></span>
@@ -246,7 +246,7 @@
                 if (r==true)
                 {
                     $.ajax({
-                        url: "/housebeach/maintain/housedel",
+                        url: "/maintain/housedel",
                         type: 'post',
                         data:{token:this.token,houseId:item.houseId},
                         async: false,
@@ -279,7 +279,7 @@
                this.items=[]
 
                 $.ajax({
-                    url: "/housebeach/maintain/houses",
+                    url: "/maintain/houses",
                     type: 'post',
                     async: false,
                     data: this.queryParams,
@@ -300,7 +300,7 @@
 
 
                             $(data.items).each( (index, item)=> {
-                                this.itemsMap['ID_' + item.sysparamCode] = item;
+                                this.itemsMap['ID_' + item.sysparamId] = item;
                                 this.items.push(item)
 
                             })
